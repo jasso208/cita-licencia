@@ -7,6 +7,24 @@ export class ConvierteFechaService {
 
   constructor() { }
 
+  getDiasMesActual(anio_seleccionado:string,mes_seleccionado:string,fecha:string):Array<string>{        
+    let dias_mes_actual = new Array<string>();
+    const numero_dia = new Date(fecha).getDay();    
+    var año = Number(anio_seleccionado);
+    var mes2 = Number(mes_seleccionado);
+    var diasMes = new Date(año, mes2, 0).getDate();        
+    for(var x=0;x<numero_dia;x++){
+      dias_mes_actual.push("");
+    }
+  
+    for (var dia = 1; dia <= diasMes; dia++) {    
+      dias_mes_actual.push(dia.toString());
+    }
+
+
+    return dias_mes_actual;
+  }
+
 
   getMesString(mes:number):String{
     

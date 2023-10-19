@@ -10,6 +10,7 @@ export class CalendarioComponent implements OnInit {
 
   public mes_actual:String;
   public anio_actual:string;
+  public dias_mes_actual:Array<string>;
 
   private  date:Date; 
   private pipe = new DatePipe('en-US');
@@ -25,26 +26,36 @@ export class CalendarioComponent implements OnInit {
 
     this.mes_seleccionado = 0;
     this.anio_seleccionado = 0;    
-    //console.log(hoy?.substring(0,2)); //Dia
-    //console.log(hoy?.substring(3,5)); //Mes
-    //console.log(hoy?.substring(6,10));//Año
+    this.dias_mes_actual = new Array<string>();
 
-    //console.log(cfecha.getMesString(Number(hoy?.substring(3,5))));
-    
   }
 
   ngOnInit(){
     let hoy = this.pipe.transform(this.date, 'dd/MM/YYYY');
-
     this.mes_seleccionado = Number(hoy?.substring(3,5));
     this.anio_seleccionado = Number(hoy?.substring(6,10));
     this.setMesActual();
-    
+    this.cargaDiasMes();
   }
   
-  setMesActual(){
+  cargaDiasMes():void{
+    let mes = this.mes_seleccionado.toString();
+
+    if(mes.length == 1){
+      mes = "0" + mes;
+    }
+    let fecha_dia_1 = this.anio_actual.toString() + "-" + mes + "-01 00:00:00";
+    
+    let fecha_dia_ultimo = new Date(Number(this.anio_actual), Number(this.mes_actual) + 1, 0);
+    //let num_dia = this.cfecha.getNumeroDiaDeSemana(fecha_dia_1);
+
+    this.dias_mes_actual = this.cfecha.getDiasMesActual(this.anio_seleccionado.toString(),this.mes_seleccionado.toString(),fecha_dia_1);
+
+  }
+  setMesActual():void{
     this.mes_actual = this.cfecha.getMesString(this.mes_seleccionado);
     this.anio_actual = this.anio_seleccionado.toString();
+    this.cargaDiasMes();
   }
   mesSiguiente():void{
     this.mes_seleccionado = this.mes_seleccionado + 1;
