@@ -1,0 +1,92 @@
+
+<div class="modal" *ngIf="basic">
+    <div class="modal-dialog" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title" style="font-weight: black;font-weight: bold;">
+                    Identificate                    
+                
+                </h3>
+                <br>
+                <hr>
+            </div>
+            <div class="modal-body" *ngIf="show_form_envio_token">
+                Para continuar, es necesario que ingreses un número de whatsapp o correo electrónico valido.
+
+                <form class="clr-form">
+                    <div class="clr-form-control" >
+                      <label for="basic" class="clr-control-label">
+                            <span>
+                                <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                            </span>
+                            Whatsapp
+                        </label>
+                      <div class="clr-control-container" >
+                        <div class="clr-input-wrapper">
+                          <input type="text" id="basic" placeholder="ej.: 8130993586" class="clr-input" />
+                          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                        </div>
+                        <!--<span class="clr-subtext">Helper Text</span>-->
+                      </div>
+                    </div>
+                    <div>
+                        <br>
+                        O
+                    </div>
+                    <div class="clr-form-control">
+                        <label for="basic" class="clr-control-label">
+                            <span>
+                                <img src="../../../assets/img/email.png" style="width:15px">
+                            </span>
+                            E-Mail
+                        </label>
+                        <div class="clr-control-container" style="width:100%;display: block;">
+                          <div class="clr-input-wrapper">
+                            <input type="text" id="basic" placeholder="ej.: mi-correo@correo.com.mx" class="clr-input"  style="display: block;width:90%;"/>
+                            <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                          </div>
+                          <!--<span class="clr-subtext">Helper Text</span>-->
+                        </div>
+                      </div>
+                  </form>
+
+            </div>
+
+            <div class="modal-body" *ngIf="!show_form_envio_token">
+                <p>Ingresa el numero que se te envio al Whatsapp/E-mail.</p>
+
+                <form class="clr-form">
+                    <div class="clr-form-control" >
+                      <label for="basic" class="clr-control-label">
+                        <span>
+                            <img src="../../../assets/img/llave.png" style="width:15px">
+                        </span>
+                        Codigo de verificación
+                        </label>
+                      <div class="clr-control-container" >
+                        <div class="clr-input-wrapper">
+                          <input type="text" id="basic" placeholder="ej.: 123456" class="clr-input" />
+                          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                        </div>
+                        <!--<span class="clr-subtext">Helper Text</span>-->
+                      </div>
+                    </div>                    
+                  </form>
+
+            </div>
+            <div class="modal-footer" *ngIf="show_form_envio_token">                
+                <button class="btn btn-outline" type="button" (click)="basic = false" >Cancelar</button>
+                <button class="btn btn-primary" type="button" (click)="show_form_envio_token = false" >Siguiente</button>
+            </div>
+            
+            <div class="modal-footer" *ngIf="!show_form_envio_token">                
+                <button class="btn btn-outline" type="button" (click)="basic = false">Cancelar</button>
+                <button class="btn btn-primary" type="button" (click)="basic = false">Ingresar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="basic"></div>

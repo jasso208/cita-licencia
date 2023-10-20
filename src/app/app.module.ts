@@ -5,11 +5,13 @@ import { ClarityModule, ClrIconModule } from '@clr/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarioComponent } from './componentes/calendario/calendario.component';
+import { LoginComponent } from './componentes/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DiasMes } from '../modelos/dia-mes';
 
 @Injectable({
   providedIn: 'root'
@@ -7,24 +8,39 @@ export class ConvierteFechaService {
 
   constructor() { }
 
-  getDiasMesActual(anio_seleccionado:string,mes_seleccionado:string,fecha:string):Array<string>{        
-    let dias_mes_actual = new Array<string>();
+  getDiasMesActual(anio_seleccionado:string,mes_seleccionado:string,fecha:string):Array<DiasMes>{        
+    let dias_mes_actual = new Array<DiasMes>();
+    
     const numero_dia = new Date(fecha).getDay();    
     var año = Number(anio_seleccionado);
     var mes2 = Number(mes_seleccionado);
     var diasMes = new Date(año, mes2, 0).getDate();        
     for(var x=0;x<numero_dia;x++){
-      dias_mes_actual.push("");
+      let dm = new DiasMes("",false);
+      dias_mes_actual.push(dm);
     }
   
     for (var dia = 1; dia <= diasMes; dia++) {    
-      dias_mes_actual.push(dia.toString());
+      let fechavalida = this.validaFechaAnterior(new Date(año, mes2-1, dia));
+      let dm = new DiasMes(dia.toString(),fechavalida);
+      dias_mes_actual.push(dm);
     }
 
 
     return dias_mes_actual;
   }
 
+  //valida la fecha que recibe como parametro
+  //para determinar si es anterior al dia actual.
+  private validaFechaAnterior(fecha:Date):boolean{
+    let hoy = new Date();
+    console.log(fecha);
+    console.log(hoy);
+    if(fecha < hoy){
+      return false;
+    }
+    return true;
+  }
 
   getMesString(mes:number):String{
     

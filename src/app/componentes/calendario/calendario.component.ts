@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ConvierteFechaService } from 'src/app/servicios/convierte-fecha.service';
+import { DiasMes } from 'src/app/modelos/dia-mes';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
@@ -10,7 +11,7 @@ export class CalendarioComponent implements OnInit {
 
   public mes_actual:String;
   public anio_actual:string;
-  public dias_mes_actual:Array<string>;
+  public dias_mes_actual:Array<DiasMes>;
 
   private  date:Date; 
   private pipe = new DatePipe('en-US');
@@ -26,7 +27,7 @@ export class CalendarioComponent implements OnInit {
 
     this.mes_seleccionado = 0;
     this.anio_seleccionado = 0;    
-    this.dias_mes_actual = new Array<string>();
+    this.dias_mes_actual = new Array<DiasMes>();
 
   }
 
@@ -51,6 +52,7 @@ export class CalendarioComponent implements OnInit {
 
     this.dias_mes_actual = this.cfecha.getDiasMesActual(this.anio_seleccionado.toString(),this.mes_seleccionado.toString(),fecha_dia_1);
 
+    console.log(this.dias_mes_actual);
   }
   setMesActual():void{
     this.mes_actual = this.cfecha.getMesString(this.mes_seleccionado);

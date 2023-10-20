@@ -45,10 +45,27 @@
       </div>
   
       <div  style="width:100%; margin:0 auto; border: 1px groove gray; padding:5px;">
-        <div id="container" *ngFor="let day of dias_mes_actual">
-          <div id="dummy"></div>
-          <div id="element">
-            <span>{{day}}</span>
+        <div id="container" *ngFor="let d of dias_mes_actual">
+          
+          <div *ngIf="d.dia != ''">
+            <div id="dummy"></div>
+            <div id="element">
+              <div [ngStyle]="{'background-color': d.tiene_hora_disponible ? 'lightcyan': 'none' }"  style="height: 100%; width: 20%; display: inline-block;position:absolute;z-index:1;">
+                <span style="position: relative;top:0" 
+                [ngStyle]="{'color': d.tiene_hora_disponible ? 'black': 'black' }"
+                >
+                    {{d.dia}}
+                </span>
+              </div>              
+              
+              <div id="leyenda-horarios" *ngIf="d.tiene_hora_disponible" style="width: 100%;z-index:10;position:absolute;margin-top:25%">
+                  Disponible
+              </div>
+              <div id="leyenda-horarios-lg" *ngIf="d.tiene_hora_disponible" style="width: 100%;z-index:10;position:absolute;margin-top:25%">
+                Horarios disponibles
+            </div>
+            
+            </div>
           </div>
         </div>          
       </div>
