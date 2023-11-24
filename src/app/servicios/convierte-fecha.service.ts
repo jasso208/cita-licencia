@@ -22,7 +22,11 @@ export class ConvierteFechaService {
   
     for (var dia = 1; dia <= diasMes; dia++) {    
       let fechavalida = this.validaFechaAnterior(new Date(año, mes2-1, dia));
-      let dm = new DiasMes(dia.toString(),fechavalida);
+      let dm:any;
+   
+        dm = new DiasMes(dia.toString(),fechavalida);
+      
+      
       dias_mes_actual.push(dm);
     }
 
@@ -32,10 +36,18 @@ export class ConvierteFechaService {
 
   //valida la fecha que recibe como parametro
   //para determinar si es anterior al dia actual.
-  private validaFechaAnterior(fecha:Date):boolean{
+  private validaFechaAnterior(fecha:Date,):boolean{
+
+    let num_dia = new Date(fecha).getDay();  
+    if(num_dia == 0 || num_dia == 6){
+      return false;
+    }
     let hoy = new Date();
-    console.log(fecha);
-    console.log(hoy);
+
+    //para pruebas
+    //if(fecha.getDate() == 25){
+    //  return false;
+    //}
     if(fecha < hoy){
       return false;
     }

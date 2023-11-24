@@ -6,12 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarioComponent } from './componentes/calendario/calendario.component';
 import { LoginComponent } from './componentes/login/login.component';
+import { NuevaCitaComponent } from './componentes/nueva-cita/nueva-cita.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarioComponent,
-    LoginComponent
+    LoginComponent,
+    NuevaCitaComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,8 @@ import { LoginComponent } from './componentes/login/login.component';
     BrowserModule, 
     BrowserAnimationsModule, 
     ClarityModule,
-    ClrIconModule
+    ClrIconModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

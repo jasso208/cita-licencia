@@ -1,0 +1,170 @@
+
+<div class="modal" *ngIf="muestra_form">
+    <div class="modal-dialog" role="dialog" aria-hidden="true">
+        <div class="modal-content" >
+            <div class="modal-header" >
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title" >
+                        
+                    <span>
+                        <img src="../../../assets/img/calendar.png">
+                    </span>
+                    Nueva Cita                    
+                </h3>                                
+            </div>
+            <div class="modal-body" >                
+
+                <form class="clr-form" style="margin-top:-30px;" [formGroup]="form">
+                    <div class="clr-row" >
+                        <div class="clr-col-6 clr-col-md-4">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Fecha de cita
+                                  </label>
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <input type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                </div>
+                              </div>                
+                        </div>
+                        <div class="clr-col-6 clr-col-md-8">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Hora
+                                  </label>
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <div class="clr-select-wrapper">
+                                        <select id="select-basic" class="clr-select" formControlName="hora_cita">
+                                          <option value="1">10:00 - 10:30</option>
+                                          <option value="2">10:30 - 11:00</option>
+                                          <option value="3">11:00 - 11:30</option>
+                                        </select>
+                                    </div>
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Nombre completo
+                                  </label>
+                                <div class="clr-control-container" style="width:100%" >
+                                  <div class="clr-input-wrapper">
+                                    <input type="text" id="basic" class="clr-input"  style="width: 100%;"/>
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                    
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>
+                                      Whatsapp
+                                  </label>
+                                <div class="clr-control-container"  >
+                                  <div class="clr-input-wrapper">
+                                    <input type="text" id="basic" class="clr-input"  />
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                    
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <span>
+                                          <img src="../../../assets/img/email.png" style="width:15px">
+                                      </span>
+                                      E-mail
+                                  </label>
+                                <div class="clr-control-container" style="width:100%" >
+                                  <div class="clr-input-wrapper">
+                                    <input type="text" id="basic" class="clr-input" style="width:100%" />
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Pais al que viaja
+                                  </label>
+                                <div class="clr-control-container"  >
+                                  <div class="clr-input-wrapper">
+                                    <input type="text" id="basic" class="clr-input"  />
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Fecha de viaje
+                                  </label>
+                                <div class="clr-control-container"  >
+                                  <div class="clr-input-wrapper">
+                                    <input type="date" id="basic" class="clr-input"  />
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer" >                
+                <button class="btn btn-outline" type="button" (click)="muestra_form = false" >Cancelar</button>
+                <button class="btn btn-primary" type="button"  >Siguiente</button>
+            </div>            
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="muestra_form"></div>
