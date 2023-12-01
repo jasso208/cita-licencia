@@ -16,7 +16,7 @@
             <div class="modal-body" *ngIf="show_form_envio_token">
                 Para continuar, es necesario que ingreses un número de whatsapp o correo electrónico valido.
 
-                <form class="clr-form">
+                <form [formGroup]="form" class="clr-form">
                     <div class="clr-form-control" >
                       <label for="basic" class="clr-control-label">
                             <span>
@@ -26,8 +26,8 @@
                         </label>
                       <div class="clr-control-container" >
                         <div class="clr-input-wrapper">
-                          <input type="text" id="basic" placeholder="ej.: 8130993586" class="clr-input" />
-                          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                          <input formControlName="whatsapp" type="text" id="whatsapp" placeholder="ej.: 8130993586" class="clr-input" />
+                          <clr-icon class="clr-validate-icon" shape="exclamation-circle" ></clr-icon>
                         </div>
                         <!--<span class="clr-subtext">Helper Text</span>-->
                       </div>
@@ -45,13 +45,14 @@
                         </label>
                         <div class="clr-control-container" style="width:100%;display: block;">
                           <div class="clr-input-wrapper">
-                            <input type="text" id="basic" placeholder="ej.: mi-correo@correo.com.mx" class="clr-input"  style="display: block;width:90%;"/>
+                            <input formControlName="email" type="text" id="email" placeholder="ej.: mi-correo@correo.com.mx" class="clr-input"  style="display: block;width:90%;"/>
                             <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                           </div>
                           <!--<span class="clr-subtext">Helper Text</span>-->
                         </div>
                       </div>
-                  </form>
+
+                </form>
 
             </div>
 
@@ -79,7 +80,7 @@
             </div>
             <div class="modal-footer" *ngIf="show_form_envio_token">                
                 <button class="btn btn-outline" type="button" (click)="basic = false" >Cancelar</button>
-                <button class="btn btn-primary" type="button" (click)="show_form_envio_token = false" >Siguiente</button>
+                <button class="btn btn-primary" type="button" (click)="envioToken()" >Siguiente</button>
             </div>
             
             <div class="modal-footer" *ngIf="!show_form_envio_token">                

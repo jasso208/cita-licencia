@@ -8,6 +8,7 @@ import { CalendarioComponent } from './componentes/calendario/calendario.compone
 import { LoginComponent } from './componentes/login/login.component';
 import { NuevaCitaComponent } from './componentes/nueva-cita/nueva-cita.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule, 
     ClarityModule,
     ClrIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GeneralService {
+
+  constructor(
+    private http:HttpClient
+  ) { }
+
+
+  generaToken(url:string,email:string,whatsapp:string):Observable<any>{
+    
+    let data = {
+      email:email,
+      whatsapp:whatsapp
+    }
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+    return this.http.post(environment.url_api + url,data,{headers:headers});
+  }
+}
