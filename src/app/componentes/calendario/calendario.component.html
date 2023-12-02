@@ -1,24 +1,28 @@
 
-<div style="border-radius: 3px;max-width: 800px;margin:0 auto; border: 1px solid gray; padding:10px;box-shadow: 5px 5px 5px gray;"><div class="clr-row">
-  <div class="clr-col-12">
-      <br>
-      <br>
+<div style="border-radius: 3px;max-width: 800px;margin:0 auto; border: 1px solid gray;box-shadow: 5px 5px 5px gray;">
+  <div id="header-calendar">
+    <h1 >
+      <span>
+        <img src="../../../assets/img/calendar-icon.png" >
+      </span>
+      Calendario de citas
+    </h1>
   </div>
-</div>
-<div class="clr-row">
-        <div class="clr-col-12" style="text-align: center;">
-            <div class="btn-group btn-primary">
-                <button class="btn" (click)="mesAnterior()"><</button>
-                <a class="btn btn-outline"  >{{mes_actual}}, {{anio_actual}}</a>
-                <button class="btn" (click)="mesSiguiente()">></button>
-              </div>
-        </div>        
-</div>
-<div class="clr-row">
-  <div class="clr-col-12">
-      <br>
-  </div>
-</div>
+  <div style="padding:10px;">          
+    <div class="clr-row">
+      <div class="clr-col-12" style="text-align: center;">
+          <div class="btn-group btn-primary">
+            <button class="btn btn-sm" (click)="mesAnterior()"><</button>
+            <a class="btn btn-sm btn-outline"  >{{mes_actual}}, {{anio_actual}}</a>
+            <button class="btn btn-sm" (click)="mesSiguiente()">></button>
+          </div>
+      </div>        
+    </div>
+    <div class="clr-row">
+      <div class="clr-col-12">
+          <br>
+      </div>
+    </div>
 <div class="clr-row" >
   <div class="clr-col-12">
       <div style="width:100%; margin:0 auto; border: 1px groove gray; padding:5px;background-color: #3976ab;">
@@ -49,12 +53,9 @@
         <div id="container" *ngFor="let d of dias_mes_actual">
           
           <div *ngIf="d.dia != ''" (click)="agendarCita(d.tiene_hora_disponible,d.dia)">
-           
-            
             <div id="dummy"></div>
             <div id="element" 
-              [ngStyle]="{'background-color': d.tiene_hora_disponible ? '#00b1e6': 'none','box-shadow': d.tiene_hora_disponible ? '3px 3px 3px gray': '0px 0px 0px'  }"
-              
+              [ngStyle]="{'background-color': d.tiene_hora_disponible ? '#00b1e6': 'none','box-shadow': d.tiene_hora_disponible ? '0px 0px 0px gray': '0px 0px 0px'  }"    
             >
               <div   >
                 <span 
@@ -75,10 +76,16 @@
             </div>
           </div>
           </div>
-        </div>                
+        </div>  
+        <div style="width:100%;padding-top:10px">
+            <div style="display:inline-block;width:10px;height: 10px; background-color: #00b1e6;"></div>
+            <div style="display: inline-block;height: 10px;margin-left: 10px;">Dias con horarios disponibles.</div>
+            
+        </div>
     </div>    
 </div>
 
+</div>
 </div>
 <div class="clr-row">
   <div class="clr-col-12">

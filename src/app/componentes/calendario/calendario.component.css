@@ -31,6 +31,25 @@
   #leyenda-horarios-lg {
     display: block;
   }
+
+/*Heder*/
+  #header-calendar{
+    width:100%;
+    background-color: #3976ab;
+    padding:15px
+  }
+  #header-calendar h1{
+    margin:0px;
+    font-size:30px;
+    color:white;
+    font-weight: bold;
+  }  
+  #header-calendar h1 img{
+    width:40px;
+    margin-top:-10px;
+  }
+/*Heder*/
+  
   @media only screen and (max-width: 835px)  {
     #leyenda-horarios {
       display: block;
@@ -47,4 +66,23 @@
     #leyenda-horarios-lg {
       display: none;
     }
+
+    /*Heder*/
+    #header-calendar{
+      width:100%;
+      background-color: #3976ab;
+      padding:5px
+    }
+    #header-calendar h1{
+      margin:0px;
+      font-size:15px;
+      color:white;
+      font-weight: bold;
+    }  
+    #header-calendar h1 img{
+      width:20px;
+      margin-top:-5px;
+    }
+    /*Heder*/
+
   }

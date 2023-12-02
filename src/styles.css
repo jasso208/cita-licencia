@@ -16,3 +16,26 @@
     z-index:2000;
 
 }
+
+
+
+
+
+.header
+{
+    background-color: #3976ab;
+}
+
+.header{
+    padding:30px;
+}
+.title{
+    color: white;
+    font-weight: 500px;
+}
+
+
+.title img{
+    width: 20px;
+    margin-top:-5px;
+}

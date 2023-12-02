@@ -26,7 +26,7 @@
                         </label>
                       <div class="clr-control-container" >
                         <div class="clr-input-wrapper">
-                          <input formControlName="whatsapp" type="text" id="whatsapp" placeholder="ej.: 8130993586" class="clr-input" />
+                          <input (focusout)="limpiaEmail()" formControlName="whatsapp" type="text" id="whatsapp" placeholder="ej.: 8130993586" class="clr-input" />
                           <clr-icon class="clr-validate-icon" shape="exclamation-circle" ></clr-icon>
                         </div>
                         <!--<span class="clr-subtext">Helper Text</span>-->
@@ -45,7 +45,7 @@
                         </label>
                         <div class="clr-control-container" style="width:100%;display: block;">
                           <div class="clr-input-wrapper">
-                            <input formControlName="email" type="text" id="email" placeholder="ej.: mi-correo@correo.com.mx" class="clr-input"  style="display: block;width:90%;"/>
+                            <input (focusout)="limpiaWhatsapp()" formControlName="email" type="text" id="email" placeholder="ej.: mi-correo@correo.com.mx" class="clr-input"  style="display: block;width:90%;"/>
                             <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                           </div>
                           <!--<span class="clr-subtext">Helper Text</span>-->
@@ -57,9 +57,13 @@
             </div>
 
             <div class="modal-body" *ngIf="!show_form_envio_token" style="margin-top:-30px">
-                <p>Ingresa el codigo que se te envio al Whatsapp/E-mail.</p>
+                <p>Ingresa el codigo que se te envio al 
+                  <strong>
+                  {{tipo_autenticacion_str}}
+                  </strong>
+                  .</p>
 
-                <form class="clr-form" >
+                <form [formGroup]="form_codigo" class="clr-form" >
                     <div class="clr-row">
                       <div class="clr-col-sm-12 clr-col-md-6">
                         <div class="clr-form-control" style="padding:10px;text-align:center">
@@ -71,7 +75,7 @@
                           </label>
                           <div class="clr-control-container" style="width:100%;text-align:center;" >
                             <div class="clr-input-wrapper">
-                              <input type="text" id="basic" class="clr-input" />
+                              <input formControlName="token" type="text" id="basic" class="clr-input" />
                               <clr-icon class="clr-validate-icon" shape="exclamation-circle" ></clr-icon>
                             </div>
                             <!--<span class="clr-subtext">Helper Text</span>-->

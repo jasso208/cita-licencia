@@ -22,6 +22,6 @@ export class GeneralService {
   }
 
   get(url:string):Observable<any>{
-    return this.http.get(url);
+    return this.http.get(environment.url_api + url);
   }
 }
