@@ -13,15 +13,15 @@ export class GeneralService {
   ) { }
 
 
-  generaToken(url:string,email:string,whatsapp:string):Observable<any>{
-    
-    let data = {
-      email:email,
-      whatsapp:whatsapp
-    }
+  post(url:string,data:any):Observable<any>{
+
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
 
     return this.http.post(environment.url_api + url,data,{headers:headers});
+  }
+
+  get(url:string):Observable<any>{
+    return this.http.get(url);
   }
 }

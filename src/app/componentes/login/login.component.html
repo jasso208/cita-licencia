@@ -32,8 +32,8 @@
                         <!--<span class="clr-subtext">Helper Text</span>-->
                       </div>
                     </div>
-                    <div>
-                        <br>
+                    <div>   
+                      <br>                     
                         O
                     </div>
                     <div class="clr-form-control">
@@ -62,24 +62,34 @@
                 <form class="clr-form" >
                     <div class="clr-row">
                       <div class="clr-col-sm-12 clr-col-md-6">
-                        <div class="clr-form-control" style="padding:10px">
-                          <label for="basic" class="clr-control-label">
+                        <div class="clr-form-control" style="padding:10px;text-align:center">
+                          <label for="basic" class="clr-control-label" style="width:100%;text-align: center;">
                             <span>
                                 <img src="../../../assets/img/llave.png" style="width:15px;margin-top:-3px;">
                             </span>
                             Codigo de verificación
                           </label>
-                          <div class="clr-control-container" >
+                          <div class="clr-control-container" style="width:100%;text-align:center;" >
                             <div class="clr-input-wrapper">
-                              <input type="text" id="basic" placeholder="ej.: 123456" class="clr-input" />
-                              <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                              <input type="text" id="basic" class="clr-input" />
+                              <clr-icon class="clr-validate-icon" shape="exclamation-circle" ></clr-icon>
                             </div>
                             <!--<span class="clr-subtext">Helper Text</span>-->
                           </div>
+
+                          <div class="clr-control-container" style="width: 100%;text-align: center;" >
+                              <br>
+                            <a class="btn btn-sm" (click)="validaToken()">
+                              <span>
+                                <img src="../../../assets/img/user-icon.png" style="width:15px;margin-top:-3px;">
+                              </span>
+                              Ingresar
+                            </a> 
+                        </div>
                         </div>
                       </div>    
                       <div class="clr-col-sm-12 clr-col-md-6">
-                        <div class="clr-form-control" style="background-color: lightblue;padding:10px;text-align:center">
+                        <div class="clr-form-control" style="background-color: lightskyblue;padding:10px;text-align:center">
                           <label for="basic" class="clr-control-label" style="width:100%;text-align: center">
                             <span>
                                 <img src="../../../assets/img/error-icon.png" style="width:15px;margin-top:-3px;">
@@ -120,21 +130,17 @@
                                 <img src="../../../assets/img/email.png" style="width:15px;margin-top:-3px;">
                               </span>                              
                             </a> 
-                        </div>
+                          </div>
                         </div>
                       </div>                
                     </div>     
                   </form>
             </div>
-            <div class="modal-footer" *ngIf="show_form_envio_token == true">                
-                <button class="btn btn-outline" type="button" (click)="basic = false" >Cancelar</button>
-                <button class="btn btn-primary" type="button" (click)="envioToken()" >Siguiente</button>
+            <div class="modal-footer" *ngIf="show_form_envio_token == true">                                
+                <button class="btn btn-sm btn-primary" type="button" (click)="envioToken()" >Siguiente</button>
             </div>
             
-            <div class="modal-footer" *ngIf="show_form_envio_token == false">                
-                <button class="btn btn-outline" type="button" (click)="basic = false">Cancelar</button>
-                <button class="btn btn-primary" type="button" (click)="basic = false">Ingresar</button>
-            </div>
+           
         </div>
     </div>
 </div>

@@ -37,7 +37,13 @@ export class LoginComponent {
   envioToken():any{
     this.sppiner_div = true;
     this.show_form_envio_token = false;
-    this.gservice.generaToken("cliente/tokenCliente",this.form.get("email")?.value,this.form.get("whatsapp")?.value)
+        
+    let data = {
+      email:this.form.get("email")?.value,
+      whatsapp:this.form.get("whatsapp")?.value
+    }
+
+    this.gservice.post("cliente/tokenCliente",data)
     .subscribe(
       data=>{
         console.log(data);
@@ -49,6 +55,25 @@ export class LoginComponent {
         this.toastr.error("Error al enviar el codigo","Error");        
         this.sppiner_div = false;
         this.enviacodigo();
+      }
+    );
+  }
+
+  validaToken():any{
+    let url = "cliente/validaTokenCliente?";
+    url = url + "id_cliente=" + 12 + "&";
+    url = url + "token=" + 12 + "&";
+    url = url + "forma_autenticacion=" + 12 ;
+
+    this.gservice.get(url)
+    .subscribe(
+      data=>{
+        console.log(data);
+        this.toastr.success("Error al validar el codigo.","Error");    
+      },
+      error =>{
+        this.toastr.error("Error al validar el codigo.","Error");    
+        console.log(error);
       }
     );
   }
