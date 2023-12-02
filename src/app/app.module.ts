@@ -9,7 +9,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { NuevaCitaComponent } from './componentes/nueva-cita/nueva-cita.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     ClarityModule,
     ClrIconModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,    
+	  ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 import { GeneralService } from 'src/app/servicios/general.service';
 
 @Component({
@@ -19,7 +19,8 @@ export class LoginComponent {
   public form:FormGroup;
   constructor(
     private fb:FormBuilder,
-    private gservice:GeneralService
+    private gservice:GeneralService,
+    private toastr:ToastrService
   ){
     this.basic = true;
     this.show_form_envio_token = true;
@@ -43,9 +44,9 @@ export class LoginComponent {
         this.sppiner_div = false;
         this.segundos = 10;
         this.enviacodigo();
-       
       },
       error => {
+        this.toastr.error("Error al enviar el codigo","Error");        
         this.sppiner_div = false;
         this.enviacodigo();
       }
@@ -70,14 +71,10 @@ export class LoginComponent {
       clearInterval(this.interval);  
       
     }
-   
-
   }
 
   cambiarWhatsappEmail():any{
     this.show_form_envio_token = true;
   }
-
-
 
 }
