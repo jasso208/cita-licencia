@@ -13,6 +13,7 @@ export class NuevaCitaComponent implements OnInit{
 
   public fecha_seleccionada:string;
   public form:FormGroup;
+
   constructor(
     private emmiterService:EmmiterService,
     private fb:FormBuilder
@@ -33,9 +34,8 @@ export class NuevaCitaComponent implements OnInit{
       (fechaSeleccionada:string) =>  { 
           console.log(fechaSeleccionada);
           this.fecha_seleccionada = fechaSeleccionada;
-         this.form.get("fecha_cita")?.setValue(fechaSeleccionada);
-        
-        this.muestra_form =true;
+          this.form.get("fecha_cita")?.setValue(fechaSeleccionada);        
+          this.muestra_form =true;
       }
     );
 

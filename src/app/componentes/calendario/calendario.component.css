@@ -71,7 +71,11 @@
     #header-calendar{
       width:100%;
       background-color: #3976ab;
-      padding:5px
+      padding-left:5px;
+      padding-right: 5px;
+      padding-top:0px;
+      padding-bottom:0px;
+      
     }
     #header-calendar h1{
       margin:0px;
@@ -86,3 +90,4 @@
     /*Heder*/
 
   }
+  

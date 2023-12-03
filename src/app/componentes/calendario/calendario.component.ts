@@ -4,6 +4,8 @@ import { ConvierteFechaService } from 'src/app/servicios/convierte-fecha.service
 import { DiasMes } from 'src/app/modelos/dia-mes';
 import { NuevaCitaComponent } from '../nueva-cita/nueva-cita.component';
 import { EmmiterService } from 'src/app/servicios/emmiter.service';
+import { CalendarioService } from 'src/app/servicios/calendario/calendario.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
@@ -25,7 +27,9 @@ export class CalendarioComponent implements OnInit {
 
   constructor(
     private cfecha:ConvierteFechaService,
-    private emmiterService:EmmiterService
+    private emmiterService:EmmiterService,
+    private cs:CalendarioService,
+    private toastr:ToastrService
   ){
     
     this.date = new Date();
@@ -47,19 +51,34 @@ export class CalendarioComponent implements OnInit {
   }
  
   cargaDiasMes():void{
+    
     let mes = this.mes_seleccionado.toString();
 
     if(mes.length == 1){
       mes = "0" + mes;
     }
+
     let fecha_dia_1 = this.anio_actual.toString() + "-" + mes + "-01 00:00:00";
     
     let fecha_dia_ultimo = new Date(Number(this.anio_actual), Number(this.mes_actual) + 1, 0);
     //let num_dia = this.cfecha.getNumeroDiaDeSemana(fecha_dia_1);
 
-    this.dias_mes_actual = this.cfecha.getDiasMesActual(this.anio_seleccionado.toString(),this.mes_seleccionado.toString(),fecha_dia_1);
+    this.cs.diasMes(this.mes_seleccionado,this.anio_seleccionado)
+    .subscribe(
+      data => {
+        if(data.estatus == "1"){          
+          this.dias_mes_actual = this.cfecha.getDiasMesActual(this.anio_seleccionado.toString(),this.mes_seleccionado.toString(),fecha_dia_1,data.data);
+        }else{
+          this.toastr.error("Error al cargar el calendario.","Error");
+        }
+      },
+      error => {
+          this.toastr.error("Error al cargar el calendario","Error");
+      }
+    );
 
     
+
   }
   setMesActual():void{
     this.mes_actual = this.cfecha.getMesString(this.mes_seleccionado);
@@ -91,16 +110,20 @@ export class CalendarioComponent implements OnInit {
 
       let mes = this.mes_seleccionado.toString();
       let dia = dia_s.toString();
+
       if(mes.length == 1){
         mes = "0" + mes;
       }
+
       if(dia.length == 1){
         dia = "0" + dia;
       }
 
-    let fecha = this.anio_actual.toString() + "-" + mes + "-" + dia ;
+
+      let fecha = this.anio_actual.toString() + "-" + mes + "-" + dia ;
 
       this.emmiterService.eventoFormNuevaCita(fecha);
+      
     }
 
   }

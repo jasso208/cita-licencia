@@ -8,13 +8,14 @@ export class ConvierteFechaService {
 
   constructor() { }
 
-  getDiasMesActual(anio_seleccionado:string,mes_seleccionado:string,fecha:string):Array<DiasMes>{        
-    let dias_mes_actual = new Array<DiasMes>();
+  getDiasMesActual(anio_seleccionado:string,mes_seleccionado:string,fecha:string,data:any):Array<DiasMes>{        
     
+    let dias_mes_actual = new Array<DiasMes>();    
     const numero_dia = new Date(fecha).getDay();    
     var año = Number(anio_seleccionado);
     var mes2 = Number(mes_seleccionado);
-    var diasMes = new Date(año, mes2, 0).getDate();        
+    var diasMes = new Date(año, mes2, 0).getDate();   
+
     for(var x=0;x<numero_dia;x++){
       let dm = new DiasMes("",false);
       dias_mes_actual.push(dm);
@@ -22,15 +23,32 @@ export class ConvierteFechaService {
   
     for (var dia = 1; dia <= diasMes; dia++) {    
       let fechavalida = this.validaFechaAnterior(new Date(año, mes2-1, dia));
-      let dm:any;
-   
-        dm = new DiasMes(dia.toString(),fechavalida);
-      
-      
+      let dm:any;   
+      dm = new DiasMes(dia.toString(),fechavalida);      
       dias_mes_actual.push(dm);
+    }
+    
+
+    //Valida si los dias del mes aun tiene fecha disponibles.      
+    for(let dm of dias_mes_actual){
+      if(dm.tiene_hora_disponible){
+        dm.tiene_hora_disponible = false;
+        for(let d of data){
+          let dia = parseInt(d.fecha__fecha.substring(8));
+          let dia2 = parseInt(dm.dia);
+          
+          if(dia == dia2){
+            if(d.horarios_disponibles > 0){
+              dm.tiene_hora_disponible = true;
+            }
+          }
+        }
+      }
+      
     }
 
 
+   
     return dias_mes_actual;
   }
 

@@ -10,12 +10,12 @@
   </div>
   <div style="padding:10px;">          
     <div class="clr-row">
-      <div class="clr-col-12" style="text-align: center;">
-          <div class="btn-group btn-primary">
-            <button class="btn btn-sm" (click)="mesAnterior()"><</button>
-            <a class="btn btn-sm btn-outline"  >{{mes_actual}}, {{anio_actual}}</a>
-            <button class="btn btn-sm" (click)="mesSiguiente()">></button>
-          </div>
+      <div class="clr-col-sm-12 clr-col-md-6" style="text-align: left;margin-top:10px">
+        <div class="btn-group  btn-default">
+          <button class="btn" (click)="mesAnterior()"><</button>
+          <a class="btn btn-outline"  >{{mes_actual}}, {{anio_actual}}</a>
+          <button class="btn btn-default" (click)="mesSiguiente()">></button>
+        </div>
       </div>        
     </div>
     <div class="clr-row">
