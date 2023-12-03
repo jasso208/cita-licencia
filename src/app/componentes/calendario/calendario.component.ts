@@ -18,7 +18,7 @@ export class CalendarioComponent implements OnInit {
   public mes_actual:String;
   public anio_actual:string;
   public dias_mes_actual:Array<DiasMes>;
-  
+  public spinner:boolean;
 
   private  date:Date; 
   private pipe = new DatePipe('en-US');
@@ -52,6 +52,7 @@ export class CalendarioComponent implements OnInit {
  
   cargaDiasMes():void{
     
+    this.spinner = true;
     let mes = this.mes_seleccionado.toString();
 
     if(mes.length == 1){
@@ -71,9 +72,11 @@ export class CalendarioComponent implements OnInit {
         }else{
           this.toastr.error("Error al cargar el calendario.","Error");
         }
+        this.spinner = false;
       },
       error => {
           this.toastr.error("Error al cargar el calendario","Error");
+          this.spinner = false;
       }
     );
 

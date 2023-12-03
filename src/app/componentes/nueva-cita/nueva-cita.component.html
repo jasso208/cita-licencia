@@ -31,7 +31,7 @@
                                     <input type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                  <span *ngIf="errores.fecha_cita" class="clr-subtext" style="color: red;">Seleccione la fecha de cita.</span>
                                 </div>
                               </div>                
                         </div>
@@ -47,36 +47,77 @@
                                   <div class="clr-input-wrapper">
                                     <div class="clr-select-wrapper">
                                         <select id="select-basic" class="clr-select" formControlName="hora_cita">
-                                          <option value="1">10:00 - 10:30</option>
-                                          <option value="2">10:30 - 11:00</option>
-                                          <option value="3">11:00 - 11:30</option>
+                                          <option *ngFor="let h of horarios" value="{{h.id}}">
+                                              {{h.horario}}
+                                          </option>
                                         </select>
                                     </div>
-                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                    <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                  <span *ngIf="errores.hora_cita" class="clr-subtext" style="color: red;">Debe seleccionar un horario disponible.</span>
                                 </div>
                               </div>                
                         </div>
                     </div>
                     <div class="clr-row">
-                        <div class="clr-col-12">
-                            <div class="clr-form-control" >
-                                <label for="basic" class="clr-control-label">
-                                      <!--<span>
-                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
-                                      </span>-->
-                                      Nombre completo
-                                  </label>
-                                <div class="clr-control-container" style="width:100%" >
-                                  <div class="clr-input-wrapper">
-                                    <input type="text" id="basic" class="clr-input"  style="width: 100%;"/>
-                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-                                  </div>
-                                  <!--<span class="clr-subtext">Helper Text</span>-->
-                                </div>
-                              </div>                
-                        </div>
+
+                      <div class="clr-col-sm-6">
+                        <div class="clr-form-control" >
+                            <label for="basic" class="clr-control-label">
+                                  <!--<span>
+                                      <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                  </span>-->
+                                  Nombre 
+                              </label>
+                            <div class="clr-control-container" style="width:100%" >
+                              <div class="clr-input-wrapper">
+                                <input formControlName="nombre" type="text" id="basic" class="clr-input"  style="width: 100%;"/>
+                                <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                              </div>
+                              <span  *ngIf="errores.nombre" class="clr-subtext" style="color: red;">Indique el nombre.</span>
+                            </div>
+                          </div>                
+                    </div>
+                    <div class="clr-col-sm-6">
+
+                    </div>
+                    
+                    <div class="clr-col-sm-6">
+                      <div class="clr-form-control" >
+                          <label for="basic" class="clr-control-label">
+                                <!--<span>
+                                    <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                </span>-->
+                                Apellido p.
+                            </label>
+                          <div class="clr-control-container" style="width:100%" >
+                            <div class="clr-input-wrapper">
+                              <input formControlName="apellido_p" type="text" id="basic" class="clr-input"  style="width: 100%;"/>
+                              <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                            </div>
+                            <span  *ngIf="errores.apellido_p" class="clr-subtext" style="color: red;">Indique el apellido paterno.</span>
+                          </div>
+                        </div>                
+                      </div>
+
+                      <div class="clr-col-sm-6">
+                        <div class="clr-form-control" >
+                            <label for="basic" class="clr-control-label">
+                                  <!--<span>
+                                      <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                  </span>-->
+                                  Apellido m.
+                              </label>
+                            <div class="clr-control-container" style="width:100%" >
+                              <div class="clr-input-wrapper">
+                                <input formControlName="apellido_m" type="text" id="basic" class="clr-input"  style="width: 100%;"/>
+                                <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                              </div>
+                              
+                            </div>
+                          </div>                
+                    </div>
+
                     </div>
                     
                     <div class="clr-row">
@@ -90,10 +131,10 @@
                                   </label>
                                 <div class="clr-control-container"  >
                                   <div class="clr-input-wrapper">
-                                    <input type="text" id="basic" class="clr-input"  />
+                                    <input formControlName="whatsapp" [attr.disabled]="disable_whatsapp" type="text" id="basic" class="clr-input"  />
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                  <span  *ngIf="errores.whatsapp" style="color:red" class="clr-subtext">Indique el numero de whatsapp.</span>
                                 </div>
                               </div>                
                         </div>
@@ -110,10 +151,9 @@
                                   </label>
                                 <div class="clr-control-container" style="width:100%" >
                                   <div class="clr-input-wrapper">
-                                    <input type="text" id="basic" class="clr-input" style="width:100%" />
-                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
-                                  </div>
-                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                    <input formControlName="email" [attr.disabled]="disable_email" type="text" id="basic" class="clr-input" style="width:100%" />
+                                    <clr-icon  *ngIf="errores.email" style="color:red" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>                                  
                                 </div>
                               </div>                
                         </div>
@@ -130,10 +170,10 @@
                                   </label>
                                 <div class="clr-control-container"  >
                                   <div class="clr-input-wrapper">
-                                    <input type="text" id="basic" class="clr-input"  />
+                                    <input formControlName="pais_viaje" type="text" id="basic" class="clr-input"  />
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                  <span  *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Indique el pais al que viaja.</span>
                                 </div>
                               </div>                
                         </div>
@@ -149,10 +189,10 @@
                                   </label>
                                 <div class="clr-control-container"  >
                                   <div class="clr-input-wrapper">
-                                    <input type="date" id="basic" class="clr-input"  />
+                                    <input formControlName="fecha_viaje" type="date" id="basic" class="clr-input"  />
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <!--<span class="clr-subtext">Helper Text</span>-->
+                                  <span  *ngIf="errores.fecha_viaje" class="clr-subtext" style="color: red;">Indique la fecha de viaje.</span>
                                 </div>
                               </div>                
                         </div>
@@ -162,9 +202,16 @@
             </div>
             <div class="modal-footer" >                
                 <button class="btn btn-outline" type="button" (click)="muestra_form = false" >Cancelar</button>
-                <button class="btn btn-primary" type="button"  >Siguiente</button>
+                <button class="btn btn-primary" type="button" (click)="generaCita()"  >Confirmar cita</button>
             </div>            
         </div>
     </div>
 </div>
 <div class="modal-backdrop" aria-hidden="true" *ngIf="muestra_form"></div>
+
+
+<div id="sppiner_div" *ngIf="spinner">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>

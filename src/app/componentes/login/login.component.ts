@@ -27,7 +27,7 @@ export class LoginComponent {
     private gservice:GeneralService,
     private toastr:ToastrService
   ){
-    this.basic = false;
+    this.basic = true;
     this.show_form_envio_token = true;
     this.sppiner_div = false;
     this.segundos = 60;
@@ -93,13 +93,24 @@ export class LoginComponent {
 
     this.gservice.get(url)
     .subscribe(
-      data=>{
-        console.log(data);
+      data=>{        
         if(data.estatus == "0"){
           this.toastr.error(data.msj,"Error");
           return;
         }
-        this.basic = false;
+        this.basic = false;      
+        console.log(data);  
+        localStorage.setItem("id_cliente",this.id_cliente);
+        localStorage.setItem("nombre",data.data.nombre);
+        localStorage.setItem("apellido_p",data.data.apellido_p);
+        localStorage.setItem("apellido_m",data.data.apellido_m);                
+        localStorage.setItem("email",data.data.email);
+        localStorage.setItem("whatsapp",data.data.whatsapp);
+        localStorage.setItem("pais_destino",data.data.pais_destino);
+        localStorage.setItem("fecha_viaje",data.data.fecha_viaje);
+        localStorage.setItem("forma_autenticacion",this.forma_autenticacion);
+
+
         //this.toastr.success("Error al validar el codigo.","Error");    
       },
       error =>{

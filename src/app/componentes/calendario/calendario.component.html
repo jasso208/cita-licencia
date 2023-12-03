@@ -1,5 +1,5 @@
 
-<div style="border-radius: 3px;max-width: 800px;margin:0 auto; border: 1px solid gray;box-shadow: 5px 5px 5px gray;">
+<div style="border-radius: 3px;max-width: 900px;margin:0 auto; border: 1px solid gray;box-shadow: 5px 5px 5px gray;">
   <div id="header-calendar">
     <h1 >
       <span>
@@ -10,7 +10,7 @@
   </div>
   <div style="padding:10px;">          
     <div class="clr-row">
-      <div class="clr-col-sm-12 clr-col-md-6" style="text-align: left;margin-top:10px">
+      <div class="clr-col-sm-12" style="text-align: center;margin-top:10px">
         <div class="btn-group  btn-default">
           <button class="btn" (click)="mesAnterior()"><</button>
           <a class="btn btn-outline"  >{{mes_actual}}, {{anio_actual}}</a>
@@ -55,12 +55,12 @@
           <div *ngIf="d.dia != ''" (click)="agendarCita(d.tiene_hora_disponible,d.dia)">
             <div id="dummy"></div>
             <div id="element" 
-              [ngStyle]="{'background-color': d.tiene_hora_disponible ? '#00b1e6': 'none','box-shadow': d.tiene_hora_disponible ? '0px 0px 0px gray': '0px 0px 0px'  }"    
+              [ngStyle]="{'background-color': d.tiene_hora_disponible ? '#00b1e6': '#f6f6f6','box-shadow': d.tiene_hora_disponible ? '0px 0px 0px gray': '0px 0px 0px','cursor': d.tiene_hora_disponible ? 'pointer': 'auto'  }"    
             >
               <div   >
                 <span 
                 [ngStyle]="{'color': d.tiene_hora_disponible ? 'black': 'black' }"
-                style="font-weight: bold;"
+                
                 >
                     {{d.dia}}
                 </span>
@@ -96,3 +96,9 @@
 <app-nueva-cita>
 
 </app-nueva-cita>
+
+<div id="sppiner_div" *ngIf="spinner">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>

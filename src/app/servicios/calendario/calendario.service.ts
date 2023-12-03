@@ -21,4 +21,13 @@ export class CalendarioService {
     return this.http.post(url,data);    
   }
 
+
+  horariosDisponible(fecha:string):Observable<any>{
+    let url =  environment.url_api + "calendario/horariosLibres";
+    url = url + "?fecha=" + fecha;
+
+    return this.http.get(url);
+
+  }
+
 }

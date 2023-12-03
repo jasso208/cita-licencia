@@ -101,16 +101,16 @@ export class ConvierteFechaService {
       mesString = "Agosto";
     }
     if(mes == 9){
-      mesString = "Septiembre";
+      mesString = "Sept.";
     }
     if(mes == 10){
       mesString = "Octubre";
     }
     if(mes == 11){
-      mesString = "Noviembre";
+      mesString = "Nov.";
     }
     if(mes == 12){
-      mesString = "Diciembre";
+      mesString = "Dic.";
     }
 
     return mesString;

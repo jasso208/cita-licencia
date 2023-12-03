@@ -17,6 +17,14 @@
 
 }
 
+#spinner #spinner_text{
+    position:fixed;
+    top:45%;
+    left:45%;
+    z-index:2000;
+
+}
+
 
 
 
