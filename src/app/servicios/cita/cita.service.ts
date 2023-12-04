@@ -14,6 +14,7 @@ export class CitaService {
 
   generaCita(form:any):Observable<any>{
     
+    console.log(form);
     
     let data = {
       "id_cliente":localStorage.getItem("id_cliente"),

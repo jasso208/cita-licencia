@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component,Input,Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { GeneralService } from 'src/app/servicios/general.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-valida-whatsapp',
+  templateUrl: './valida-whatsapp.component.html',
+  styleUrls: ['./valida-whatsapp.component.css']
 })
-export class LoginComponent {
+export class ValidaWhatsappComponent {
 
-  public basic:boolean;
+  @Input() show:boolean;
+
+  @Output() hide_emmiter = new EventEmitter<boolean>();
+  
   public show_form_envio_token:boolean;
   public sppiner_div:boolean;
   public segundos:number;
@@ -27,13 +30,10 @@ export class LoginComponent {
     private gservice:GeneralService,
     private toastr:ToastrService
   ){
-    console.log(localStorage.getItem("id_cliente"));
-    if(localStorage.getItem("id_cliente") == null  || localStorage.getItem("id_cliente")== ""){
-      this.basic = true;
-    }
-    else{
-      this.basic = false;
-    }
+    
+    
+      this.show = false;
+    
     
     this.show_form_envio_token = true;
     this.sppiner_div = false;
@@ -93,11 +93,15 @@ export class LoginComponent {
     );
   }
   validaToken():any{
+    this.show_form_envio_token = true;
+    this.hide_emmiter.emit(false);
+    //Por ahora no estamos validando el whatsapp
+/*
     let url = "cliente/validaTokenCliente?";
     url = url + "id_cliente=" + this.id_cliente + "&";
     url = url + "token=" + this.form_codigo.get("token")?.value + "&";
     url = url + "forma_autenticacion=" + this.forma_autenticacion ;
-
+    
     this.gservice.get(url)
     .subscribe(
       data=>{        
@@ -105,7 +109,7 @@ export class LoginComponent {
           this.toastr.error(data.msj,"Error");
           return;
         }
-        this.basic = false; 
+        this.show = false; 
         localStorage.setItem("id_cliente",this.id_cliente);
         localStorage.setItem("nombre",data.data.nombre);
         localStorage.setItem("apellido_p",data.data.apellido_p);
@@ -124,6 +128,7 @@ export class LoginComponent {
         console.log(error);
       }
     );
+    */
   }
 
   enviacodigo(){
@@ -159,4 +164,5 @@ export class LoginComponent {
     }
     
   }
+
 }

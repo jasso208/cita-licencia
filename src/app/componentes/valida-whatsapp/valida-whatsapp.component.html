@@ -1,0 +1,148 @@
+
+<div class="modal" *ngIf="show">
+    <div class="modal-dialog" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title" >
+                  <span>
+                    <img src="../../../assets/img/llave.png">
+                  </span>
+                    Identificate 
+                </h3>
+            </div>
+            <div class="modal-body" *ngIf="show_form_envio_token">
+                Para continuar, es necesario que ingreses su correo electrónico.
+
+                <form [formGroup]="form" class="clr-form">
+                    
+                    <div class="clr-form-control" >
+                      <label for="basic" class="clr-control-label">
+                            <span>
+                                <img src="../../../assets/img/whatsapp.png" style="width:15px;margin-top:-3px;">
+                            </span>
+                            Whatsapp
+                        </label>
+                      <div class="clr-control-container" >
+                        <div class="clr-input-wrapper">
+                          <input (focusout)="limpiaEmail()" formControlName="whatsapp" type="text" id="whatsapp" placeholder="ej.: 8130993586" class="clr-input" />
+                          <clr-icon class="clr-validate-icon" shape="exclamation-circle" ></clr-icon>
+                        </div>                        
+                      </div>
+                    </div>                    
+                </form>
+
+            </div>
+
+            <div class="modal-body" *ngIf="!show_form_envio_token" style="margin-top:-30px">
+                <p>Ingresa el codigo que se te envio al 
+                  <strong>
+                  {{tipo_autenticacion_str}}
+                  </strong>
+                  .</p>
+
+                <form [formGroup]="form_codigo" class="clr-form" >
+                    <div class="clr-row">
+                      <div class="clr-col-sm-12 clr-col-md-6">
+                        <div class="clr-form-control" style="padding:10px;text-align:center">
+                          <label for="basic" class="clr-control-label" style="width:100%;text-align: center;">
+                            <span>
+                                <img src="../../../assets/img/llave.png" style="width:15px;margin-top:-3px;">
+                            </span>
+                            Codigo de verificación
+                          </label>
+                          <div class="clr-control-container" style="width:100%;text-align:center;" >
+                            <div class="clr-input-wrapper">
+                              <input formControlName="token" type="text" id="basic" class="clr-input" />
+                              <clr-icon class="clr-validate-icon" shape="exclamation-circle" ></clr-icon>
+                            </div>
+                            <!--<span class="clr-subtext">Helper Text</span>-->
+                          </div>
+
+                          <div class="clr-control-container" style="width: 100%;text-align: center;" >
+                              <br>
+                            <a class="btn btn-sm" (click)="validaToken()">
+                              <span>
+                                <img src="../../../assets/img/user-icon.png" style="width:15px;margin-top:-3px;">
+                              </span>
+                              Ingresar
+                            </a> 
+                        </div>
+                        </div>
+                      </div>    
+                      <div class="clr-col-sm-12 clr-col-md-6">
+                        <div class="clr-form-control" style="background-color: lightskyblue;padding:10px;text-align:center">
+                          <label for="basic" class="clr-control-label" style="width:100%;text-align: center">
+                            <span>
+                                <img src="../../../assets/img/error-icon.png" style="width:15px;margin-top:-3px;">
+                            </span>
+                            ¿No recibiste el codigo?
+                          </label>
+                          <div *ngIf="segundos != 0" class="clr-control-container" style="width: 100%;text-align: center;" >
+                            <div class="clr-input-wrapper" >
+                              {{segundos}} seg
+                            </div>
+                            <div class="clr-input-wrapper" >
+                              para reenviar codigo
+                            </div>
+                            <!--<span class="clr-subtext">Helper Text</span>-->
+                          </div>
+
+                          <div *ngIf="segundos == 0" class="clr-control-container" style="width: 100%;text-align: center;" >
+                              
+                              <a class="btn btn-sm" (click)="envioToken()">
+                                <span>
+                                  <img src="../../../assets/img/llave.png" style="width:15px;margin-top:-3px;">
+                                </span>
+                                Reenviar codigo
+                              </a> 
+                          </div>
+                          <div  class="clr-control-container" style="width: 100%;text-align: center;" >
+                              <hr style="border:1px solid white;">                            
+                          </div>
+                          <div  class="clr-control-container" style="width: 100%;text-align: center;" >                            
+                            <a class="btn btn-sm" (click)="cambiarWhatsappEmail()">
+                              
+                              Cambiar 
+                              <span>
+                                <img src="../../../assets/img/whatsapp.png" style="width:15px;margin-top:-3px;">                                
+                              </span>                              
+                              /                              
+                              <span>
+                                <img src="../../../assets/img/email.png" style="width:15px;margin-top:-3px;">
+                              </span>                              
+                            </a> 
+                          </div>
+                        </div>
+                      </div>                
+                    </div>     
+                  </form>
+            </div>
+            <div class="modal-footer" *ngIf="show_form_envio_token == true">                                
+                <a class="btn btn-sm btn-primary" type="button" 
+                  href="https://licenciainternacional.com.mx/"
+                >
+                  <!--
+                    <span>
+                        <img src="../../../assets/img/logo-ana.jpg"  style="width:15px;margin-top:-3px;">
+                    </span>
+                    -->
+                  Volver
+                </a>
+                <button class="btn btn-sm btn-primary" type="button" (click)="envioToken()" >Siguiente</button>
+            </div>
+            
+           
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="show"></div>
+
+
+<div id="sppiner_div" *ngIf="sppiner_div == true">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>

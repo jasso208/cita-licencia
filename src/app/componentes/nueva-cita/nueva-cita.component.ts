@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CalendarioService } from 'src/app/servicios/calendario/calendario.service';
@@ -15,6 +15,8 @@ export class NuevaCitaComponent implements OnInit {
 
   @Input() muestra_form: boolean;
 
+  @Output() reload = new EventEmitter<any>();
+
   public fecha_seleccionada: string;
   public form: FormGroup;
   public spinner: boolean;
@@ -22,6 +24,7 @@ export class NuevaCitaComponent implements OnInit {
   public disable_email: boolean;
   public disable_whatsapp: boolean;
   public errores:any;
+  public show_valida_whatsapp:boolean;
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -33,8 +36,9 @@ export class NuevaCitaComponent implements OnInit {
     this.spinner = false;
     this.muestra_form = false;
     this.fecha_seleccionada = "";
-    this.disable_email = false;
-    this.disable_whatsapp = false;
+    this.disable_email = true;
+    this.disable_whatsapp = true;
+    this.show_valida_whatsapp = false;
 
     this.form = this.fb.group(
       {
@@ -43,7 +47,7 @@ export class NuevaCitaComponent implements OnInit {
         nombre: new FormControl('',[Validators.required]),
         apellido_p: new FormControl('',[Validators.required]),
         apellido_m: new FormControl(''),
-        whatsapp: new FormControl('',[Validators.required]),
+        whatsapp: new FormControl('',[Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
         email: new FormControl('',[Validators.required]),
         pais_viaje: new FormControl('',[Validators.required]),
         fecha_viaje: new FormControl('',[Validators.required])
@@ -106,15 +110,21 @@ export class NuevaCitaComponent implements OnInit {
 
     
     this.form.get("email")?.setValue(localStorage.getItem("email"));
-    this.disable_email = true;
+    this.form.get("email")?.disable();
 
-    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));
-    this.disable_whatsapp = true;
+    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));    
     
+    if(this.form.get("whatsapp")?.valid){
+      this.form.get("whatsapp")?.disable();      
+    }
   }
 
   generaCita():any{
     this.spinner = true;
+
+    this.form.get("whatsapp")?.enable();
+    this.form.get("email")?.enable();
+
     this.errores.nombre = !this.form.get("nombre")?.valid;
     this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
     this.errores.pais_viaje = !this.form.get("pais_viaje")?.valid;
@@ -136,6 +146,7 @@ export class NuevaCitaComponent implements OnInit {
             this.toastr.success("Cita generada con exito.","Notificación");
             this.muestra_form = false;
             this.actualizaCliente();
+            this.reload.emit(true);
         },
         error => {
           this.toastr.error("Error al generar la cita.","Error");
@@ -177,4 +188,31 @@ export class NuevaCitaComponent implements OnInit {
 
   }
 
+  validaWhatsapp():any{
+
+
+    this.errores.nombre = !this.form.get("nombre")?.valid;
+    this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
+    this.errores.pais_viaje = !this.form.get("pais_viaje")?.valid;
+    this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
+    this.errores.email = !this.form.get("email")?.valid;
+    this.errores.whatsapp = !this.form.get("whatsapp")?.valid;
+    this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
+    this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
+
+    if(this.form.valid){
+      this.form.get("whatsapp")?.enable();
+      this.form.get("email")?.enable();
+      this.muestra_form = false;
+      this.show_valida_whatsapp=true;
+    }
+  }
+
+  //Si entra aqui es porque confirmo a travez de whatsapp
+  //el movimiento
+  hideValidaWhatsapp():any{
+      this.muestra_form = true;
+      this.show_valida_whatsapp=false;
+      this.generaCita();
+  }
 }

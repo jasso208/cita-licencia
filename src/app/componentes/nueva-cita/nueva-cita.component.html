@@ -131,7 +131,7 @@
                                   </label>
                                 <div class="clr-control-container"  >
                                   <div class="clr-input-wrapper">
-                                    <input formControlName="whatsapp" [attr.disabled]="disable_whatsapp" type="text" id="basic" class="clr-input"  />
+                                    <input formControlName="whatsapp" type="text" class="clr-input"  />
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
                                   <span  *ngIf="errores.whatsapp" style="color:red" class="clr-subtext">Indique el numero de whatsapp.</span>
@@ -151,7 +151,7 @@
                                   </label>
                                 <div class="clr-control-container" style="width:100%" >
                                   <div class="clr-input-wrapper">
-                                    <input formControlName="email" [attr.disabled]="disable_email" type="text" id="basic" class="clr-input" style="width:100%" />
+                                    <input formControlName="email"  type="text"  class="clr-input" style="width:100%" />
                                     <clr-icon  *ngIf="errores.email" style="color:red" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>                                  
                                 </div>
@@ -202,13 +202,17 @@
             </div>
             <div class="modal-footer" >                
                 <button class="btn btn-outline" type="button" (click)="muestra_form = false" >Cancelar</button>
-                <button class="btn btn-primary" type="button" (click)="generaCita()"  >Confirmar cita</button>
+                <button class="btn btn-primary" type="button" (click)="validaWhatsapp()"  >Siguiente</button>
             </div>            
         </div>
     </div>
 </div>
 <div class="modal-backdrop" aria-hidden="true" *ngIf="muestra_form"></div>
 
+<app-valida-whatsapp
+  [show]="show_valida_whatsapp"
+  (hide_emmiter)="hideValidaWhatsapp()"
+></app-valida-whatsapp>
 
 <div id="sppiner_div" *ngIf="spinner">
   <span  id="spinner" class="spinner spinner-lg">

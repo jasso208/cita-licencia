@@ -10,12 +10,14 @@ import { NuevaCitaComponent } from './componentes/nueva-cita/nueva-cita.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { ValidaWhatsappComponent } from './componentes/valida-whatsapp/valida-whatsapp.component';
 @NgModule({
   declarations: [
     AppComponent,
     CalendarioComponent,
     LoginComponent,
-    NuevaCitaComponent
+    NuevaCitaComponent,
+    ValidaWhatsappComponent
   ],
   imports: [
     BrowserModule,

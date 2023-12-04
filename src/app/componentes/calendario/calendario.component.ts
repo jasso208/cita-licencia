@@ -130,4 +130,7 @@ export class CalendarioComponent implements OnInit {
     }
 
   }
+  reload():any{
+    this.cargaDiasMes();
+  }
 }
