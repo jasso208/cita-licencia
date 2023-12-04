@@ -1,6 +1,7 @@
-import { Component,Input,Output, EventEmitter } from '@angular/core';
+import { Component,Input,Output, EventEmitter, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { EmmiterService } from 'src/app/servicios/emmiter.service';
 import { GeneralService } from 'src/app/servicios/general.service';
 
 @Component({
@@ -8,12 +9,13 @@ import { GeneralService } from 'src/app/servicios/general.service';
   templateUrl: './valida-whatsapp.component.html',
   styleUrls: ['./valida-whatsapp.component.css']
 })
-export class ValidaWhatsappComponent {
+export class ValidaWhatsappComponent  {
 
   @Input() show:boolean;
 
   @Output() hide_emmiter = new EventEmitter<boolean>();
-  
+  @Output() cancelar = new EventEmitter<boolean>();
+
   public show_form_envio_token:boolean;
   public sppiner_div:boolean;
   public segundos:number;
@@ -28,11 +30,12 @@ export class ValidaWhatsappComponent {
   constructor(
     private fb:FormBuilder,
     private gservice:GeneralService,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private emmiter_service:EmmiterService
   ){
     
     
-      this.show = false;
+    this.show = false;
     
     
     this.show_form_envio_token = true;
@@ -49,17 +52,28 @@ export class ValidaWhatsappComponent {
       token:['']
     });
 
+
+    this.emmiter_service.$token_whatsapp.subscribe(
+      (whatsapp:number) => {
+        this.form.get("whatsapp")?.setValue(whatsapp);
+        this.envioToken();
+      }
+    );
+
   }
+
+  
 
   envioToken():any{
     this.sppiner_div = true;
         
     let data = {
+      id_cliente:localStorage.getItem("id_cliente"),
       email:this.form.get("email")?.value,
       whatsapp:this.form.get("whatsapp")?.value
     }
 
-    this.gservice.post("cliente/tokenCliente",data)
+    this.gservice.post("cliente/tokenClienteWhatsapp",data)
     .subscribe(
       data=>{
 
@@ -93,10 +107,9 @@ export class ValidaWhatsappComponent {
     );
   }
   validaToken():any{
-    this.show_form_envio_token = true;
-    this.hide_emmiter.emit(false);
+    //this.show_form_envio_token = true;
+    
     //Por ahora no estamos validando el whatsapp
-/*
     let url = "cliente/validaTokenCliente?";
     url = url + "id_cliente=" + this.id_cliente + "&";
     url = url + "token=" + this.form_codigo.get("token")?.value + "&";
@@ -120,7 +133,7 @@ export class ValidaWhatsappComponent {
         localStorage.setItem("fecha_viaje",data.data.fecha_viaje);
         localStorage.setItem("forma_autenticacion",this.forma_autenticacion);
 
-
+        this.hide_emmiter.emit(false);
         //this.toastr.success("Error al validar el codigo.","Error");    
       },
       error =>{
@@ -128,7 +141,7 @@ export class ValidaWhatsappComponent {
         console.log(error);
       }
     );
-    */
+    
   }
 
   enviacodigo(){
@@ -143,7 +156,7 @@ export class ValidaWhatsappComponent {
     
     this.segundos = this.segundos - 1;
     
-    if(this.segundos == 0){  
+    if(this.segundos <= 0){  
       clearInterval(this.interval);  
       
     }
@@ -165,4 +178,7 @@ export class ValidaWhatsappComponent {
     
   }
 
+  fCancelar():any{
+    this.cancelar.emit();
+  }
 }

@@ -25,6 +25,7 @@ export class CalendarioComponent implements OnInit {
   private mes_seleccionado:number;
   private anio_seleccionado:number;
 
+  public  nombre_completo:string;
   constructor(
     private cfecha:ConvierteFechaService,
     private emmiterService:EmmiterService,
@@ -48,8 +49,16 @@ export class CalendarioComponent implements OnInit {
     this.anio_seleccionado = Number(hoy?.substring(6,10));
     this.setMesActual();
     this.cargaDiasMes();
+
+    
+    if(localStorage.getItem("nombre") != ""){
+      this.nombre_completo = localStorage.getItem("nombre") + " " + localStorage.getItem("apellido_p") + " " + localStorage.getItem("apellido_m")
+    }
+    else{
+      this.nombre_completo = localStorage.getItem("email");
+    }
+    
   }
- 
   cargaDiasMes():void{
     
     this.spinner = true;
@@ -132,5 +141,9 @@ export class CalendarioComponent implements OnInit {
   }
   reload():any{
     this.cargaDiasMes();
+  }
+  cerrarSesion():any{
+    localStorage.clear();
+    window.location.reload();
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { GeneralService } from 'src/app/servicios/general.service';
@@ -9,6 +9,8 @@ import { GeneralService } from 'src/app/servicios/general.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
+  @Output() login_ok  = new EventEmitter<boolean>();
 
   public basic:boolean;
   public show_form_envio_token:boolean;
@@ -105,7 +107,7 @@ export class LoginComponent {
           this.toastr.error(data.msj,"Error");
           return;
         }
-        this.basic = false; 
+        
         localStorage.setItem("id_cliente",this.id_cliente);
         localStorage.setItem("nombre",data.data.nombre);
         localStorage.setItem("apellido_p",data.data.apellido_p);
@@ -115,8 +117,8 @@ export class LoginComponent {
         localStorage.setItem("pais_destino",data.data.pais_destino);
         localStorage.setItem("fecha_viaje",data.data.fecha_viaje);
         localStorage.setItem("forma_autenticacion",this.forma_autenticacion);
-
-
+        console.log("entro aqui");
+        this.login_ok.emit(true);
         //this.toastr.success("Error al validar el codigo.","Error");    
       },
       error =>{
@@ -138,7 +140,7 @@ export class LoginComponent {
     
     this.segundos = this.segundos - 1;
     
-    if(this.segundos == 0){  
+    if(this.segundos <= 0){  
       clearInterval(this.interval);  
       
     }

@@ -14,7 +14,7 @@
                 </h3>
             </div>
             <div class="modal-body" *ngIf="show_form_envio_token">
-                Para continuar, es necesario que ingreses su correo electrónico.
+                Para continuar, es necesario que ingreses su número de whatsapp.
 
                 <form [formGroup]="form" class="clr-form">
                     
@@ -90,7 +90,7 @@
                             <!--<span class="clr-subtext">Helper Text</span>-->
                           </div>
 
-                          <div *ngIf="segundos == 0" class="clr-control-container" style="width: 100%;text-align: center;" >
+                          <div *ngIf="segundos <= 0" class="clr-control-container" style="width: 100%;text-align: center;" >
                               
                               <a class="btn btn-sm" (click)="envioToken()">
                                 <span>
@@ -103,18 +103,11 @@
                               <hr style="border:1px solid white;">                            
                           </div>
                           <div  class="clr-control-container" style="width: 100%;text-align: center;" >                            
-                            <a class="btn btn-sm" (click)="cambiarWhatsappEmail()">
-                              
-                              Cambiar 
-                              <span>
-                                <img src="../../../assets/img/whatsapp.png" style="width:15px;margin-top:-3px;">                                
-                              </span>                              
-                              /                              
-                              <span>
-                                <img src="../../../assets/img/email.png" style="width:15px;margin-top:-3px;">
-                              </span>                              
+                            <a class="btn btn-sm btn-primary" (click)="fCancelar()">
+                              Cancelar
                             </a> 
                           </div>
+                          
                         </div>
                       </div>                
                     </div>     
@@ -122,14 +115,14 @@
             </div>
             <div class="modal-footer" *ngIf="show_form_envio_token == true">                                
                 <a class="btn btn-sm btn-primary" type="button" 
-                  href="https://licenciainternacional.com.mx/"
+                  (click)="fCancelar()"
                 >
                   <!--
                     <span>
                         <img src="../../../assets/img/logo-ana.jpg"  style="width:15px;margin-top:-3px;">
                     </span>
                     -->
-                  Volver
+                  Cancelar
                 </a>
                 <button class="btn btn-sm btn-primary" type="button" (click)="envioToken()" >Siguiente</button>
             </div>

@@ -15,5 +15,8 @@ export class AppComponent {
   }
 
 
+  login_ok():any{
+    window.location.reload();
+  }
 
 }

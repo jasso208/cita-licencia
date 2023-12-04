@@ -8,6 +8,18 @@
       Calendario de citas
     </h1>
   </div>
+  <div style="width: 100%;background-color: lightblue;margin-top:-30px;">
+    <h5 style="padding:5px;" (click)="cerrarSesion()">
+      <span>
+        <img src="../../../assets/img/user-icon.png" style="width:15px;margin-top:-5px" >
+      </span>
+      {{nombre_completo}}
+      <span style="font-size:10px;color:blue;cursor:pointer;text-decoration: underline;">
+        ¿No eres tu?
+      </span>
+    </h5>
+  </div>
+
   <div style="padding:10px;">          
     <div class="clr-row">
       <div class="clr-col-sm-12" style="text-align: center;margin-top:10px">
@@ -95,6 +107,7 @@
 </div>
 <app-nueva-cita
   (reload)="reload()"
+  
 >
 
 </app-nueva-cita>

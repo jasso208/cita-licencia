@@ -31,7 +31,8 @@ export class NuevaCitaComponent implements OnInit {
     private cals: CalendarioService,
     private cita: CitaService,
     private toastr: ToastrService,
-    private clis: ClienteService
+    private clis: ClienteService,
+    private emmiter_service: EmmiterService
   ) {
     this.spinner = false;
     this.muestra_form = false;
@@ -190,6 +191,8 @@ export class NuevaCitaComponent implements OnInit {
 
   validaWhatsapp():any{
 
+    this.form.get("whatsapp")?.enable();
+    this.form.get("email")?.enable();
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
     this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
@@ -200,11 +203,15 @@ export class NuevaCitaComponent implements OnInit {
     this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
     this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
 
+    this.form.get("whatsapp")?.disable();
+    this.form.get("email")?.disable();
+
     if(this.form.valid){
       this.form.get("whatsapp")?.enable();
       this.form.get("email")?.enable();
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
+      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value);
     }
   }
 
@@ -213,6 +220,12 @@ export class NuevaCitaComponent implements OnInit {
   hideValidaWhatsapp():any{
       this.muestra_form = true;
       this.show_valida_whatsapp=false;
+      
       this.generaCita();
+  }
+  cancelar():any{
+    
+    this.muestra_form = false;
+    this.show_valida_whatsapp=false;
   }
 }

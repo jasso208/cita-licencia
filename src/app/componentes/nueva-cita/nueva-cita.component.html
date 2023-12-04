@@ -1,5 +1,5 @@
 
-<div class="modal" *ngIf="muestra_form">
+<div class="modal" *ngIf="muestra_form" >
     <div class="modal-dialog" role="dialog" aria-hidden="true">
         <div class="modal-content" >
             <div class="modal-header" >
@@ -212,6 +212,7 @@
 <app-valida-whatsapp
   [show]="show_valida_whatsapp"
   (hide_emmiter)="hideValidaWhatsapp()"
+  (cancelar)="cancelar()"
 ></app-valida-whatsapp>
 
 <div id="sppiner_div" *ngIf="spinner">
