@@ -1,16 +1,19 @@
 
-<div class="modal" *ngIf="basic">
-    <div class="modal-dialog" role="dialog" aria-hidden="true">
+<div class="modal" *ngIf="basic" >
+    <div class="modal-dialog modal-sm" role="dialog" aria-hidden="true" >
         <div class="modal-content">
             <div class="modal-header" >
                 <button aria-label="Close" class="close" type="button">
                     <clr-icon aria-hidden="true" shape="close"></clr-icon>
                 </button>
-                <h3 class="modal-title" >
+                <h1 class="modal-title" style="text-align: center;" >
                   <span>
-                    <img src="../../../assets/img/llave.png">
-                  </span>
-                    Identificate 
+                    <img src="../../../assets/img/logo-ana.png" style="width:100px">
+                  </span>                    
+                </h1>
+                <br>
+                <h3 class="modal-title" style="text-align: center;" >
+                  Bienvenido
                 </h3>
             </div>
             <div class="modal-body" *ngIf="show_form_envio_token">
@@ -66,7 +69,7 @@
 
                 <form [formGroup]="form_codigo" class="clr-form" >
                     <div class="clr-row">
-                      <div class="clr-col-sm-12 clr-col-md-6">
+                      <div class="clr-col-sm-12 ">
                         <div class="clr-form-control" style="padding:10px;text-align:center">
                           <label for="basic" class="clr-control-label" style="width:100%;text-align: center;">
                             <span>
@@ -93,7 +96,7 @@
                         </div>
                         </div>
                       </div>    
-                      <div class="clr-col-sm-12 clr-col-md-6">
+                      <div class="clr-col-sm-12 ">
                         <div class="clr-form-control" style="background-color: lightskyblue;padding:10px;text-align:center">
                           <label for="basic" class="clr-control-label" style="width:100%;text-align: center">
                             <span>
@@ -142,7 +145,7 @@
                   </form>
             </div>
             <div class="modal-footer" *ngIf="show_form_envio_token == true">                                
-                <a class="btn btn-sm btn-primary" type="button" 
+                <a class="btn  btn-sm btn-default" type="button" 
                   href="https://licenciainternacional.com.mx/"
                 >
                   <span>
@@ -150,7 +153,12 @@
                   </span>
                   Volver
                 </a>
-                <button class="btn btn-sm btn-primary" type="button" (click)="envioToken()" >Siguiente</button>
+                <button class="btn btn-sm btn-primary" type="button" (click)="envioToken()" >
+                  Siguiente
+                  <span>
+                    <img src="../../../assets/img/next-icon.png"  style="width:15px;margin-top:-3px;">
+                  </span>
+                </button>
             </div>
             
            
