@@ -1,0 +1,74 @@
+
+<div class="modal" *ngIf="show">
+    <div class="modal-dialog" role="dialog" aria-hidden="true" style="border-radius: 20px;">
+        <div class="modal-content">
+            <div class="modal-header"  style="border-top-right-radius: 20px;border-top-left-radius: 20px;">
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title" >
+                  <span>
+                    <img src="../../../assets/img/calendar.png">
+                  </span>
+                    Mis citas
+                </h3>
+            </div>
+            <div class="modal-body" style="padding-top:0px;padding-bottom: 0px;padding-left:10px;padding-right: 10px;">
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th id="th0">                          
+                        </th>
+                        <th id="th1">Fecha cita</th>
+                        <th id="th2">Horario</th>
+                        <th id="th3" >Fecha viaje</th>
+                        <th id="th4" class="td-destino">Lugar viaje</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                          <a class="btn-grid">
+                            <span>
+                              <img src="../../../assets/img/calendar-icon.png" style="width:20px;">
+                            </span>                            
+                          </a>
+                        </td>
+                        <td >
+                          <span >2023/12/29
+                            </span>
+                          </td>
+                          <td >
+                            <span >09:00 - 09:30
+                              </span>
+                            </td>
+                        <td>2024/01/25</td>
+                        <td class="td-destino">Canada</td>                        
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="modal-footer" >                                
+                <a class="btn btn-sm btn-primary" type="button" 
+                  (click)="show = false"
+                >
+                    <span>
+                        <img src="../../../assets/img/cancel-icon.png"  style="width:15px;margin-top:-3px;">
+                    </span>
+                    &nbsp;
+                  Cancelar
+                </a>                
+            </div>
+            
+           
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="show"></div>
+
+
+<div id="sppiner_div" *ngIf="spinner == true">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>

@@ -1,0 +1,49 @@
+.modal-content{
+    padding:0px;
+}
+
+.modal-header
+{
+    background-color: #3976ab;
+}
+
+.modal-header,.modal-body, .modal-footer{
+    
+    padding:30px;
+
+}
+.modal-title{
+    color: white;
+    font-weight: 500px;
+}
+
+
+.modal-title img{
+    width: 20px;
+    margin-top:-5px;
+}
+
+.table th{
+    text-align: left;
+    
+}
+.table td{
+    text-align: left;
+    font-size:11px
+}
+.btn-grid{
+    cursor: pointer;
+
+}
+.btn-grid:hover img{
+    width: 30;
+}
+@media only screen and (max-width: 835px)  {
+
+}
+  
+@media only screen and (max-width: 699px)  {
+    .td-destino{
+        display: none;
+    }
+}

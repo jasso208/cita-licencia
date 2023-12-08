@@ -1,4 +1,4 @@
-<diV class="clr-row" style="height: 120px;background-color:#7f7f7f;">
+<diV class="clr-row" style="max-width: 100%;height: 120px;background-color:#7f7f7f;margin:0 auto">
   <div class=" clr-col-2 clr-col-sm-3" >
       <img src="../assets/img/logo-ana.png" style="width: 120px;margin-left: 30px;">
   </div>
@@ -8,20 +8,48 @@
 </diV>
 <div class="clr-row" style="max-width: 90%;margin:0 auto;">
   <div class="clr-col-12">
+
       
+    <div class="clr-row">
+      <div class="clr-col-12" style="text-align: right;">
+      <!--  <button class="btn btn-sm btn-icon" style="box-shadow: 2px 2px 2px gray;height: 45px;width: 100px;">
+          <span>
+            <img src="../../../assets/img/calendar-icon.png" style="width:20px">
+          </span>
+          <br>
+          Mis citas
+        </button>
+        <button class="btn btn-sm btn-icon" style="box-shadow: 2px 2px 2px gray;height: 45px;width: 100px;">
+          <span>
+            <img src="../../../assets/img/tools-icon.png" style="width:20px">
+          </span>
+          <br>
+          Admin.
+        </button>        
+        -->
+        <a (click)="show_help=true" class="btn btn-sm btn-icon" style="box-shadow: 2px 2px 2px gray;height: 45px;width: 100px;">
+          <span>
+            <img src="../assets/img/icon/help-outline.svg" style="width:20px">
+          </span>
+          <br>
+          Ayuda
+        </a>
+        <a (click)="showMisCitas()" class="btn btn-sm btn-icon" style="box-shadow: 2px 2px 2px gray;height: 45px;width: 100px;">
+          <span>
+            <img src="../assets/img/tools-icon.png" style="width:20px">
+          </span>
+          <br>
+          Mis citas
+        </a>
+      </div>
+
+    </div>
       <div class="clr-row">
         <div class="clr-col-12">
-            <h1 style="font-size:20px; text-align: center;">Genera tu cita para el Tramite de Permiso Internacional de Conducir</h1>
+            <h1 style="font-size:20px; text-align: center;">Permiso Internacional de Conducir</h1>
         </div>
       </div>
-      <div class="clr-row">
-        <div class="clr-col-12" style="text-align: right;">
-          <button type="button" class="btn btn-icon btn-primary" aria-label="settings" (click)="show_help=true">
-            <cds-icon src="../assets/img/icon/help-outline.svg"></cds-icon>
-            Ayuda
-          </button>
-        </div>
-      </div>
+      
       <div *ngIf="show_help">
                 <div class="clr-row">
                   <div class="clr-col-12">
@@ -87,11 +115,17 @@
                       Una vez concluido el paso 4, terminamos con el proceso de degenerar tu cita.
                     </p>
                 </div>           
-                </div>
+              </div>
       </div>
+      <app-calendario></app-calendario>
+      <app-login
+        (login_ok)="login_ok()"
+      ></app-login>
   </div>
+  
 </div>
 
 
-<router-outlet></router-outlet>
+<!--<router-outlet></router-outlet>-->
+
 

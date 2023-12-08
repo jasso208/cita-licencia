@@ -1,0 +1,120 @@
+
+<div style="border-radius: 20px;max-width: 900px;margin:0 auto; border: 1px solid gray;box-shadow: 5px 5px 5px gray;">
+  <div id="header-calendar" style="border-top-right-radius:20px;border-top-left-radius: 20px ;">
+    <h1 >
+      <span>
+        <img src="../../../assets/img/calendar-icon.png" >
+      </span>
+      Calendario de citas
+    </h1>
+  </div>
+  <div style="width: 100%;background-color: lightblue;margin-top:-30px;">
+    <h5 style="padding:5px;" (click)="cerrarSesion()">
+      <span>
+        <img src="../../../assets/img/user-icon.png" style="width:15px;margin-top:-5px" >
+      </span>
+      {{nombre_completo}}
+      <span style="font-size:10px;color:blue;cursor:pointer;text-decoration: underline;">
+        ¿No eres tu?
+      </span>
+    </h5>
+  </div>
+
+  <div style="padding:10px;">          
+    <div class="clr-row">
+      <div class="clr-col-sm-12" style="text-align: center;margin-top:10px">
+        <div class="btn-group  btn-default">
+          <button class="btn" (click)="mesAnterior()"><</button>
+          <a class="btn btn-outline"  >{{mes_actual}}, {{anio_actual}}</a>
+          <button class="btn btn-default" (click)="mesSiguiente()">></button>
+        </div>
+      </div>        
+    </div>
+    <div class="clr-row">
+      <div class="clr-col-12">
+          <br>
+      </div>
+    </div>
+<div class="clr-row" >
+  <div class="clr-col-12">
+      <div style="width:100%; margin:0 auto; border: 1px groove gray; padding:5px;background-color: #3976ab;">
+          <div style="width: 14.2% ;display: inline-block; text-align: center;border:1px groove gray">
+            <span style="color:white;font-weight: bold;">D</span>
+          </div>
+          <div style="width: 14.2% ;display: inline-block; text-align: center;border:1px groove gray">
+            <span style="color:white;font-weight: bold;">L</span>
+          </div>
+          <div style="width: 14.2% ;display: inline-block; text-align: center;border:1px groove gray">
+            <span style="color:white;font-weight: bold;">M</span>
+          </div>
+          <div style="width: 14.2% ;display: inline-block; text-align: center;border:1px groove gray">
+            <span style="color:white;font-weight: bold;">M</span>
+          </div>
+          <div style="width: 14.2% ;display: inline-block; text-align: center;border:1px groove gray">
+            <span style="color:white;font-weight: bold;">J</span>
+          </div>
+          <div style="width: 14.2% ;display: inline-block; text-align: center;border:1px groove gray">
+            <span style="color:white;font-weight: bold;">V</span>
+          </div>
+          <div style="width: 14.2% ;display: inline-block; text-align: center;border:1px groove gray">
+            <span style="color:white;font-weight: bold;">S</span>
+          </div>
+      </div>
+  
+      <div  style="width:100%; margin:0 auto; border: 1px groove gray; padding:5px;">
+        <div id="container" *ngFor="let d of dias_mes_actual">
+          
+          <div *ngIf="d.dia != ''" (click)="agendarCita(d.tiene_hora_disponible,d.dia)">
+            <div id="dummy"></div>
+            <div id="element" 
+              [ngStyle]="{'background-color': d.tiene_hora_disponible ? '#00b1e6': '#f6f6f6','box-shadow': d.tiene_hora_disponible ? '0px 0px 0px gray': '0px 0px 0px','cursor': d.tiene_hora_disponible ? 'pointer': 'auto'  }"    
+            >
+              <div   >
+                <span 
+                [ngStyle]="{'color': d.tiene_hora_disponible ? 'black': 'black' }"
+                
+                >
+                    {{d.dia}}
+                </span>
+              </div>              
+              
+              <div id="leyenda-horarios" *ngIf="d.tiene_hora_disponible" style="width: 100%;z-index:10;position:absolute;color:white">
+                  Disponible
+              </div>
+              <div id="leyenda-horarios-lg" *ngIf="d.tiene_hora_disponible" style="width: 100%;z-index:10;position:absolute;;color:white">
+                Horarios disponibles
+            </div>
+            
+            </div>
+          </div>
+          </div>
+        </div>  
+        <div style="width:100%;padding-top:10px">
+            <div style="display:inline-block;width:10px;height: 10px; background-color: #00b1e6;"></div>
+            <div style="display: inline-block;height: 10px;margin-left: 10px;">Dias con horarios disponibles.</div>
+            
+        </div>
+    </div>    
+</div>
+
+</div>
+</div>
+<div class="clr-row">
+  <div class="clr-col-12">
+      <br>
+      <br>
+  </div>
+</div>
+<app-nueva-cita
+  (reload)="reload()"
+>
+
+</app-nueva-cita>
+
+<div id="sppiner_div" *ngIf="spinner">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>
+
+<app-mis-citas></app-mis-citas>

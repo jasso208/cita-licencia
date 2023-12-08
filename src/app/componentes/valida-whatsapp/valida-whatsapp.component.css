@@ -1,0 +1,23 @@
+.modal-content{
+    padding:0px;
+}
+
+.modal-header
+{
+    background-color: #3976ab;
+}
+
+.modal-header,.modal-body, .modal-footer{
+    padding:30px;
+
+}
+.modal-title{
+    color: white;
+    font-weight: 500px;
+}
+
+
+.modal-title img{
+    width: 20px;
+    margin-top:-5px;
+}

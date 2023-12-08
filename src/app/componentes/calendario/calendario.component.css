@@ -1,0 +1,93 @@
+#container {
+    display: inline-block;
+    position: relative;
+    width: 14.2%;
+  }
+  
+  #dummy {
+    margin-top: 75%;
+    /* 4:3 aspect ratio */
+  }
+  
+  #element {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;    
+    padding:3px;
+    border:1px groove lightblue;
+  }
+
+  #element  span{    
+    color:black;    
+    font-size:20px;
+    
+  }
+
+  #leyenda-horarios {
+    display: none;
+  }
+  #leyenda-horarios-lg {
+    display: block;
+  }
+
+/*Heder*/
+  #header-calendar{
+    width:100%;
+    background-color: #3976ab;
+    padding:15px
+  }
+  #header-calendar h1{
+    margin:0px;
+    font-size:30px;
+    color:white;
+    font-weight: bold;
+  }  
+  #header-calendar h1 img{
+    width:40px;
+    margin-top:-10px;
+  }
+/*Heder*/
+  
+  @media only screen and (max-width: 835px)  {
+    #leyenda-horarios {
+      display: block;
+    }
+    #leyenda-horarios-lg {
+      display: none;
+    }
+  }
+  
+  @media only screen and (max-width: 699px)  {
+    #leyenda-horarios {
+      display: none;
+    }
+    #leyenda-horarios-lg {
+      display: none;
+    }
+
+    /*Heder*/
+    #header-calendar{
+      width:100%;
+      background-color: #3976ab;
+      padding-left:5px;
+      padding-right: 5px;
+      padding-top:0px;
+      padding-bottom:0px;
+      
+    }
+    #header-calendar h1{
+      margin:0px;
+      font-size:15px;
+      color:white;
+      font-weight: bold;
+    }  
+    #header-calendar h1 img{
+      width:20px;
+      margin-top:-5px;
+    }
+    /*Heder*/
+
+  }
+  

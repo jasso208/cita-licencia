@@ -1,0 +1,235 @@
+
+<div class="modal" *ngIf="muestra_form"  >
+    <div class="modal-dialog" role="dialog" aria-hidden="true" >
+        <div class="modal-content" >
+            <div class="modal-header" >
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title" >
+                        
+                    <span>
+                        <img src="../../../assets/img/calendar.png">
+                    </span>
+                    Nueva Cita                    
+                </h3>                                
+            </div>
+            <div class="modal-body" >                
+
+                <form class="clr-form" style="margin-top:-30px;" [formGroup]="form">
+                    <div class="clr-row" >
+                        <div class="clr-col-6 clr-col-md-4">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Fecha de cita
+                                  </label>
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <input type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span *ngIf="errores.fecha_cita" class="clr-subtext" style="color: red;">Seleccione la fecha de cita.</span>
+                                </div>
+                              </div>                
+                        </div>
+                        <div class="clr-col-6 clr-col-md-8">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Hora
+                                  </label>
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <div class="clr-select-wrapper">
+                                        <select id="select-basic" class="clr-select" formControlName="hora_cita">
+                                          <option *ngFor="let h of horarios" value="{{h.id}}">
+                                              {{h.horario}}
+                                          </option>
+                                        </select>
+                                    </div>
+                                    <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span *ngIf="errores.hora_cita" class="clr-subtext" style="color: red;">Debe seleccionar un horario disponible.</span>
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                    <div class="clr-row">
+
+                      <div class="clr-col-sm-6">
+                        <div class="clr-form-control" >
+                            <label for="basic" class="clr-control-label">
+                                  <!--<span>
+                                      <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                  </span>-->
+                                  Nombre 
+                              </label>
+                            <div class="clr-control-container" style="width:100%" >
+                              <div class="clr-input-wrapper">
+                                <input formControlName="nombre" type="text" id="basic" class="clr-input"  style="width: 100%;"/>
+                                <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                              </div>
+                              <span  *ngIf="errores.nombre" class="clr-subtext" style="color: red;">Indique el nombre.</span>
+                            </div>
+                          </div>                
+                    </div>
+                    <div class="clr-col-sm-6">
+
+                    </div>
+                    
+                    <div class="clr-col-sm-6">
+                      <div class="clr-form-control" >
+                          <label for="basic" class="clr-control-label">
+                                <!--<span>
+                                    <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                </span>-->
+                                Apellido p.
+                            </label>
+                          <div class="clr-control-container" style="width:100%" >
+                            <div class="clr-input-wrapper">
+                              <input formControlName="apellido_p" type="text" id="basic" class="clr-input"  style="width: 100%;"/>
+                              <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                            </div>
+                            <span  *ngIf="errores.apellido_p" class="clr-subtext" style="color: red;">Indique el apellido paterno.</span>
+                          </div>
+                        </div>                
+                      </div>
+
+                      <div class="clr-col-sm-6">
+                        <div class="clr-form-control" >
+                            <label for="basic" class="clr-control-label">
+                                  <!--<span>
+                                      <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                  </span>-->
+                                  Apellido m.
+                              </label>
+                            <div class="clr-control-container" style="width:100%" >
+                              <div class="clr-input-wrapper">
+                                <input formControlName="apellido_m" type="text" id="basic" class="clr-input"  style="width: 100%;"/>
+                                <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                              </div>
+                              
+                            </div>
+                          </div>                
+                    </div>
+
+                    </div>
+                    
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>
+                                      Whatsapp
+                                  </label>
+                                <div class="clr-control-container"  >
+                                  <div class="clr-input-wrapper">
+                                    <input formControlName="whatsapp" type="text" class="clr-input"  />
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span   class="clr-subtext">Incluir formato internacional ej: +528130993586.</span>
+                                  <span  *ngIf="errores.whatsapp" style="color:red" class="clr-subtext">Indique el numero de whatsapp.</span>
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                    
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <span>
+                                          <img src="../../../assets/img/email.png" style="width:15px">
+                                      </span>
+                                      E-mail
+                                  </label>
+                                <div class="clr-control-container" style="width:100%" >
+                                  <div class="clr-input-wrapper">
+                                    <input formControlName="email"  type="text"  class="clr-input" style="width:100%" />
+                                    <clr-icon  *ngIf="errores.email" style="color:red" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>                                  
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Pais al que viaja
+                                  </label>
+                                <div class="clr-control-container"  >
+                                  <div class="clr-input-wrapper">
+                                    <input formControlName="pais_viaje" type="text" id="basic" class="clr-input"  />
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span  *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Indique el pais al que viaja.</span>
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <div class="clr-form-control" >
+                                <label for="basic" class="clr-control-label">
+                                      <!--<span>
+                                          <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                      </span>-->
+                                      Fecha de viaje
+                                  </label>
+                                <div class="clr-control-container"  >
+                                  <div class="clr-input-wrapper">
+                                    <input formControlName="fecha_viaje" type="date" id="basic" class="clr-input"  />
+                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span  *ngIf="errores.fecha_viaje" class="clr-subtext" style="color: red;">Indique la fecha de viaje.</span>
+                                </div>
+                              </div>                
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer" >                
+                <button class="btn btn-sm btn-outline" type="button" (click)="muestra_form = false" >
+
+                  <span>
+                    <img src="../../../assets/img/cancel-icon-black.png" style="width: 15px;">
+                  </span>  
+                  Cancelar
+                </button>
+                <button class="btn btn-sm btn-primary" type="button" (click)="validaWhatsapp()"  >Siguiente
+
+                <span>
+                  <img src="../../../assets/img/next-icon.png" style="width: 15px;">
+                </span>  
+
+                </button>
+            </div>            
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="muestra_form"></div>
+
+<app-valida-whatsapp
+  [show]="show_valida_whatsapp"
+  (hide_emmiter)="hideValidaWhatsapp()"
+  (cancelar)="cancelar()"
+></app-valida-whatsapp>
+
+<div id="sppiner_div" *ngIf="spinner">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EmmiterService } from './servicios/emmiter.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,19 @@ export class AppComponent {
   public show_help:boolean;
   public title = 'cita-licencia';
 
-  constructor(){
+  constructor(
+    private ms:EmmiterService
+  ){
     this.show_help=false;
   }
 
 
+  login_ok():any{
+    window.location.reload();
+  }
+
+  showMisCitas():any{
+    this.ms.showMisCitas();
+  }
 
 }
