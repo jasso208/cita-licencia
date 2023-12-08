@@ -5,9 +5,9 @@ import { EventEmitter, Injectable } from '@angular/core';
 })
 export class EmmiterService {
 
-  $muestra_form_nuevacita = new EventEmitter();
-  
+  $muestra_form_nuevacita = new EventEmitter();  
   $token_whatsapp = new EventEmitter();
+  $mis_citas = new EventEmitter();
 
   constructor() {     
   }
@@ -19,5 +19,9 @@ export class EmmiterService {
 
   enviaTokenWhatsapp(whatsapp:number):any{
     this.$token_whatsapp.emit(whatsapp);
+  }
+
+  showMisCitas():any{
+    this.$mis_citas.emit();
   }
 }

@@ -11,13 +11,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ValidaWhatsappComponent } from './componentes/valida-whatsapp/valida-whatsapp.component';
+import { MisCitasComponent } from './componentes/mis-citas/mis-citas.component';
 @NgModule({
   declarations: [
     AppComponent,
     CalendarioComponent,
     LoginComponent,
     NuevaCitaComponent,
-    ValidaWhatsappComponent
+    ValidaWhatsappComponent,
+    MisCitasComponent
   ],
   imports: [
     BrowserModule,

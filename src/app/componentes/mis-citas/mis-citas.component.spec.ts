@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdministracionComponent } from './administracion.component';
+import { MisCitasComponent } from './mis-citas.component';
 
 describe('AdministracionComponent', () => {
-  let component: AdministracionComponent;
-  let fixture: ComponentFixture<AdministracionComponent>;
+  let component: MisCitasComponent;
+  let fixture: ComponentFixture<MisCitasComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AdministracionComponent]
+      declarations: [MisCitasComponent]
     });
-    fixture = TestBed.createComponent(AdministracionComponent);
+    fixture = TestBed.createComponent(MisCitasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
