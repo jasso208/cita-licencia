@@ -56,6 +56,7 @@ export class ValidaWhatsappComponent  {
     this.emmiter_service.$token_whatsapp.subscribe(
       (whatsapp:number) => {
         this.form.get("whatsapp")?.setValue(whatsapp);
+        this.form_codigo.get("token")?.setValue("");
         this.envioToken();
       }
     );

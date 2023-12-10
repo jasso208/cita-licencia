@@ -14,8 +14,6 @@ export class CitaService {
 
   generaCita(form:any):Observable<any>{
     
-    console.log(form);
-    
     let data = {
       "id_cliente":localStorage.getItem("id_cliente"),
       "id_horario_cita": form.value.hora_cita,
@@ -30,6 +28,15 @@ export class CitaService {
 
     let url = environment.url_api + "cita/generaCita"
     return this.http.post(url,data)
+
+  }
+
+  getCitas(email:string,solo_activas:boolean,num_page:number):Observable<any>{
+
+    let url = environment.url_api + "cita/getCitas?email="+email;
+    url = url + "&solo_activas=" + solo_activas;    
+    url = url + "&num_page=" + num_page.toString();
+    return this.http.get(url);
 
   }
 }

@@ -14,6 +14,33 @@
                 </h3>
             </div>
             <div class="modal-body" style="padding-top:0px;padding-bottom: 0px;padding-left:10px;padding-right: 10px;">
+             <!--
+              <div class="clr-row">
+                <div class="clr-col-12" style="text-align:right">
+                <br>
+                    <div [formGroup]="form" class="clr-control-container"  >
+                      <div class="clr-input-wrapper">
+                      <label>Fecha cita: </label>
+                        <input formControlName="fecha_cita" type="date" id="basic" class="clr-input"  />
+                        <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                      </div>
+                    </div>
+                </div>
+              </div>
+                -->
+                <div class="clr-row">
+                <div class="clr-col-12" style="text-align:right">
+                <br>
+                    <div [formGroup]="form" class="clr-control-container"  >
+                      <clr-checkbox-wrapper>
+                        <input type="checkbox" clrCheckbox formControlName="solo_activas" (click)="soloActivas()"/>
+                        <label>Solo citas activas.</label>
+                      </clr-checkbox-wrapper>
+                    </div>
+                </div>
+              </div>
+
+
               <table class="table">
                 <thead>
                     <tr>
@@ -22,31 +49,83 @@
                         <th id="th1">Fecha cita</th>
                         <th id="th2">Horario</th>
                         <th id="th3" >Fecha viaje</th>
-                        <th id="th4" class="td-destino">Lugar viaje</th>                        
+                        <th id="th4" class="td-destino">Lugar viaje</th>  
+                        <th id="th5" class="td-estatus">Estatus</th>                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let c of citas">
                         <td>
-                          <a class="btn-grid">
+                          <a *ngIf="c.estatus_cita__id == 1" class="btn-grid">
                             <span>
                               <img src="../../../assets/img/calendar-icon.png" style="width:20px;">
                             </span>                            
                           </a>
                         </td>
                         <td >
-                          <span >2023/12/29
+                          <span 
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                          >
+                            {{c.horario_cita__fecha__fecha}}
                             </span>
                           </td>
                           <td >
-                            <span >09:00 - 09:30
+                            <span 
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                              {{c.horario_cita__horario}}
                               </span>
                             </td>
-                        <td>2024/01/25</td>
-                        <td class="td-destino">Canada</td>                        
+                        <td>
+                            <span
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                            {{c.fecha_viaje}}
+                            </span>
+                          </td>
+                        <td class="td-destino">
+                            <span
+                              [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                            {{c.pais_destino}}
+                            </span>
+                          </td>    
+                        <td class="td-destino">
+                          <span
+                          [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                          >
+                            {{c.estatus_cita__estatus}}
+                          </span>  
+                          </td>                        
                     </tr>
                 </tbody>
-            </table>
+              </table>
+
+
+               <div  class="clr-row" style="margin-top:-20px;">
+                <div class="clr-col-12" style="text-align:right" *ngIf="pagination">
+                 <span><img src="../../../assets/img/first-page-icon.png" (click)="firstPagina()" style="margin-top:-3px;cursor:pointer;margin-right:-5px"></span>
+                    &nbsp;
+                    <span><img src="../../../assets/img/back-icon.png" (click)="backPagina()" style="width:15px;margin-top:-3px;cursor:pointer;margin-right:-5px"></span>
+                    &nbsp;
+                    <div [formGroup]="form_page" class="clr-control-container"  >
+                         <input clrInput style="width:20px" formControlName="num_page" name="input" (change)="cambiaPagina()"/> 
+                    </div>
+                    /
+                    {{pagination.total_pages}}
+
+                    &nbsp;
+                    <span><img src="../../../assets/img/next2-icon.png" style="width:15px;margin-top:-3px;cursor:pointer;" (click)="nextPagina()"></span>
+&nbsp;
+                    <span><img src="../../../assets/img/last-page-icon.png" style="margin-top:-3px;cursor:pointer;" (click)="lastPagina()"></span>
+                </div>
+              </div>
+
+              
             </div>
             <div class="modal-footer" >                                
                 <a class="btn btn-sm btn-primary" type="button" 
