@@ -1,0 +1,20 @@
+#contenedor-calendario{
+    width:90%;
+    margin: 0 auto;
+    height:95%;
+    border: 1px solid #edeeef;
+    box-shadow: 2px 2px 2px #edeeef;
+}
+
+#requisitos-cita{
+    text-align:left;
+    background-color:#edeeef;
+    width:90%; 
+    margin-left:5%;
+    padding:10px;
+    border-radius: 5px;
+}
+
+#requisitos-cita p{
+    font-size:10px;
+}
