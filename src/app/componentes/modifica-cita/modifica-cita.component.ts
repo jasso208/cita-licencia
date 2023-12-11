@@ -7,11 +7,11 @@ import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 import { EmmiterService } from 'src/app/servicios/emmiter.service';
 
 @Component({
-  selector: 'app-nueva-cita',
-  templateUrl: './nueva-cita.component.html',
-  styleUrls: ['./nueva-cita.component.css']
+  selector: 'app-modifica-cita',
+  templateUrl: './modifica-cita.component.html',
+  styleUrls: ['./modifica-cita.component.css']
 })
-export class NuevaCitaComponent implements OnInit {
+export class ModificaCitaComponent {
 
   @Input() muestra_form: boolean;
 
@@ -25,15 +25,20 @@ export class NuevaCitaComponent implements OnInit {
   public disable_whatsapp: boolean;
   public errores:any;
   public show_valida_whatsapp:boolean;
+  public cita:any;
   public whatsapp:string;
+  public id_cita:number;
+
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
     private cals: CalendarioService,
-    private cita: CitaService,
+    private cita_serv: CitaService,
     private toastr: ToastrService,
     private clis: ClienteService,
     private emmiter_service: EmmiterService
+
+
   ) {
     this.spinner = false;
     this.muestra_form = false;
@@ -52,7 +57,8 @@ export class NuevaCitaComponent implements OnInit {
         whatsapp: new FormControl('',[Validators.required]),
         email: new FormControl('',[Validators.required]),
         pais_viaje: new FormControl('',[Validators.required]),
-        fecha_viaje: new FormControl('',[Validators.required])
+        fecha_viaje: new FormControl('',[Validators.required]),
+        cancelar_cita : new FormControl(false)
       }
     );
 
@@ -72,20 +78,47 @@ export class NuevaCitaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.emmiterService.$muestra_form_nuevacita.subscribe(
-      (fechaSeleccionada: string) => {
-        this.fecha_seleccionada = fechaSeleccionada;
-        this.form.get("fecha_cita")?.setValue(fechaSeleccionada);
-        this.muestra_form = true;
-        this.horariosDisponibles();
+    this.emmiterService.$show_modifica_cita.subscribe(
+      (id_cita: number) => {
+        this.muestra_form = true;    
+        this.id_cita = id_cita;
+        this.consultaCita(id_cita);      
       }
     );
   }
 
-  horariosDisponibles(): any {
+  consultaCita(id_cita:number):any{ 
+    this.spinner = true;
+    this.cita_serv.consultaCita(id_cita)
+    .subscribe(
+      data => {
+        
+        this.cita = data.data[0];
+        
+        this.spinner = false;
+
+        this.form.get("nombre")?.setValue(this.cita.nombre);        
+        this.form.get("apellido_p")?.setValue(this.cita.apellido_p);
+        this.form.get("apellido_m")?.setValue(this.cita.apellido_m);
+        this.form.get("whatsapp")?.setValue(this.cita.whatsapp);
+        this.form.get("email")?.setValue(this.cita.email);
+        this.form.get("pais_viaje")?.setValue(this.cita.pais_destino);
+        this.form.get("fecha_viaje")?.setValue(this.cita.fecha_viaje);
+        this.form.get("fecha_cita")?.setValue(this.cita.horario_cita__fecha__fecha);
+        this.horariosDisponibles(this.cita.horario_cita__fecha__fecha);
+        this.form.get("hora_cita")?.setValue(this.cita.horario_cita__id);
+      },
+      error => {
+        this.toastr.error("Error al consultar la cita.","Error");
+        this.spinner = false;
+      }
+    );
+  }
+
+  horariosDisponibles(fecha_cita:string): any {
     this.horarios = null;
     this.spinner = true;
-    this.cals.horariosDisponible(this.fecha_seleccionada)
+    this.cals.horariosDisponible(fecha_cita)
       .subscribe(
         data => {
 
@@ -94,7 +127,7 @@ export class NuevaCitaComponent implements OnInit {
           this.spinner = false;
         },
         error => {
-          console.log(error);
+          
           this.spinner = false;
         }
       );
@@ -121,7 +154,7 @@ export class NuevaCitaComponent implements OnInit {
     }
   }
 
-  generaCita():any{
+  actualizaCita():any{
     this.spinner = true;
 
     this.form.get("whatsapp")?.enable();
@@ -137,7 +170,7 @@ export class NuevaCitaComponent implements OnInit {
     this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
 
     if(this.form.valid){
-      this.cita.generaCita(this.form)
+      this.cita_serv.actualizaCita(this.id_cita,this.form)
       .subscribe(
         data=>{
             this.spinner = false;
@@ -145,13 +178,13 @@ export class NuevaCitaComponent implements OnInit {
               this.toastr.error(data.msj);
               return;
             }
-            this.toastr.success("Cita generada con exito.","Notificación");
+            this.toastr.success("Cita actualizada con exito.","Notificación");
             this.muestra_form = false;
             this.actualizaCliente();
             this.reload.emit(true);
         },
         error => {
-          this.toastr.error("Error al generar la cita.","Error");
+          this.toastr.error("Error al actualizar la cita.","Error");
           this.spinner = false;
         }
       );
@@ -192,6 +225,7 @@ export class NuevaCitaComponent implements OnInit {
 
   validaWhatsapp():any{
 
+    
     this.form.get("whatsapp")?.enable();
     this.form.get("email")?.enable();
 
@@ -223,7 +257,7 @@ export class NuevaCitaComponent implements OnInit {
       this.muestra_form = true;
       this.show_valida_whatsapp=false;
       
-      this.generaCita();
+      this.actualizaCita();
   }
   cancelar():any{
     

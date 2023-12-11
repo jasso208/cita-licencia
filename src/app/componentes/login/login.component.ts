@@ -103,6 +103,7 @@ export class LoginComponent {
     this.gservice.get(url)
     .subscribe(
       data=>{        
+        this.form_codigo.get("token")?.setValue("");
         if(data.estatus == "0"){
           this.toastr.error(data.msj,"Error");
           return;
@@ -117,7 +118,7 @@ export class LoginComponent {
         localStorage.setItem("pais_destino",data.data.pais_destino);
         localStorage.setItem("fecha_viaje",data.data.fecha_viaje);
         localStorage.setItem("forma_autenticacion",this.forma_autenticacion);
-        console.log("entro aqui");
+        
         this.login_ok.emit(true);
         //this.toastr.success("Error al validar el codigo.","Error");    
       },

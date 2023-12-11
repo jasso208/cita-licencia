@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ValidaWhatsappComponent } from './componentes/valida-whatsapp/valida-whatsapp.component';
 import { MisCitasComponent } from './componentes/mis-citas/mis-citas.component';
+import { ModificaCitaComponent } from './componentes/modifica-cita/modifica-cita.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { MisCitasComponent } from './componentes/mis-citas/mis-citas.component';
     LoginComponent,
     NuevaCitaComponent,
     ValidaWhatsappComponent,
-    MisCitasComponent
+    MisCitasComponent,
+    ModificaCitaComponent
   ],
   imports: [
     BrowserModule,

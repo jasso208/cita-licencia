@@ -20,17 +20,20 @@ export class MisCitasComponent {
   public total_page:number;
   public form_page:FormGroup;
   public pagination:any;
+  public existen_citas:boolean;
+
   constructor(
     private ms:EmmiterService,
     private cita:CitaService,
     private toas:ToastrService,
     private datep: DatePipe,
     private fb:FormBuilder
+    
   ){
       this.show = false;
       this.spinner = false;
       this.total_page = 1;
-
+      this.existen_citas = false;
       this.form = this.fb.group(
         {
           solo_activas:new FormControl(true)
@@ -118,6 +121,7 @@ export class MisCitasComponent {
   }
 
   getCitas():any{
+    this.existen_citas=false;
     this.citas = undefined;
     this.spinner = true;
     let email = localStorage.getItem("email");
@@ -140,6 +144,10 @@ export class MisCitasComponent {
         this.citas= data.data;
         this.pagination = data.pagination
         
+        for(let c of this.citas){
+          
+          this.existen_citas = true;
+        }
 
         this.spinner = false;
       },
@@ -149,6 +157,13 @@ export class MisCitasComponent {
         this.spinner = false
       }
     );
+  }
+
+  modificaCita(id_cita:number):any{
+    this.ms.showModificaCita(id_cita);
+  }
+  reload(){
+    this.getCitas();
   }
 
 }

@@ -11,7 +11,7 @@
                     <span>
                         <img src="../../../assets/img/calendar.png">
                     </span>
-                    Nueva Cita                    
+                    Modifica cita         
                 </h3>                                
             </div>
             <div class="modal-body" >                
@@ -41,12 +41,15 @@
                                       <!--<span>
                                           <img src="../../../assets/img/whatsapp.png" style="width:15px">
                                       </span>-->
-                                      Hora
+                                      Horario
                                   </label>
                                 <div class="clr-control-container" >
                                   <div class="clr-input-wrapper">
                                     <div class="clr-select-wrapper">
                                         <select id="select-basic" class="clr-select" formControlName="hora_cita">
+                                          <option  value="{{cita?.horario_cita__id}}">
+                                              {{cita?.horario_cita__horario}}
+                                          </option>
                                           <option *ngFor="let h of horarios" value="{{h.id}}">
                                               {{h.horario}}
                                           </option>
@@ -180,7 +183,7 @@
                         </div>
                     </div>
                     <div class="clr-row">
-                        <div class="clr-col-12">
+                        <div class="clr-col-6">
                             <div class="clr-form-control" >
                                 <label for="basic" class="clr-control-label">
                                       <!--<span>
@@ -197,7 +200,29 @@
                                 </div>
                               </div>                
                         </div>
+
+                        <div class="clr-col-6">
+                          <div class="clr-form-control" >
+                              <label for="basic" class="clr-control-label">
+                                    <!--<span>
+                                        <img src="../../../assets/img/whatsapp.png" style="width:15px">
+                                    </span>-->
+                                    &nbsp;
+                                </label>
+                              <div class="clr-control-container"  >
+                                <clr-checkbox-wrapper>
+                                  <input type="checkbox" clrCheckbox formControlName="cancelar_cita" />
+                                  <label style="color:red">Cancelar cita.</label>
+                                </clr-checkbox-wrapper>                                
+                              </div>
+                            </div>                
+                      </div>
+
                     </div>
+
+
+              
+
                 </form>
 
             </div>
@@ -205,9 +230,9 @@
                 <button class="btn btn-sm btn-outline" type="button" (click)="muestra_form = false" >
 
                   <span>
-                    <img src="../../../assets/img/cancel-icon-black.png" style="width: 15px;">
+                    <img src="../../../assets/img/back-icon.png" style="width: 10px;">
                   </span>  
-                  Cancelar
+                  Volver
                 </button>
                 <button class="btn btn-sm btn-primary" type="button" (click)="validaWhatsapp()"  >Siguiente
 

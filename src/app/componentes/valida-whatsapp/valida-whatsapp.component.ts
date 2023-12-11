@@ -9,9 +9,10 @@ import { GeneralService } from 'src/app/servicios/general.service';
   templateUrl: './valida-whatsapp.component.html',
   styleUrls: ['./valida-whatsapp.component.css']
 })
-export class ValidaWhatsappComponent  {
+export class ValidaWhatsappComponent  implements OnInit{
 
   @Input() show:boolean;
+  @Input() whatsapp:string;
 
   @Output() hide_emmiter = new EventEmitter<boolean>();
   @Output() cancelar = new EventEmitter<boolean>();
@@ -51,21 +52,33 @@ export class ValidaWhatsappComponent  {
     this.form_codigo = this.fb.group({
       token:['']
     });
-
-
-    this.emmiter_service.$token_whatsapp.subscribe(
-      (whatsapp:number) => {
-        this.form.get("whatsapp")?.setValue(whatsapp);
-        this.form_codigo.get("token")?.setValue("");
-        this.envioToken();
+    
+    
+    
+    /*this.emmiter_service.$token_whatsapp.subscribe(
+      (whatsapp:string) => {
+        console.log("constructor" + whatsapp);
+        this.eventEmmiter(whatsapp);
       }
     );
-
+*/
   }
 
-  
+  ngOnInit(): void {
 
+    this.eventEmmiter(this.whatsapp);
+   
+  }
+
+  eventEmmiter(whatsapp:string){
+    
+    this.form.get("whatsapp")?.setValue(whatsapp);
+        this.form_codigo.get("token")?.setValue("");
+        this.envioToken();
+  }
   envioToken():any{
+
+    console.log("envia token 2");
     this.sppiner_div = true;
         
     let data = {
