@@ -28,7 +28,7 @@
                                   </label>
                                 <div class="clr-control-container" >
                                   <div class="clr-input-wrapper">
-                                    <input type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
+                                    <input (change)="cambioFechaCita()" type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
                                   <span *ngIf="errores.fecha_cita" class="clr-subtext" style="color: red;">Seleccione la fecha de cita.</span>
@@ -47,7 +47,7 @@
                                   <div class="clr-input-wrapper">
                                     <div class="clr-select-wrapper">
                                         <select id="select-basic" class="clr-select" formControlName="hora_cita">
-                                          <option  value="{{cita?.horario_cita__id}}">
+                                          <option *ngIf="carga_inicial" value="{{cita?.horario_cita__id}}">
                                               {{cita?.horario_cita__horario}}
                                           </option>
                                           <option *ngFor="let h of horarios" value="{{h.id}}">

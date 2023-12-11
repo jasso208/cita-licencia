@@ -1,3 +1,4 @@
+import { NONE_TYPE } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -80,6 +81,23 @@ export class NuevaCitaComponent implements OnInit {
         this.horariosDisponibles();
       }
     );
+  }
+
+  cambioFechaCita():void{
+    
+    this.fecha_seleccionada = this.form.get("fecha_cita")?.value;
+    let fecha = new Date(this.fecha_seleccionada + "T00:00:00");
+    let today = new Date()
+    let td =  new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0);
+    if(fecha <= td){
+      this.horarios = [];
+      this.toastr.error("Fecha sin citas disponibles.","Error");
+      let today = new Date();
+      return ;
+   //   this.fecha_seleccionada = yourDate.getFullYear().toString() + "-" + yourDate.getDate().toString() + "-" + yourDate.getMonth().toString() ;
+    }
+    
+    this.horariosDisponibles();  
   }
 
   horariosDisponibles(): any {

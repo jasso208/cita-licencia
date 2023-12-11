@@ -28,7 +28,7 @@ export class ModificaCitaComponent {
   public cita:any;
   public whatsapp:string;
   public id_cita:number;
-
+  public carga_inicial:boolean;
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -82,6 +82,7 @@ export class ModificaCitaComponent {
       (id_cita: number) => {
         this.muestra_form = true;    
         this.id_cita = id_cita;
+        this.carga_inicial = true;
         this.consultaCita(id_cita);      
       }
     );
@@ -115,6 +116,27 @@ export class ModificaCitaComponent {
     );
   }
 
+  cambioFechaCita():void{
+    this.carga_inicial = false;
+    let fecha1 = this.form.get("fecha_cita")?.value;
+
+
+    
+    let fecha = new Date(fecha1 + "T00:00:00");
+    let today = new Date()
+    let td =  new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0);
+    if(fecha <= td){
+      this.horarios = [];
+      this.toastr.error("Fecha sin citas disponibles.","Error");
+      let today = new Date();
+      return ;
+   //   this.fecha_seleccionada = yourDate.getFullYear().toString() + "-" + yourDate.getDate().toString() + "-" + yourDate.getMonth().toString() ;
+    }
+
+
+
+    this.horariosDisponibles(fecha1);  
+  }
   horariosDisponibles(fecha_cita:string): any {
     this.horarios = null;
     this.spinner = true;

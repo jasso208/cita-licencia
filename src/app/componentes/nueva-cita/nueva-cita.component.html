@@ -28,7 +28,7 @@
                                   </label>
                                 <div class="clr-control-container" >
                                   <div class="clr-input-wrapper">
-                                    <input type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
+                                    <input (change)="cambioFechaCita()" type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
                                   <span *ngIf="errores.fecha_cita" class="clr-subtext" style="color: red;">Seleccione la fecha de cita.</span>

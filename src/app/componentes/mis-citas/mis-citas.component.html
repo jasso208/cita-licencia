@@ -43,7 +43,12 @@
                 <tbody>
                     <tr *ngFor="let c of citas">
                         <td>
-                          <a *ngIf="c.estatus_cita__id == 1" class="btn-grid" (click)="modificaCita(c.id)">
+                          <a 
+                            *ngIf="c.estatus_cita__id == 1" 
+                            class="btn-grid" 
+                            (click)="modificaCita(c.id)"
+                            style="padding-top:5px;padding-bottom:5px"
+                            >
                             <span>
                               <img src="../../../assets/img/calendar-icon.png" style="width:20px;">
                             </span>                            
