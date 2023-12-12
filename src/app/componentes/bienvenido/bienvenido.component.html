@@ -1,7 +1,7 @@
 <div id="contenedor-calendario">
 
     <div class="clr-row" >
-        <div class="clr-col-4" style="text-align:center">
+        <div class="clr-col-md-4" style="text-align:center" id="inf-empresa" >
              <br>
              <br>
              <br>   
@@ -42,22 +42,24 @@
 
             </div>
         </div>
-        <div class="clr-col-8">
+        <div class="clr-col-sm-12 clr-col-md-8">
             <div style="width:100%;height:40px;background-color:#edeeef;text-align:right">
                
-                
+                 
                 <button type="button" (click)="showMisCitas()" class="btn btn-icon" aria-label="home" style="margin-top:0px;border:0px">
                     <img  src="../../../assets/img/calendar-icon.png" style="width:17px">
                     <label style="padding-left:5px;padding-top:10px">Mis citas</label>
                 </button>
-
+<!--
+               
                 <button type="button" class="btn btn-icon" aria-label="home" style="margin-top:0px;border:0px">
                     <img  src="../../../assets/img/tools-icon.png" style="width:17px">
                     <label style="padding-left:5px;padding-top:10px">Admin</label>
                 </button>
+                -->
                  <button type="button" (click)="cerrarSesion()" class="btn btn-icon" aria-label="home" style="margin-top:0px;border:0px">
                     <img  src="../../../assets/img/logout-icon.png" style="width:17px">
-                    <label style="padding-left:5px;padding-top:10px">Cerrar sesion</label>
+                    <label style="padding-left:5px;padding-top:10px">Salir</label>
                 </button>
             </div>
             

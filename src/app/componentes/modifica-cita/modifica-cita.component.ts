@@ -90,6 +90,16 @@ export class ModificaCitaComponent {
 
   consultaCita(id_cita:number):any{ 
     this.spinner = true;
+    
+    this.errores.nombre = false;
+    this.errores.apellido_p = false;
+    this.errores.pais_viaje = false;
+    this.errores.fecha_viaje = false;
+    this.errores.email = false;
+    this.errores.whatsapp = false;
+    this.errores.hora_cita = false;
+    this.errores.fecha_cita = false;
+
     this.cita_serv.consultaCita(id_cita)
     .subscribe(
       data => {
@@ -129,6 +139,7 @@ export class ModificaCitaComponent {
       this.horarios = [];
       this.toastr.error("Fecha sin citas disponibles.","Error");
       let today = new Date();
+      this.form.get("hora_cita")?.setValue('');
       return ;
    //   this.fecha_seleccionada = yourDate.getFullYear().toString() + "-" + yourDate.getDate().toString() + "-" + yourDate.getMonth().toString() ;
     }

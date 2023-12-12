@@ -18,3 +18,22 @@
 #requisitos-cita p{
     font-size:10px;
 }
+
+
+
+@media only screen and (max-width: 835px)  {
+    
+}
+  
+@media only screen and (max-width: 699px)  {
+    #inf-empresa{
+        display: none;
+    }    
+    #contenedor-calendario{
+        width:100%;
+        margin: 0 auto;
+        height:95%;
+        border: 1px solid #edeeef;
+        box-shadow: 2px 2px 2px #edeeef;
+    }
+}

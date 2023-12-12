@@ -109,6 +109,7 @@ export class LoginComponent {
           return;
         }
         
+        console.log(data);
         localStorage.setItem("id_cliente",this.id_cliente);
         localStorage.setItem("nombre",data.data.nombre);
         localStorage.setItem("apellido_p",data.data.apellido_p);
@@ -116,9 +117,13 @@ export class LoginComponent {
         localStorage.setItem("email",data.data.email);
         localStorage.setItem("whatsapp",data.data.whatsapp);
         localStorage.setItem("pais_destino",data.data.pais_destino);
-        localStorage.setItem("fecha_viaje",data.data.fecha_viaje);
+        let fecv = data.data.fecha_viaje;
+        if(fecv =='null'){
+          fecv = '';
+        }
+        localStorage.setItem("fecha_viaje",fecv);
         localStorage.setItem("forma_autenticacion",this.forma_autenticacion);
-        
+      
         this.login_ok.emit(true);
         //this.toastr.success("Error al validar el codigo.","Error");    
       },

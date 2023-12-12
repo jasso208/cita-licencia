@@ -1,8 +1,8 @@
 
 <div class="modal" *ngIf="muestra_form"  >
-    <div class="modal-dialog" role="dialog" aria-hidden="true" style="border-radius:20px;" >
+    <div class="modal-dialog" role="dialog" aria-hidden="true"  >
         <div class="modal-content" >
-            <div class="modal-header" style="border-top-left-radius:20px;border-top-right-radius:20px" >
+            <div class="modal-header"  >
                 <button aria-label="Close" class="close" type="button">
                     <clr-icon aria-hidden="true" shape="close"></clr-icon>
                 </button>
@@ -15,8 +15,8 @@
                 </h3>                                
             </div>
             <div class="modal-body" >                
-
-                <form class="clr-form" style="margin-top:-30px;" [formGroup]="form">
+                <hr style="border:1px solid #eff4ff">   
+                <form class="clr-form" style="margin-top:-10px;" [formGroup]="form">
                     <div class="clr-row" >
                         <div class="clr-col-6 clr-col-md-4">
                             <div class="clr-form-control" >
@@ -227,14 +227,24 @@
 
             </div>
             <div class="modal-footer" >                
-                <button class="btn btn-sm btn-outline" type="button" (click)="muestra_form = false" >
+                <button 
+                  class="btn btn-outline" 
+                  type="button" 
+                  (click)="muestra_form = false"                  
+                  style="border-radius:20px"
+                >
 
                   <span>
                     <img src="../../../assets/img/back-icon.png" style="width: 10px;">
                   </span>  
                   Volver
                 </button>
-                <button class="btn btn-sm btn-primary" type="button" (click)="validaWhatsapp()"  >Siguiente
+                <button 
+                  class="btn btn-primary" 
+                  type="button" 
+                  (click)="validaWhatsapp()"                  
+                  style="border-radius:20px"  
+                >Siguiente
 
                 <span>
                   <img src="../../../assets/img/next-icon.png" style="width: 15px;">
