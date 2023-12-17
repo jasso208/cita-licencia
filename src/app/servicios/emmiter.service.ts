@@ -9,6 +9,7 @@ export class EmmiterService {
   $token_whatsapp = new EventEmitter();
   $mis_citas = new EventEmitter();
   $show_modifica_cita = new EventEmitter();
+  $valida_admin = new EventEmitter();
   constructor() {     
   }
 
@@ -28,5 +29,10 @@ export class EmmiterService {
   showModificaCita(id_cita:number):any{
     
     this.$show_modifica_cita.emit(id_cita);
+  }
+
+  validaAdmin():any{
+    
+    this.$valida_admin.emit();
   }
 }

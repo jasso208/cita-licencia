@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { EmmiterService } from 'src/app/servicios/emmiter.service';
 import { GeneralService } from 'src/app/servicios/general.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class LoginComponent {
   constructor(
     private fb:FormBuilder,
     private gservice:GeneralService,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private evem:EmmiterService
   ){
     console.log(localStorage.getItem("id_cliente"));
     if(localStorage.getItem("id_cliente") == null  || localStorage.getItem("id_cliente")== ""){
@@ -124,6 +126,7 @@ export class LoginComponent {
         localStorage.setItem("fecha_viaje",fecv);
         localStorage.setItem("forma_autenticacion",this.forma_autenticacion);
       
+        //this.evem.validaAdmin();
         this.login_ok.emit(true);
         //this.toastr.success("Error al validar el codigo.","Error");    
       },
