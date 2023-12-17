@@ -33,6 +33,10 @@ export class BienvenidoComponent implements OnInit {
   showMisCitas():any{
     this.emmiterService.showMisCitas();
   }
+
+  showMenuAdmin():void{
+    this.emmiterService.showMenuAdmin();
+  }
   cerrarSesion():any{
     localStorage.clear();
     window.location.reload();

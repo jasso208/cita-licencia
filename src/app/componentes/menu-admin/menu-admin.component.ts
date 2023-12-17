@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CitaService } from 'src/app/servicios/cita/cita.service';
 import { EmmiterService } from 'src/app/servicios/emmiter.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-menu-admin',
   templateUrl: './menu-admin.component.html',
   styleUrls: ['./menu-admin.component.css']
 })
-export class MenuAdminComponent {
+export class MenuAdminComponent implements OnInit{
   public show:boolean;
   public spinner:boolean;
   public citas:any;
@@ -25,7 +24,6 @@ export class MenuAdminComponent {
     private ms:EmmiterService,
     private cita:CitaService,
     private toas:ToastrService,
-    private datep: DatePipe,
     private fb:FormBuilder
     
   ){
@@ -45,18 +43,21 @@ export class MenuAdminComponent {
         }
       );
 
-      this.ms.$mis_citas.subscribe(
-        () =>{
-          this.form_page.get("num_page")?.setValue(1);
-          this.showMisCitas();
-        }
-      );
+     
   }
 
+  ngOnInit(): void {
+    this.ms.$menu_admin.subscribe(
+      () =>{
+        this.form_page.get("num_page")?.setValue(1);
+        this.showMisCitas();
+      }
+    );
+  }
   showMisCitas(){
 
     let today = new Date();
-    let t = this.datep.transform(today,'YYYY-mm-dd');
+    //let t = this.datep.transform(today,'YYYY-mm-dd');
     this.form.get("solo_activas")?.setValue(true);
     this.solo_activas=false;
     this.show = true;
