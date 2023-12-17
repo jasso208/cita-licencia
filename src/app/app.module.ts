@@ -14,6 +14,7 @@ import { ValidaWhatsappComponent } from './componentes/valida-whatsapp/valida-wh
 import { MisCitasComponent } from './componentes/mis-citas/mis-citas.component';
 import { ModificaCitaComponent } from './componentes/modifica-cita/modifica-cita.component';
 import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
+import { MenuAdminComponent } from './componentes/menu-admin/menu-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.compone
     ValidaWhatsappComponent,
     MisCitasComponent,
     ModificaCitaComponent,
-    BienvenidoComponent
+    BienvenidoComponent,
+    MenuAdminComponent
   ],
   imports: [
     BrowserModule,

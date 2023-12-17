@@ -1,7 +1,9 @@
 export const environment = {
-    "url_api" : "http://127.0.0.1:8000/cita/"
+    "url_api" : "http://192.168.1.11:8000/cita/"
 };
 
-/*export const environment = {
+
+/*
+export const environment = {
     "url_api" : "https://pollo146.pythonanywhere.com/cita/"
 };*/
