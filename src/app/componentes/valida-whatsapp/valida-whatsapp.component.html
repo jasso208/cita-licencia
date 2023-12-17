@@ -1,8 +1,8 @@
 
 <div class="modal" *ngIf="show">
-    <div class="modal-dialog" role="dialog" aria-hidden="true"  style="border-radius:20px;">
+    <div class="modal-dialog" role="dialog" aria-hidden="true"  style="padding-bottom:20px">
         <div class="modal-content">
-          <div class="modal-header" style="border-top-left-radius:20px;border-top-right-radius:20px" >
+          <div class="modal-header"  >
                 <button aria-label="Close" class="close" type="button">
                     <clr-icon aria-hidden="true" shape="close"></clr-icon>
                 </button>
@@ -14,6 +14,10 @@
                 </h3>
             </div>
             <div class="modal-body" *ngIf="show_form_envio_token">
+
+            
+                <hr style="border:1px solid #eff4ff">  
+
                 Para continuar, es necesario que ingreses su número de whatsapp.
 
                 <form [formGroup]="form" class="clr-form">
@@ -37,6 +41,9 @@
             </div>
 
             <div class="modal-body" *ngIf="!show_form_envio_token" style="margin-top:-30px">
+            
+                <hr style="border:1px solid #eff4ff">  
+
                 <p>Ingresa el codigo que se te envio al 
                   <strong>
                   {{tipo_autenticacion_str}}
@@ -63,7 +70,11 @@
 
                           <div class="clr-control-container" style="width: 100%;text-align: center;" >
                               <br>
-                            <a class="btn btn-sm" (click)="validaToken()">
+                            <a 
+                              class="btn" 
+                              (click)="validaToken()"                                            
+                              style="border-radius:20px"  
+                            >
                               <span>
                                 <img src="../../../assets/img/llave.png" style="width:15px;margin-top:-3px;">
                               </span>
@@ -73,7 +84,7 @@
                         </div>
                       </div>    
                       <div class="clr-col-sm-12 clr-col-md-6">
-                        <div class="clr-form-control" style="background-color: lightskyblue;padding:10px;text-align:center">
+                        <div class="clr-form-control" style="background-color: #eff4ff;padding:10px;text-align:center;border-radius:10px">
                           <label for="basic" class="clr-control-label" style="width:100%;text-align: center">
                             <span>
                                 <img src="../../../assets/img/error-icon.png" style="width:15px;margin-top:-3px;">
@@ -92,7 +103,12 @@
 
                           <div *ngIf="segundos <= 0" class="clr-control-container" style="width: 100%;text-align: center;" >
                               
-                              <a class="btn btn-sm" (click)="envioToken()">
+                              <a 
+                                class="btn" 
+                                (click)="envioToken()"
+                                              
+                                style="border-radius:20px"  
+                                >
                                 <span>
                                   <img src="../../../assets/img/llave.png" style="width:15px;margin-top:-3px;">
                                 </span>
@@ -103,7 +119,11 @@
                               <hr style="border:1px solid white;">                            
                           </div>
                           <div  class="clr-control-container" style="width: 100%;text-align: center;" >                            
-                            <a class="btn btn-sm btn-primary" (click)="fCancelar()">
+                            <a 
+                              class="btn  btn-primary" 
+                              (click)="fCancelar()"                                            
+                              style="border-radius:20px"    
+                            >
                               <span>
                                   <img src="../../../assets/img/cancel-icon.png" style="width:15px;margin-top:-3px;">
                                 </span>
@@ -117,8 +137,12 @@
                   </form>
             </div>
             <div class="modal-footer" *ngIf="show_form_envio_token == true">                                
-                <a class="btn btn-sm btn-primary" type="button" 
-                  (click)="fCancelar()"
+                <a 
+                    class="btn 
+                    btn-primary" 
+                    type="button" 
+                    (click)="fCancelar()"                                  
+                    style="border-radius:20px"  
                 >
                   <!--
                     <span>
@@ -127,7 +151,14 @@
                     -->
                   Cancelar
                 </a>
-                <button class="btn btn-sm btn-primary" type="button" (click)="envioToken()" >Siguiente</button>
+                <button 
+                  class="btn btn-primary" 
+                  type="button" 
+                  (click)="envioToken()"                                 
+                  style="border-radius:20px"  
+                >
+                  Siguiente
+                </button>
             </div>
             
            

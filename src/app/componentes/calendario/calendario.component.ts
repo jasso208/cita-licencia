@@ -81,6 +81,7 @@ export class CalendarioComponent implements OnInit {
         }else{
           this.toastr.error("Error al cargar el calendario.","Error");
         }
+        this.emmiterService.validaAdmin();
         this.spinner = false;
       },
       error => {
@@ -139,6 +140,7 @@ export class CalendarioComponent implements OnInit {
     }
 
   }
+
   reload():any{
     this.cargaDiasMes();
   }

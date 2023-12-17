@@ -13,6 +13,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { ValidaWhatsappComponent } from './componentes/valida-whatsapp/valida-whatsapp.component';
 import { MisCitasComponent } from './componentes/mis-citas/mis-citas.component';
 import { ModificaCitaComponent } from './componentes/modifica-cita/modifica-cita.component';
+import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
+import { MenuAdminComponent } from './componentes/menu-admin/menu-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,9 @@ import { ModificaCitaComponent } from './componentes/modifica-cita/modifica-cita
     NuevaCitaComponent,
     ValidaWhatsappComponent,
     MisCitasComponent,
-    ModificaCitaComponent
+    ModificaCitaComponent,
+    BienvenidoComponent,
+    MenuAdminComponent
   ],
   imports: [
     BrowserModule,

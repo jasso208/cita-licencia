@@ -94,6 +94,7 @@ export class ValidaWhatsappComponent  implements OnInit{
         if(data.estatus == 0){
           this.toastr.error(data.msj,"Error");
           this.sppiner_div = false;
+          this.fCancelar();
           return ;
         }
         

@@ -79,6 +79,7 @@ export class NuevaCitaComponent implements OnInit {
         this.form.get("fecha_cita")?.setValue(fechaSeleccionada);
         this.muestra_form = true;
         this.horariosDisponibles();
+        this.setForm();
       }
     );
   }
@@ -107,7 +108,7 @@ export class NuevaCitaComponent implements OnInit {
       .subscribe(
         data => {
 
-          this.setForm(data);
+          this.setHorarios(data);
 
           this.spinner = false;
         },
@@ -119,9 +120,13 @@ export class NuevaCitaComponent implements OnInit {
 
   }
 
-  setForm(data: any): any {
+  setHorarios(data: any): any {
     this.horarios = data.data;
 
+ 
+  }
+
+  setForm():void{
     this.form.get("nombre")?.setValue(localStorage.getItem("nombre"));
     this.form.get("apellido_p")?.setValue(localStorage.getItem("apellido_p"));
     this.form.get("apellido_m")?.setValue(localStorage.getItem("apellido_m"));
@@ -134,11 +139,14 @@ export class NuevaCitaComponent implements OnInit {
 
     this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));    
     
+
     if(this.form.get("whatsapp")?.valid){
       this.form.get("whatsapp")?.disable();      
+    }else{
+      this.form.get("whatsapp")?.enable();      
+      
     }
   }
-
   generaCita():any{
     this.spinner = true;
 
@@ -154,6 +162,7 @@ export class NuevaCitaComponent implements OnInit {
     this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
     this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
 
+    
     if(this.form.valid){
       this.cita.generaCita(this.form)
       .subscribe(
@@ -224,7 +233,7 @@ export class NuevaCitaComponent implements OnInit {
 
     this.form.get("whatsapp")?.disable();
     this.form.get("email")?.disable();
-
+    
     if(this.form.valid){
       this.form.get("whatsapp")?.enable();
       this.form.get("email")?.enable();

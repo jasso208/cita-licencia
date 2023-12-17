@@ -1,6 +1,6 @@
 
 <div class="modal" *ngIf="basic" >
-    <div class="modal-dialog modal-sm" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog modal-md" role="dialog" aria-hidden="true" >
         <div class="modal-content">
             <div class="modal-header" >
                 <button aria-label="Close" class="close" type="button">
@@ -15,8 +15,10 @@
                 <h3 class="modal-title" style="text-align: center;" >
                   Bienvenido
                 </h3>
+                <hr style="border:1px solid #eff4ff">   
             </div>
             <div class="modal-body" *ngIf="show_form_envio_token">
+              
                 Para continuar, es necesario que ingreses su correo electrónico.
 
                 <form [formGroup]="form" class="clr-form">
@@ -69,7 +71,7 @@
 
                 <form [formGroup]="form_codigo" class="clr-form" >
                     <div class="clr-row">
-                      <div class="clr-col-sm-12 ">
+                      <div class="clr-col-sm-12 clr-col-md-6 ">
                         <div class="clr-form-control" style="padding:10px;text-align:center">
                           <label for="basic" class="clr-control-label" style="width:100%;text-align: center;">
                             <span>
@@ -96,9 +98,9 @@
                         </div>
                         </div>
                       </div>    
-                      <div class="clr-col-sm-12 ">
-                        <div class="clr-form-control" style="background-color: lightskyblue;padding:10px;text-align:center">
-                          <label for="basic" class="clr-control-label" style="width:100%;text-align: center">
+                      <div class="clr-col-sm-12 clr-col-md-6 ">
+                         <div class="clr-form-control" style="background-color: #eff4ff;padding:10px;text-align:center;border-radius:10px">
+                         <label for="basic" class="clr-control-label" style="width:100%;text-align: center">
                             <span>
                                 <img src="../../../assets/img/error-icon.png" style="width:15px;margin-top:-3px;">
                             </span>
@@ -130,10 +132,7 @@
                             <a class="btn btn-sm" (click)="cambiarWhatsappEmail()">
                               
                               Cambiar 
-                              <span>
-                                <img src="../../../assets/img/whatsapp.png" style="width:15px;margin-top:-3px;">                                
-                              </span>                              
-                              /                              
+                                                           
                               <span>
                                 <img src="../../../assets/img/email.png" style="width:15px;margin-top:-3px;">
                               </span>                              
@@ -145,15 +144,23 @@
                   </form>
             </div>
             <div class="modal-footer" *ngIf="show_form_envio_token == true">                                
-                <a class="btn  btn-sm btn-default" type="button" 
+                <a 
+                  class="btn btn-default" 
+                  type="button" 
                   href="https://licenciainternacional.com.mx/"
+                  style="border-radius:20px"
                 >
                   <span>
                     <img src="../../../assets/img/logo-ana.jpg"  style="width:15px;margin-top:-3px;">
                   </span>
                   Volver
                 </a>
-                <button class="btn btn-sm btn-primary" type="button" (click)="envioToken()" >
+                <button 
+                  class="btn btn-primary" 
+                  type="button" 
+                  (click)="envioToken()" 
+                    style="border-radius:20px"
+                  >
                   Siguiente
                   <span>
                     <img src="../../../assets/img/next-icon.png"  style="width:15px;margin-top:-3px;">

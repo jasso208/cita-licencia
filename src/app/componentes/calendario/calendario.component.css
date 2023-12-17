@@ -1,3 +1,15 @@
+#calendario{
+  border-radius: 20px;
+  width: 70%;
+  margin:0 auto; 
+}
+
+.btn-mes{
+  cursor:pointer;
+}
+
+
+
 #container {
     display: inline-block;
     position: relative;
@@ -36,8 +48,11 @@
   #header-calendar{
     width:100%;
     background-color: #3976ab;
-    padding:15px
+    padding:15px;
+    border-top-right-radius:20px;
+    border-top-left-radius: 20px ;
   }
+
   #header-calendar h1{
     margin:0px;
     font-size:30px;
@@ -88,6 +103,12 @@
       margin-top:-5px;
     }
     /*Heder*/
+
+    #calendario{
+      border-radius: 20px;
+      width: 96%;
+      margin-left: 2%;
+    }
 
   }
   
