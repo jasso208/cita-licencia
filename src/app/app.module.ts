@@ -15,6 +15,7 @@ import { MisCitasComponent } from './componentes/mis-citas/mis-citas.component';
 import { ModificaCitaComponent } from './componentes/modifica-cita/modifica-cita.component';
 import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
 import { MenuAdminComponent } from './componentes/menu-admin/menu-admin.component';
+import { CitasAdminComponent } from './componentes/citas-admin/citas-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { MenuAdminComponent } from './componentes/menu-admin/menu-admin.componen
     MisCitasComponent,
     ModificaCitaComponent,
     BienvenidoComponent,
-    MenuAdminComponent
+    MenuAdminComponent,
+    CitasAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -59,6 +59,14 @@ export class CitaService {
     return this.http.get(url);
 
   }
+
+  getAllCitas(fecha:string,solo_activas:boolean,num_page:number):Observable<any>{
+    let url = environment.url_api + "cita/getAllCitas?fecha="+fecha;
+    url = url + "&solo_activas=" + solo_activas;    
+    url = url + "&num_page=" + num_page.toString();
+    return this.http.get(url);
+  }
+
   consultaCita(id_cita:number):Observable<any>{
     let url = environment.url_api + "cita/consultaCita?id_cita="+id_cita.toString();
 

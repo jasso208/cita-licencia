@@ -8,9 +8,11 @@ export class EmmiterService {
   $muestra_form_nuevacita = new EventEmitter();  
   $token_whatsapp = new EventEmitter();
   $mis_citas = new EventEmitter();
+  $citas_admin = new EventEmitter();
   $show_modifica_cita = new EventEmitter();
   $valida_admin = new EventEmitter();
   $menu_admin = new EventEmitter();
+  $hide_modifica_cita = new EventEmitter();
   constructor() {     
   }
 
@@ -38,5 +40,11 @@ export class EmmiterService {
   validaAdmin():any{
     
     this.$valida_admin.emit();
+  }
+  showCitasAdmin():any{
+    this.$citas_admin.emit();
+  }
+  hideModificaCita():void{
+    this.$hide_modifica_cita.emit();
   }
 }

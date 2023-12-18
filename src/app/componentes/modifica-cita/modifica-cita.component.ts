@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CalendarioService } from 'src/app/servicios/calendario/calendario.service';
@@ -11,7 +11,7 @@ import { EmmiterService } from 'src/app/servicios/emmiter.service';
   templateUrl: './modifica-cita.component.html',
   styleUrls: ['./modifica-cita.component.css']
 })
-export class ModificaCitaComponent {
+export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
 
   @Input() muestra_form: boolean;
 
@@ -74,18 +74,38 @@ export class ModificaCitaComponent {
       fecha_viaje: false
     }
 
+    
+   
+
   }
-
-  ngOnInit() {
-
+  ngOnInit(): void {
     this.emmiterService.$show_modifica_cita.subscribe(
       (id_cita: number) => {
         this.muestra_form = true;    
         this.id_cita = id_cita;
         this.carga_inicial = true;
-        this.consultaCita(id_cita);      
+        this.consultaCita(id_cita);    
+       
       }
     );
+    this.emitModificaCita();
+  }
+
+
+  emitModificaCita(){
+    this.emmiterService.$show_modifica_cita.subscribe(
+      (id_cita: number) => {
+        this.muestra_form = true;    
+             
+      }
+    );
+    
+  }
+  ngOnDestroy() {
+    //this.emmiterService.$show_modifica_cita.unsubscribe();   
+  }
+  ngAfterContentInit():void{
+   
   }
 
   consultaCita(id_cita:number):any{ 
@@ -296,5 +316,9 @@ export class ModificaCitaComponent {
     
     this.muestra_form = false;
     this.show_valida_whatsapp=false;
+  }
+  volver():void{
+    this.muestra_form = false;
+    this.muestra_form = false;
   }
 }
