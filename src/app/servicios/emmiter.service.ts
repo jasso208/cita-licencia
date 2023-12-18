@@ -13,6 +13,7 @@ export class EmmiterService {
   $valida_admin = new EventEmitter();
   $menu_admin = new EventEmitter();
   $hide_modifica_cita = new EventEmitter();
+  $reload_citas = new EventEmitter();
   constructor() {     
   }
 
@@ -46,5 +47,8 @@ export class EmmiterService {
   }
   hideModificaCita():void{
     this.$hide_modifica_cita.emit();
+  }
+  reloadDates(){
+    this.$reload_citas.emit();
   }
 }

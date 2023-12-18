@@ -58,6 +58,7 @@ export class CitasAdminComponent {
             this.modifica_cita = false;
         }
       );
+      
 
   }
 

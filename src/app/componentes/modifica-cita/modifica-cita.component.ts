@@ -174,13 +174,10 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.cals.horariosDisponible(fecha_cita)
       .subscribe(
         data => {
-
           this.setForm(data);
-
           this.spinner = false;
         },
         error => {
-          
           this.spinner = false;
         }
       );
@@ -234,8 +231,9 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
             this.toastr.success("Cita actualizada con exito.","Notificación");
             this.muestra_form = false;
             this.actualizaCliente();
-            this.reload.emit(true);
-        },
+            //this.reload.emit(true);
+            this.emmiterService.reloadDates();
+          },
         error => {
           this.toastr.error("Error al actualizar la cita.","Error");
           this.spinner = false;
