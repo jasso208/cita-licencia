@@ -23,9 +23,15 @@ export class EmmiterService {
     this.$muestra_form_nuevacita.emit(fechaSeleccionada);
   }
 
-  enviaTokenWhatsapp(whatsapp:string):any{
+  enviaTokenWhatsapp(whatsapp:string,email:string):any{
     
-    this.$token_whatsapp.emit(whatsapp);
+    let data = {
+      whatsapp:whatsapp,
+      email:email
+    }
+    
+
+    this.$token_whatsapp.emit(data);
   } 
 
   showMisCitas():any{

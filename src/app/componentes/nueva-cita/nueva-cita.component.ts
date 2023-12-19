@@ -26,7 +26,8 @@ export class NuevaCitaComponent implements OnInit {
   public disable_whatsapp: boolean;
   public errores:any;
   public show_valida_whatsapp:boolean;
-  public whatsapp:string;
+  public whatsapp:string;  
+  public email:string;
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -241,7 +242,8 @@ export class NuevaCitaComponent implements OnInit {
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
       this.whatsapp = this.form.get("whatsapp")?.value;
-      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value);
+      this.email = this.form.get("email")?.value;
+      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value,this.form.get("email")?.value);
     }
   }
 

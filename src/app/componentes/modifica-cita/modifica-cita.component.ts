@@ -27,6 +27,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
   public show_valida_whatsapp:boolean;
   public cita:any;
   public whatsapp:string;
+  public email:string;
   public id_cita:number;
   public carga_inicial:boolean;
   constructor(
@@ -124,6 +125,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     .subscribe(
       data => {
         
+        console.log(data);
         this.cita = data.data[0];
         
         this.spinner = false;
@@ -138,6 +140,9 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         this.form.get("fecha_cita")?.setValue(this.cita.horario_cita__fecha__fecha);
         this.horariosDisponibles(this.cita.horario_cita__fecha__fecha);
         this.form.get("hora_cita")?.setValue(this.cita.horario_cita__id);
+
+        this.form.get("whatsapp")?.disable();
+    this.form.get("email")?.disable();
       },
       error => {
         this.toastr.error("Error al consultar la cita.","Error");
@@ -186,7 +191,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
 
   setForm(data: any): any {
     this.horarios = data.data;
-
+/*
     this.form.get("nombre")?.setValue(localStorage.getItem("nombre"));
     this.form.get("apellido_p")?.setValue(localStorage.getItem("apellido_p"));
     this.form.get("apellido_m")?.setValue(localStorage.getItem("apellido_m"));
@@ -197,11 +202,12 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.form.get("email")?.setValue(localStorage.getItem("email"));
     this.form.get("email")?.disable();
 
-    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));    
-    
+    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));        
+    this.form.get("whatsapp")?.disable();
+
     if(this.form.get("whatsapp")?.valid){
       this.form.get("whatsapp")?.disable();      
-    }
+    }*/
   }
 
   actualizaCita():any{
@@ -298,7 +304,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
       this.whatsapp = this.form.get("whatsapp")?.value;
-      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value);
+      this.email = this.form.get("email")?.value;
+      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value,this.form.get("email")?.value);
     }
   }
 
