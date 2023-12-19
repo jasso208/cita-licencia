@@ -14,7 +14,9 @@ export class EmmiterService {
   $menu_admin = new EventEmitter();
   $hide_modifica_cita = new EventEmitter();
   $reload_citas = new EventEmitter();
-  constructor() {     
+  $confirmacion_citas = new EventEmitter();
+  constructor() {    
+
   }
 
   eventoFormNuevaCita(fechaSeleccionada:string ){  
@@ -50,5 +52,8 @@ export class EmmiterService {
   }
   reloadDates(){
     this.$reload_citas.emit();
+  }
+  confirmacionCita():void{
+    this.$confirmacion_citas.emit();
   }
 }

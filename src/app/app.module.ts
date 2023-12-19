@@ -16,6 +16,7 @@ import { ModificaCitaComponent } from './componentes/modifica-cita/modifica-cita
 import { BienvenidoComponent } from './componentes/bienvenido/bienvenido.component';
 import { MenuAdminComponent } from './componentes/menu-admin/menu-admin.component';
 import { CitasAdminComponent } from './componentes/citas-admin/citas-admin.component';
+import { ConfirmacionCitaComponent } from './componentes/confirmacion-cita/confirmacion-cita.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { CitasAdminComponent } from './componentes/citas-admin/citas-admin.compo
     ModificaCitaComponent,
     BienvenidoComponent,
     MenuAdminComponent,
-    CitasAdminComponent
+    CitasAdminComponent,
+    ConfirmacionCitaComponent
   ],
   imports: [
     BrowserModule,

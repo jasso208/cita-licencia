@@ -172,10 +172,11 @@ export class NuevaCitaComponent implements OnInit {
               this.toastr.error(data.msj);
               return;
             }
-            this.toastr.success("Cita generada con exito.","Notificación");
+            //this.toastr.success("Cita generada con exito.","Notificación");
             this.muestra_form = false;
             this.actualizaCliente();
             this.reload.emit(true);
+            this.emmiterService.confirmacionCita();
         },
         error => {
           this.toastr.error("Error al generar la cita.","Error");

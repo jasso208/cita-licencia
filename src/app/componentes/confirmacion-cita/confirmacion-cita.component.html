@@ -1,0 +1,47 @@
+
+<div class="modal" *ngIf="show_confirmacion">
+    <div class="modal-dialog modal-md" role="dialog" aria-hidden="true" >
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h1 class="modal-title" style="text-align: center;" >
+                  <span>
+                    <img src="../../../assets/img/logo-ana.png" style="width:100px">
+                  </span>                    
+                </h1>
+                <br>
+                <h1 class="modal-title" style="text-align: center;" >
+                  Cita generada con exito.
+                </h1>
+                <hr style="border:1px solid #eff4ff">   
+            </div>
+            <div class="modal-body" >
+              <h5 style="text-align: center;">
+                En breve recibira confirimación a travez del correo y whatsapp registrado.
+              </h5>
+            </div>
+
+            <div class="modal-footer"  >                                
+              <div style="width:100%;text-align: center;">
+                    <button 
+                        class="btn btn-primary" 
+                        type="button" 
+                        (click)="continuar()"
+                        style="border-radius:20px"
+                    >
+                    Continuar
+                    <span>
+                        <img src="../../../assets/img/next-icon.png"  style="width:15px;margin-top:-3px;">
+                    </span>
+                    </button>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="show_confirmacion"></div>
+
+
