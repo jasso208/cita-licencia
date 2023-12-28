@@ -1,0 +1,28 @@
+.modal-content{
+    padding:0px;
+    
+}
+.modal-dialog{
+    border-radius: 20px 20px 20px 20px;
+
+}
+
+.modal-header
+{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.modal-header,.modal-body, .modal-footer{
+    padding:30px;
+
+}
+.modal-title{
+    font-weight: 500px;
+}
+
+
+.modal-title img{
+    width: 20px;
+    margin-top:-5px;
+}

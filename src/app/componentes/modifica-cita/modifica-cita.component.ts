@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CalendarioService } from 'src/app/servicios/calendario/calendario.service';
@@ -11,7 +11,7 @@ import { EmmiterService } from 'src/app/servicios/emmiter.service';
   templateUrl: './modifica-cita.component.html',
   styleUrls: ['./modifica-cita.component.css']
 })
-export class ModificaCitaComponent {
+export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
 
   @Input() muestra_form: boolean;
 
@@ -27,6 +27,7 @@ export class ModificaCitaComponent {
   public show_valida_whatsapp:boolean;
   public cita:any;
   public whatsapp:string;
+  public email:string;
   public id_cita:number;
   public carga_inicial:boolean;
   constructor(
@@ -74,18 +75,38 @@ export class ModificaCitaComponent {
       fecha_viaje: false
     }
 
+    
+   
+
   }
-
-  ngOnInit() {
-
+  ngOnInit(): void {
     this.emmiterService.$show_modifica_cita.subscribe(
       (id_cita: number) => {
         this.muestra_form = true;    
         this.id_cita = id_cita;
         this.carga_inicial = true;
-        this.consultaCita(id_cita);      
+        this.consultaCita(id_cita);    
+       
       }
     );
+    this.emitModificaCita();
+  }
+
+
+  emitModificaCita(){
+    this.emmiterService.$show_modifica_cita.subscribe(
+      (id_cita: number) => {
+        this.muestra_form = true;    
+             
+      }
+    );
+    
+  }
+  ngOnDestroy() {
+    //this.emmiterService.$show_modifica_cita.unsubscribe();   
+  }
+  ngAfterContentInit():void{
+   
   }
 
   consultaCita(id_cita:number):any{ 
@@ -104,6 +125,7 @@ export class ModificaCitaComponent {
     .subscribe(
       data => {
         
+        console.log(data);
         this.cita = data.data[0];
         
         this.spinner = false;
@@ -118,6 +140,9 @@ export class ModificaCitaComponent {
         this.form.get("fecha_cita")?.setValue(this.cita.horario_cita__fecha__fecha);
         this.horariosDisponibles(this.cita.horario_cita__fecha__fecha);
         this.form.get("hora_cita")?.setValue(this.cita.horario_cita__id);
+
+        this.form.get("whatsapp")?.disable();
+    this.form.get("email")?.disable();
       },
       error => {
         this.toastr.error("Error al consultar la cita.","Error");
@@ -154,13 +179,10 @@ export class ModificaCitaComponent {
     this.cals.horariosDisponible(fecha_cita)
       .subscribe(
         data => {
-
           this.setForm(data);
-
           this.spinner = false;
         },
         error => {
-          
           this.spinner = false;
         }
       );
@@ -169,7 +191,7 @@ export class ModificaCitaComponent {
 
   setForm(data: any): any {
     this.horarios = data.data;
-
+/*
     this.form.get("nombre")?.setValue(localStorage.getItem("nombre"));
     this.form.get("apellido_p")?.setValue(localStorage.getItem("apellido_p"));
     this.form.get("apellido_m")?.setValue(localStorage.getItem("apellido_m"));
@@ -180,11 +202,12 @@ export class ModificaCitaComponent {
     this.form.get("email")?.setValue(localStorage.getItem("email"));
     this.form.get("email")?.disable();
 
-    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));    
-    
+    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));        
+    this.form.get("whatsapp")?.disable();
+
     if(this.form.get("whatsapp")?.valid){
       this.form.get("whatsapp")?.disable();      
-    }
+    }*/
   }
 
   actualizaCita():any{
@@ -214,8 +237,9 @@ export class ModificaCitaComponent {
             this.toastr.success("Cita actualizada con exito.","Notificación");
             this.muestra_form = false;
             this.actualizaCliente();
-            this.reload.emit(true);
-        },
+            //this.reload.emit(true);
+            this.emmiterService.reloadDates();
+          },
         error => {
           this.toastr.error("Error al actualizar la cita.","Error");
           this.spinner = false;
@@ -280,7 +304,8 @@ export class ModificaCitaComponent {
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
       this.whatsapp = this.form.get("whatsapp")?.value;
-      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value);
+      this.email = this.form.get("email")?.value;
+      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value,this.form.get("email")?.value);
     }
   }
 
@@ -296,5 +321,9 @@ export class ModificaCitaComponent {
     
     this.muestra_form = false;
     this.show_valida_whatsapp=false;
+  }
+  volver():void{
+    this.muestra_form = false;
+    this.muestra_form = false;
   }
 }

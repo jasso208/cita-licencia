@@ -27,8 +27,13 @@ export class NuevaCitaComponent implements OnInit {
   public disable_whatsapp: boolean;
   public errores:any;
   public show_valida_whatsapp:boolean;
+<<<<<<< HEAD
   public whatsapp:string;
   public paises:Array<any>;
+=======
+  public whatsapp:string;  
+  public email:string;
+>>>>>>> fa27eb7fe118d5352c73629c5f8dcc1ba4e35f1a
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -190,10 +195,11 @@ export class NuevaCitaComponent implements OnInit {
               this.toastr.error(data.msj);
               return;
             }
-            this.toastr.success("Cita generada con exito.","Notificación");
+            //this.toastr.success("Cita generada con exito.","Notificación");
             this.muestra_form = false;
             this.actualizaCliente();
             this.reload.emit(true);
+            this.emmiterService.confirmacionCita();
         },
         error => {
           this.toastr.error("Error al generar la cita.","Error");
@@ -258,7 +264,8 @@ export class NuevaCitaComponent implements OnInit {
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
       this.whatsapp = this.form.get("whatsapp")?.value;
-      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value);
+      this.email = this.form.get("email")?.value;
+      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value,this.form.get("email")?.value);
     }
   }
 

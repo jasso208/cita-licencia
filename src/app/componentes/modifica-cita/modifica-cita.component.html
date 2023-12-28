@@ -1,6 +1,6 @@
 
-<div class="modal" *ngIf="muestra_form"  >
-    <div class="modal-dialog" role="dialog" aria-hidden="true"  >
+<div class="modal" *ngIf="muestra_form" >
+    <div class="modal-dialog" role="dialog" aria-hidden="true"   >
         <div class="modal-content" >
             <div class="modal-header"  >
                 <button aria-label="Close" class="close" type="button">
@@ -230,7 +230,7 @@
                 <button 
                   class="btn btn-outline" 
                   type="button" 
-                  (click)="muestra_form = false"                  
+                  (click)="volver()"                  
                   style="border-radius:20px"
                 >
 
@@ -260,6 +260,7 @@
 <app-valida-whatsapp *ngIf="show_valida_whatsapp"
   [show]="show_valida_whatsapp"
   [whatsapp]="whatsapp"
+  [email]="email"
   (hide_emmiter)="hideValidaWhatsapp()"
   (cancelar)="cancelar()"
 ></app-valida-whatsapp>

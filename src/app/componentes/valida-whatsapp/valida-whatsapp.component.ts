@@ -1,5 +1,5 @@
 import { Component,Input,Output, EventEmitter, OnInit, AfterContentInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { EmmiterService } from 'src/app/servicios/emmiter.service';
 import { GeneralService } from 'src/app/servicios/general.service';
@@ -13,6 +13,7 @@ export class ValidaWhatsappComponent  implements OnInit{
 
   @Input() show:boolean;
   @Input() whatsapp:string;
+  @Input() email:string;
 
   @Output() hide_emmiter = new EventEmitter<boolean>();
   @Output() cancelar = new EventEmitter<boolean>();
@@ -45,8 +46,8 @@ export class ValidaWhatsappComponent  implements OnInit{
     this.tipo_autenticacion_str = "";
 
     this.form = this.fb.group({
-      email:[''],
-      whatsapp:['']
+      email:new FormControl(""),
+      whatsapp: new FormControl("")
     });
 
     this.form_codigo = this.fb.group({
@@ -66,20 +67,25 @@ export class ValidaWhatsappComponent  implements OnInit{
 
   ngOnInit(): void {
 
-    this.eventEmmiter(this.whatsapp);
+    this.eventEmmiter(this.whatsapp,this.email);
    
   }
 
-  eventEmmiter(whatsapp:string){
+  eventEmmiter(whatsapp:string,email:string){
     
     this.form.get("whatsapp")?.setValue(whatsapp);
+    this.form.get("email")?.setValue(email);
+    
         this.form_codigo.get("token")?.setValue("");
         this.envioToken();
   }
   envioToken():any{
 
+<<<<<<< HEAD
     console.log("envia token 2");
     console.log(this.form);
+=======
+>>>>>>> fa27eb7fe118d5352c73629c5f8dcc1ba4e35f1a
     this.sppiner_div = true;
         
     let data = {
