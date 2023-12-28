@@ -6,6 +6,7 @@ import { CalendarioService } from 'src/app/servicios/calendario/calendario.servi
 import { CitaService } from 'src/app/servicios/cita/cita.service';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 import { EmmiterService } from 'src/app/servicios/emmiter.service';
+import { PaisService } from 'src/app/servicios/pais/pais.service';
 
 @Component({
   selector: 'app-nueva-cita',
@@ -27,6 +28,7 @@ export class NuevaCitaComponent implements OnInit {
   public errores:any;
   public show_valida_whatsapp:boolean;
   public whatsapp:string;
+  public paises:Array<any>;
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -34,7 +36,8 @@ export class NuevaCitaComponent implements OnInit {
     private cita: CitaService,
     private toastr: ToastrService,
     private clis: ClienteService,
-    private emmiter_service: EmmiterService
+    private emmiter_service: EmmiterService,
+    private pais_service:PaisService
   ) {
     this.spinner = false;
     this.muestra_form = false;
@@ -42,7 +45,7 @@ export class NuevaCitaComponent implements OnInit {
     this.disable_email = true;
     this.disable_whatsapp = true;
     this.show_valida_whatsapp = false;
-
+    
     this.form = this.fb.group(
       {
         fecha_cita: new FormControl('',[Validators.required]),
@@ -80,10 +83,25 @@ export class NuevaCitaComponent implements OnInit {
         this.muestra_form = true;
         this.horariosDisponibles();
         this.setForm();
+        this.getAllPaises();
       }
     );
   }
 
+  getAllPaises():void{
+    this.spinner=true;
+    this.pais_service.getAllPaises()
+    .subscribe(
+      data => {
+        this.paises = data.data;
+        this.spinner=false;
+      },
+      error=>{
+        this.toastr.error("Error al cargar el catalogo de paises.");
+        this.spinner = false;
+      }
+    );
+  }
   cambioFechaCita():void{
     
     this.fecha_seleccionada = this.form.get("fecha_cita")?.value;

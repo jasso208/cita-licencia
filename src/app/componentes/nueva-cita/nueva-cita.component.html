@@ -47,6 +47,9 @@
                                   <div class="clr-input-wrapper">
                                     <div class="clr-select-wrapper">
                                         <select id="select-basic" class="clr-select" formControlName="hora_cita">
+                                           <option value="" >
+                                            --Seleccione--
+                                          </option>
                                           <option *ngFor="let h of horarios" value="{{h.id}}">
                                               {{h.horario}}
                                           </option>
@@ -169,6 +172,25 @@
                                       </span>-->
                                       Pais al que viaja
                                   </label>
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <div class="clr-select-wrapper">
+                                        <select id="select-basic" class="clr-select" formControlName="pais_viaje">
+                                          <option value="" >
+                                            --Seleccione--
+                                          </option>
+                                          <option *ngFor="let p of paises" value="p.id">
+                                              {{p.descripcion}}
+                                          </option>
+                                        </select>
+                                    </div>
+                                    <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span *ngIf="errores.hora_cita" class="clr-subtext" style="color: red;">Debe seleccionar un horario disponible.</span>
+                                </div>
+
+
+<!--
                                 <div class="clr-control-container"  >
                                   <div class="clr-input-wrapper">
                                     <input formControlName="pais_viaje" type="text" id="basic" class="clr-input"  />
@@ -176,6 +198,7 @@
                                   </div>
                                   <span  *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Indique el pais al que viaja.</span>
                                 </div>
+-->
                               </div>                
                         </div>
                     </div>

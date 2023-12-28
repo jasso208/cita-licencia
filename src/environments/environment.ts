@@ -1,5 +1,5 @@
 export const environment = {
-    "url_api" : "http://192.168.1.11:8000/cita/"
+    "url_api" : "http://192.168.0.26:8000/cita/"
 };
 
 
