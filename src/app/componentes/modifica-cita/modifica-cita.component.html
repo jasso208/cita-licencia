@@ -166,10 +166,33 @@
                     <div class="clr-row">
                         <div class="clr-col-12">
                             <div class="clr-form-control" >
-                                <label for="basic" class="clr-control-label">
+<label for="basic" class="clr-control-label">
                                       <!--<span>
                                           <img src="../../../assets/img/whatsapp.png" style="width:15px">
                                       </span>-->
+                                      Pais al que viaja
+                                  </label>
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <div class="clr-select-wrapper">
+                                        <select id="select-basic" class="clr-select" formControlName="pais_viaje">
+                                          <option value="" >
+                                            --Seleccione--
+                                          </option>
+                                          <option *ngFor="let p of paises" value="{{p.id}}">
+                                              {{p.descripcion}}
+                                          </option>
+                                        </select>
+                                    </div>
+                                    <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span *ngIf="errores.hora_cita" class="clr-subtext" style="color: red;">Debe seleccionar un horario disponible.</span>
+                                </div>
+
+
+<!--
+                                <label for="basic" class="clr-control-label">
+                                 
                                       Pais al que viaja
                                   </label>
                                 <div class="clr-control-container"  >
@@ -179,7 +202,11 @@
                                   </div>
                                   <span  *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Indique el pais al que viaja.</span>
                                 </div>
-                              </div>                
+-->
+
+                              </div>  
+
+
                         </div>
                     </div>
                     <div class="clr-row">

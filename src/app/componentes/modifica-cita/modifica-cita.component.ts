@@ -5,6 +5,7 @@ import { CalendarioService } from 'src/app/servicios/calendario/calendario.servi
 import { CitaService } from 'src/app/servicios/cita/cita.service';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 import { EmmiterService } from 'src/app/servicios/emmiter.service';
+import { PaisService } from 'src/app/servicios/pais/pais.service';
 
 @Component({
   selector: 'app-modifica-cita',
@@ -30,6 +31,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
   public email:string;
   public id_cita:number;
   public carga_inicial:boolean;
+  public paises:Array<any>;
+
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -37,8 +40,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     private cita_serv: CitaService,
     private toastr: ToastrService,
     private clis: ClienteService,
-    private emmiter_service: EmmiterService
-
+    private emmiter_service: EmmiterService,
+    private pais_service:PaisService
 
   ) {
     this.spinner = false;
@@ -90,8 +93,24 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
       }
     );
     this.emitModificaCita();
+    this.getAllPaises();
   }
 
+  getAllPaises():void{
+    this.spinner = true;
+    this.pais_service.getAllPaises()
+    .subscribe(
+      data =>{
+        this.paises = data.data;
+        this.spinner = false;
+      },
+      error => {
+        this.toastr.error("Error al consultar el catalogo de paises.");
+        
+        this.spinner = false;
+      }
+    );
+  }
 
   emitModificaCita(){
     this.emmiterService.$show_modifica_cita.subscribe(
@@ -135,7 +154,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         this.form.get("apellido_m")?.setValue(this.cita.apellido_m);
         this.form.get("whatsapp")?.setValue(this.cita.whatsapp);
         this.form.get("email")?.setValue(this.cita.email);
-        this.form.get("pais_viaje")?.setValue(this.cita.pais_destino);
+        this.form.get("pais_viaje")?.setValue(this.cita.pais_destino__id);
         this.form.get("fecha_viaje")?.setValue(this.cita.fecha_viaje);
         this.form.get("fecha_cita")?.setValue(this.cita.horario_cita__fecha__fecha);
         this.horariosDisponibles(this.cita.horario_cita__fecha__fecha);

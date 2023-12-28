@@ -179,7 +179,7 @@
                                           <option value="" >
                                             --Seleccione--
                                           </option>
-                                          <option *ngFor="let p of paises" value="p.id">
+                                          <option *ngFor="let p of paises" value="{{p.id}}">
                                               {{p.descripcion}}
                                           </option>
                                         </select>

@@ -81,11 +81,8 @@ export class ValidaWhatsappComponent  implements OnInit{
   }
   envioToken():any{
 
-<<<<<<< HEAD
     console.log("envia token 2");
     console.log(this.form);
-=======
->>>>>>> fa27eb7fe118d5352c73629c5f8dcc1ba4e35f1a
     this.sppiner_div = true;
         
     let data = {

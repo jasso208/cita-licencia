@@ -27,13 +27,9 @@ export class NuevaCitaComponent implements OnInit {
   public disable_whatsapp: boolean;
   public errores:any;
   public show_valida_whatsapp:boolean;
-<<<<<<< HEAD
   public whatsapp:string;
   public paises:Array<any>;
-=======
-  public whatsapp:string;  
   public email:string;
->>>>>>> fa27eb7fe118d5352c73629c5f8dcc1ba4e35f1a
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
