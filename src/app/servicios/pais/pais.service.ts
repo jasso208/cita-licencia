@@ -16,4 +16,9 @@ export class PaisService {
     let url = environment.url_api;
     return this.http.get( url + "pais/getAllPais");
   }
+  validaPaisDerechoAdmision(id_pais:string):Observable<any>{
+    let url = environment.url_api;
+
+    return this.http.get(url + "pais/validaPaisDerechoAdmision?id_pais=" + id_pais);
+  }
 }

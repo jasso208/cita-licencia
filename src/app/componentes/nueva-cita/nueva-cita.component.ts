@@ -30,6 +30,7 @@ export class NuevaCitaComponent implements OnInit {
   public whatsapp:string;
   public paises:Array<any>;
   public email:string;
+  public pais_derecho_admision:boolean;
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -46,7 +47,7 @@ export class NuevaCitaComponent implements OnInit {
     this.disable_email = true;
     this.disable_whatsapp = true;
     this.show_valida_whatsapp = false;
-    
+    this.pais_derecho_admision = false;
     this.form = this.fb.group(
       {
         fecha_cita: new FormControl('',[Validators.required]),
@@ -278,4 +279,31 @@ export class NuevaCitaComponent implements OnInit {
     this.muestra_form = false;
     this.show_valida_whatsapp=false;
   }
+
+  selPais():void{
+    let id_pais = this.form.get("pais_viaje")?.value;
+    this.spinner = true;
+    this.pais_service.validaPaisDerechoAdmision(id_pais)
+    .subscribe(
+      data =>{
+          if(data.estatus == "0"){
+            this.toastr.error(data.msj);
+            this.spinner = false;
+            return;
+          }
+          if(data.pais_derecho_admision == "0"){
+            this.pais_derecho_admision = false;
+          }
+          if(data.pais_derecho_admision == "1"){
+            this.pais_derecho_admision = true;
+          }
+          this.spinner = false;
+      },
+      error => {
+        this.toastr.error("Error al validar el pais.","Error");
+        this.spinner = false;
+      }
+    );
+  }
+
 }
