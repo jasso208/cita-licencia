@@ -16,7 +16,7 @@
             </div>
             <div class="modal-body" >                
                 <hr style="border:1px solid #eff4ff">   
-                <form class="clr-form" style="margin-top:-10px;" [formGroup]="form">
+                <form class="clr-form" id="form" [formGroup]="form">
                     <div class="clr-row" >
                         <div class="clr-col-6 clr-col-md-4">
                             <div class="clr-form-control" >
@@ -124,14 +124,40 @@
                     </div>
                     
                     <div class="clr-row">
-                        <div class="clr-col-12">
-                            <div class="clr-form-control" >
+                    
+                        <div class="clr-col-sm-12 clr-col-md-3">
+                          <div class="clr-form-control" >
                                 <label for="basic" class="clr-control-label">
                                       <span>
+                                          <img src="../../../assets/img/world-icon.png" style="width:15px">
+                                      </span>
+                                </label>                          
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <div class="clr-select-wrapper">
+                                        <select formControlName="codigo_pais" id="select-basic" class="clr-select" >
+                                          <option value="" >
+                                            ----
+                                          </option>
+                                          <option *ngFor="let c of codigos" value="{{c.id}}">
+                                            {{c.nombre_corto}} ({{c.codigo}})
+                                          </option>
+                                        </select>
+                                    </div>
+                                    <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Debe seleccionar un código internacional.</span>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="clr-col-sm-12 clr-col-md-9">
+                            <div class="clr-form-control" >                          
+                                <label for="basic" class="clr-control-label">
+                                  <span>
                                           <img src="../../../assets/img/whatsapp.png" style="width:15px">
                                       </span>
                                       Whatsapp
-                                  </label>
+                                </label>
                                 <div class="clr-control-container"  >
                                   <div class="clr-input-wrapper">
                                     <input formControlName="whatsapp" type="text" class="clr-input"  />
@@ -260,6 +286,7 @@
 <app-valida-whatsapp *ngIf="show_valida_whatsapp"
   [show]="show_valida_whatsapp"
   [whatsapp]="whatsapp"  
+  [codigo_pais]="codigo_pais"
   [email]="email"
   (hide_emmiter)="hideValidaWhatsapp()"
   (cancelar)="cancelar()"

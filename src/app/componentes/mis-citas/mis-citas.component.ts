@@ -134,7 +134,6 @@ export class MisCitasComponent {
     this.cita.getCitas(email,this.solo_activas,num_page)
     .subscribe(
       data => {
-        console.log(data);
         if(data.estatus == "0"){
           this.toas.error(data.msj,"Error");
           this.spinner = false;

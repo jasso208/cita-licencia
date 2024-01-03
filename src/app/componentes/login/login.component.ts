@@ -119,6 +119,7 @@ export class LoginComponent {
         localStorage.setItem("email",data.data.email);
         localStorage.setItem("whatsapp",data.data.whatsapp);
         localStorage.setItem("pais_destino",data.data.pais_destino);
+        localStorage.setItem("codigo_pais",data.data.codigo_pais);
         let fecv = data.data.fecha_viaje;
         if(fecv =='null'){
           fecv = '';

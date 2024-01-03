@@ -14,6 +14,7 @@ export class ValidaWhatsappComponent  implements OnInit{
   @Input() show:boolean;
   @Input() whatsapp:string;
   @Input() email:string;
+  @Input() codigo_pais:string;
 
   @Output() hide_emmiter = new EventEmitter<boolean>();
   @Output() cancelar = new EventEmitter<boolean>();
@@ -47,6 +48,7 @@ export class ValidaWhatsappComponent  implements OnInit{
 
     this.form = this.fb.group({
       email:new FormControl(""),
+      codigo_pais:new FormControl(""),
       whatsapp: new FormControl("")
     });
 
@@ -56,23 +58,17 @@ export class ValidaWhatsappComponent  implements OnInit{
     
     
     
-    /*this.emmiter_service.$token_whatsapp.subscribe(
-      (whatsapp:string) => {
-        console.log("constructor" + whatsapp);
-        this.eventEmmiter(whatsapp);
-      }
-    );
-*/
   }
 
   ngOnInit(): void {
 
-    this.eventEmmiter(this.whatsapp,this.email);
+    this.eventEmmiter(this.codigo_pais,this.whatsapp,this.email);
    
   }
 
-  eventEmmiter(whatsapp:string,email:string){
+  eventEmmiter(codigo_pais:string,whatsapp:string,email:string){
     
+    this.form.get("codigo_pais")?.setValue(codigo_pais);
     this.form.get("whatsapp")?.setValue(whatsapp);
     this.form.get("email")?.setValue(email);
     
@@ -81,16 +77,16 @@ export class ValidaWhatsappComponent  implements OnInit{
   }
   envioToken():any{
 
-    console.log("envia token 2");
-    console.log(this.form);
     this.sppiner_div = true;
         
     let data = {
       id_cliente:localStorage.getItem("id_cliente"),
       email:this.form.get("email")?.value,
+      codigo_pais:this.form.get("codigo_pais")?.value,
       whatsapp:this.form.get("whatsapp")?.value
     }
 
+    console.log(data);
     this.gservice.post("cliente/tokenClienteWhatsapp",data)
     .subscribe(
       data=>{

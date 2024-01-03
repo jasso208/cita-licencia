@@ -27,10 +27,12 @@ export class NuevaCitaComponent implements OnInit {
   public disable_whatsapp: boolean;
   public errores:any;
   public show_valida_whatsapp:boolean;
+  public codigo_pais:string;
   public whatsapp:string;
   public paises:Array<any>;
   public email:string;
   public pais_derecho_admision:boolean;
+  public codigos:Array<any>;
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -58,7 +60,8 @@ export class NuevaCitaComponent implements OnInit {
         whatsapp: new FormControl('',[Validators.required]),
         email: new FormControl('',[Validators.required]),
         pais_viaje: new FormControl('',[Validators.required]),
-        fecha_viaje: new FormControl('',[Validators.required])
+        fecha_viaje: new FormControl('',[Validators.required]),
+        codigo_pais:new FormControl('',[Validators.required])
       }
     );
 
@@ -71,7 +74,8 @@ export class NuevaCitaComponent implements OnInit {
       whatsapp: false,
       email: false,
       pais_viaje: false,
-      fecha_viaje: false
+      fecha_viaje: false,
+      codigo_pais:false
     }
 
   }
@@ -83,11 +87,15 @@ export class NuevaCitaComponent implements OnInit {
         this.fecha_seleccionada = fechaSeleccionada;
         this.form.get("fecha_cita")?.setValue(fechaSeleccionada);
         this.muestra_form = true;
-        this.horariosDisponibles();
-        this.setForm();
+        this.pais_derecho_admision = false;
+        
+        this.horariosDisponibles();        
         this.getAllPaises();
+        this.setForm();
       }
     );
+    
+    this.getAllCodigoTelPais();
   }
 
   getAllPaises():void{
@@ -133,8 +141,8 @@ export class NuevaCitaComponent implements OnInit {
           this.spinner = false;
         },
         error => {
-          console.log(error);
           this.spinner = false;
+          this.toastr.error("Fecha sin citas disponibles.");
         }
       );
 
@@ -157,20 +165,23 @@ export class NuevaCitaComponent implements OnInit {
     this.form.get("email")?.setValue(localStorage.getItem("email"));
     this.form.get("email")?.disable();
 
-    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));    
+    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));  
     
-
-    if(this.form.get("whatsapp")?.valid){
-      this.form.get("whatsapp")?.disable();      
+    this.form.get("codigo_pais")?.setValue(localStorage.getItem("codigo_pais"));    
+    
+    if(this.form.get("whatsapp")?.value != "" && this.form.get("codigo_pais")?.value != ""){
+      this.form.get("whatsapp")?.disable();   
+      this.form.get("codigo_pais")?.disable();      
     }else{
-      this.form.get("whatsapp")?.enable();      
-      
+      this.form.get("whatsapp")?.enable();   
+      this.form.get("codigo_pais")?.enable();   
     }
   }
   generaCita():any{
     this.spinner = true;
 
     this.form.get("whatsapp")?.enable();
+    this.form.get("codigo_pais")?.enable();
     this.form.get("email")?.enable();
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
@@ -181,8 +192,8 @@ export class NuevaCitaComponent implements OnInit {
     this.errores.whatsapp = !this.form.get("whatsapp")?.valid;
     this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
     this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
+    this.errores.codigo_pais = !this.form.get("codigo_pais")?.valid;
 
-    
     if(this.form.valid){
       this.cita.generaCita(this.form)
       .subscribe(
@@ -229,6 +240,7 @@ export class NuevaCitaComponent implements OnInit {
         localStorage.setItem("whatsapp",this.form.value.whatsapp);
         localStorage.setItem("pais_destino",this.form.value.pais_viaje);
         localStorage.setItem("fecha_viaje",this.form.value.fecha_viaje);
+        localStorage.setItem("codigo_pais",this.form.value.codigo_pais);
         
       },
       error => {
@@ -241,6 +253,7 @@ export class NuevaCitaComponent implements OnInit {
   validaWhatsapp():any{
 
     this.form.get("whatsapp")?.enable();
+    this.form.get("codigo_pais")?.enable();
     this.form.get("email")?.enable();
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
@@ -251,18 +264,26 @@ export class NuevaCitaComponent implements OnInit {
     this.errores.whatsapp = !this.form.get("whatsapp")?.valid;
     this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
     this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
+    this.errores.codigo_pais = !this.form.get("codigo_pais")?.valid;
 
-    this.form.get("whatsapp")?.disable();
+
+  
+   
     this.form.get("email")?.disable();
-    
+
     if(this.form.valid){
+      this.form.get("codigo_pais")?.enable();
       this.form.get("whatsapp")?.enable();
       this.form.get("email")?.enable();
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
       this.whatsapp = this.form.get("whatsapp")?.value;
+      this.codigo_pais = this.form.get("codigo_pais")?.value;
       this.email = this.form.get("email")?.value;
-      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value,this.form.get("email")?.value);
+      this.emmiter_service.enviaTokenWhatsapp(this.form.get("codigo_pais")?.value,this.form.get("whatsapp")?.value,this.form.get("email")?.value);
+    }
+    else{
+
     }
   }
 
@@ -302,6 +323,24 @@ export class NuevaCitaComponent implements OnInit {
       error => {
         this.toastr.error("Error al validar el pais.","Error");
         this.spinner = false;
+      }
+    );
+  }
+
+
+  getAllCodigoTelPais():void{
+    //this.form.get("codigo_pais")?.enable();
+        
+    this.pais_service.getAllCodigoTelPais()
+    .subscribe(
+      data => {
+        
+        
+        this.codigos = data.data;
+        //this.form.get("codigo_pais")?.setValue(141);
+      },
+      error => {
+
       }
     );
   }

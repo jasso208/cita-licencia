@@ -23,13 +23,13 @@ export class EmmiterService {
     this.$muestra_form_nuevacita.emit(fechaSeleccionada);
   }
 
-  enviaTokenWhatsapp(whatsapp:string,email:string):any{
+  enviaTokenWhatsapp(codigo_pais:string,whatsapp:string,email:string):any{
     
     let data = {
       whatsapp:whatsapp,
-      email:email
+      email:email,
+      codigo_pais:codigo_pais
     }
-    
 
     this.$token_whatsapp.emit(data);
   } 

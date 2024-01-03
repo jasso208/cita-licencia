@@ -63,3 +63,16 @@
     }
 }
 /*Modal Form*/
+
+
+#form{
+    margin-top:-10px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+@media only screen and (max-height:800px){
+    #form{
+        height: 300px;
+    }
+}

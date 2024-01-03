@@ -32,7 +32,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
   public id_cita:number;
   public carga_inicial:boolean;
   public paises:Array<any>;
-
+  public codigo_pais:string;
+  public codigos:Array<any>;
   public pais_derecho_admision:boolean;
   constructor(
     private emmiterService: EmmiterService,
@@ -63,7 +64,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         email: new FormControl('',[Validators.required]),
         pais_viaje: new FormControl('',[Validators.required]),
         fecha_viaje: new FormControl('',[Validators.required]),
-        cancelar_cita : new FormControl(false)
+        cancelar_cita : new FormControl(false),
+        codigo_pais: new FormControl('',[Validators.required])
       }
     );
 
@@ -78,10 +80,6 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
       pais_viaje: false,
       fecha_viaje: false
     }
-
-    
-   
-
   }
   ngOnInit(): void {
     this.emmiterService.$show_modifica_cita.subscribe(
@@ -95,6 +93,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     );
     this.emitModificaCita();
     this.getAllPaises();
+    this.getAllCodigoTelPais();
   }
 
   getAllPaises():void{
@@ -145,9 +144,9 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     .subscribe(
       data => {
         
-        console.log(data);
         this.cita = data.data[0];
         
+
         this.spinner = false;
 
         this.form.get("nombre")?.setValue(this.cita.nombre);        
@@ -160,7 +159,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         this.form.get("fecha_cita")?.setValue(this.cita.horario_cita__fecha__fecha);
         this.horariosDisponibles(this.cita.horario_cita__fecha__fecha);
         this.form.get("hora_cita")?.setValue(this.cita.horario_cita__id);
-
+        this.form.get("codigo_pais")?.setValue(this.cita.codigo_pais__id);
         this.form.get("whatsapp")?.disable();
     this.form.get("email")?.disable();
       },
@@ -203,6 +202,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
           this.spinner = false;
         },
         error => {
+          this.toastr.error("Fecha sin citas disponibles.");
           this.spinner = false;
         }
       );
@@ -211,23 +211,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
 
   setForm(data: any): any {
     this.horarios = data.data;
-/*
-    this.form.get("nombre")?.setValue(localStorage.getItem("nombre"));
-    this.form.get("apellido_p")?.setValue(localStorage.getItem("apellido_p"));
-    this.form.get("apellido_m")?.setValue(localStorage.getItem("apellido_m"));
-    this.form.get("pais_viaje")?.setValue(localStorage.getItem("pais_destino"));
-    this.form.get("fecha_viaje")?.setValue(localStorage.getItem("fecha_viaje"));
 
-    
-    this.form.get("email")?.setValue(localStorage.getItem("email"));
-    this.form.get("email")?.disable();
-
-    this.form.get("whatsapp")?.setValue(localStorage.getItem("whatsapp"));        
-    this.form.get("whatsapp")?.disable();
-
-    if(this.form.get("whatsapp")?.valid){
-      this.form.get("whatsapp")?.disable();      
-    }*/
   }
 
   actualizaCita():any{
@@ -323,9 +307,12 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
       this.form.get("email")?.enable();
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
+      this.codigo_pais= this.form.get("codigo_pais")?.value;
       this.whatsapp = this.form.get("whatsapp")?.value;
       this.email = this.form.get("email")?.value;
-      this.emmiter_service.enviaTokenWhatsapp(this.form.get("whatsapp")?.value,this.form.get("email")?.value);
+      //this.emmiter_service.enviaTokenWhatsapp("",this.form.get("whatsapp")?.value,this.form.get("email")?.value);
+      this.emmiter_service.enviaTokenWhatsapp(this.form.get("codigo_pais")?.value,this.form.get("whatsapp")?.value,this.form.get("email")?.value);
+ 
     }
   }
 
@@ -372,6 +359,23 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
       error => {
         this.toastr.error("Error al validar el pais.","Error");
         this.spinner = false;
+      }
+    );
+  }
+  
+  getAllCodigoTelPais():void{
+    //this.form.get("codigo_pais")?.enable();
+        
+    this.pais_service.getAllCodigoTelPais()
+    .subscribe(
+      data => {
+        
+        
+        this.codigos = data.data;
+       // this.form.get("codigo_pais")?.setValue(141);
+      },
+      error => {
+
       }
     );
   }

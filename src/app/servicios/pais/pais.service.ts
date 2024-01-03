@@ -21,4 +21,8 @@ export class PaisService {
 
     return this.http.get(url + "pais/validaPaisDerechoAdmision?id_pais=" + id_pais);
   }
+  getAllCodigoTelPais():Observable<any>{
+    let url = environment.url_api;
+    return this.http.get(url + "pais/getAllCodigoTelPais");
+  }
 }

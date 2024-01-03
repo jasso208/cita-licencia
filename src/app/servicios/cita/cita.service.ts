@@ -20,12 +20,13 @@ export class CitaService {
       "nombre": form.value.nombre,
       "apellido_p": form.value.apellido_p,
       "apellido_m": form.value.apellido_m,
+      "codigo_pais":form.value.codigo_pais,
       "whatsapp": form.value.whatsapp,
       "email": form.value.email,
       "pais_destino": form.value.pais_viaje,
       "fecha_viaje": form.value.fecha_viaje
     }
-
+    console.log(data);
     let url = environment.url_api + "cita/generaCita"
     return this.http.post(url,data)
 
@@ -43,9 +44,11 @@ export class CitaService {
       "email": form.value.email,
       "pais_destino": form.value.pais_viaje,
       "fecha_viaje": form.value.fecha_viaje,
-      "cancelar_cita":form.value.cancelar_cita
+      "cancelar_cita":form.value.cancelar_cita,
+      "codigo_pais":form.value.codigo_pais
     }
 
+    console.log(data);
     let url = environment.url_api + "cita/actualizaCita"
     return this.http.put(url,data)
 
