@@ -33,6 +33,8 @@ export class NuevaCitaComponent implements OnInit {
   public email:string;
   public pais_derecho_admision:boolean;
   public codigos:Array<any>;
+  public bloqueaaltacita:boolean;
+
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -50,6 +52,7 @@ export class NuevaCitaComponent implements OnInit {
     this.disable_whatsapp = true;
     this.show_valida_whatsapp = false;
     this.pais_derecho_admision = false;
+    this.bloqueaaltacita = true;
     this.form = this.fb.group(
       {
         fecha_cita: new FormControl('',[Validators.required]),
@@ -92,6 +95,7 @@ export class NuevaCitaComponent implements OnInit {
         this.horariosDisponibles();        
         this.getAllPaises();
         this.setForm();
+        this.validaClienteConCita();
       }
     );
     
@@ -115,12 +119,23 @@ export class NuevaCitaComponent implements OnInit {
   cambioFechaCita():void{
     
     this.fecha_seleccionada = this.form.get("fecha_cita")?.value;
+
+    let num_dia = new Date(this.fecha_seleccionada).getDay(); 
+
+
+    if(num_dia == 5 || num_dia == 6){
+      this.horarios = [];
+      //this.toastr.error("Fecha sin citas disponibles.","Error");
+      let today = new Date();
+      return ;
+    }
+
     let fecha = new Date(this.fecha_seleccionada + "T00:00:00");
     let today = new Date()
     let td =  new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0);
     if(fecha <= td){
       this.horarios = [];
-      this.toastr.error("Fecha sin citas disponibles.","Error");
+      //this.toastr.error("Fecha sin citas disponibles.","Error");
       let today = new Date();
       return ;
    //   this.fecha_seleccionada = yourDate.getFullYear().toString() + "-" + yourDate.getDate().toString() + "-" + yourDate.getMonth().toString() ;
@@ -220,6 +235,25 @@ export class NuevaCitaComponent implements OnInit {
     }
   }
 
+  validaClienteConCita():void{
+    this.spinner = true;
+    this.cita.validaClienteConCita()
+    .subscribe(
+      data => {
+        if(data.estatus == "1"){
+          this.bloqueaaltacita=false;
+        }
+        else{
+          this.bloqueaaltacita=true;
+        }
+        this.spinner=false;
+      },
+      error => {
+        this.bloqueaaltacita=false;
+        this.spinner=false;
+      }
+    );
+  }
   //Esta peticion correo de fondo. 
   //No bloquea al usuario
   actualizaCliente():any{

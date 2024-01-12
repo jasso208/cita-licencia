@@ -54,6 +54,10 @@ export class CitaService {
 
   }
 
+  validaClienteConCita():Observable<any>{
+    let url = environment.url_api + "cita/validaClienteConCita?id_cliente="+localStorage.getItem("id_cliente")
+    return this.http.get(url);    
+  }
   getCitas(email:string,solo_activas:boolean,num_page:number):Observable<any>{
 
     let url = environment.url_api + "cita/getCitas?email="+email;

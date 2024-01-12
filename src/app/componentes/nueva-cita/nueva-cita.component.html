@@ -17,6 +17,17 @@
             <div class="modal-body" >                
                 <hr style="border:1px solid #eff4ff">   
                 <form class="clr-form" id="form" [formGroup]="form">
+                 <div class="clr-row">
+                    <div class="clr-col-12">
+                       <div *ngIf="bloqueaaltacita" style="width:100%;margin-top:10px;padding:10px;background-color:#edeeef">
+                                    <span>
+                                      <img src="../../../assets/img/error-icon.png" style="width:15px">
+                                      Ya cuenta con una cita. Para reagendar vaya al menu "Mis citas".
+                                      <br>
+                                      </span>
+                                  </div>
+                        </div>
+                        </div>
                     <div class="clr-row" >
                         <div class="clr-col-6 clr-col-md-4">
                             <div class="clr-form-control" >
@@ -146,7 +157,7 @@
                                     </div>
                                     <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <span *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Debe seleccionar un código internacional.</span>
+                                  <span *ngIf="errores.codigo_pais" class="clr-subtext" style="color: red;">Debe seleccionar un código internacional.</span>
                                 </div>
                           </div>
                         </div>
@@ -249,10 +260,13 @@
                               </div>                
                         </div>
                     </div>
+                    
                 </form>
 
             </div>
-            <div class="modal-footer" >                
+            <div class="modal-footer" >   
+               
+
                 <button 
                   class="btn  btn-outline" 
                   type="button" 
@@ -270,6 +284,7 @@
                   type="button" 
                   (click)="validaWhatsapp()"  
                   style="border-radius:20px;"  
+                  *ngIf="!bloqueaaltacita"
                 >Siguiente
 
                 <span>
