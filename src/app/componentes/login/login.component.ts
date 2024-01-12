@@ -148,7 +148,9 @@ export class LoginComponent {
   }
   timmer():any{
     
-    this.segundos = this.segundos - 1;
+    if(this.segundos > 0){
+      this.segundos = this.segundos - 1;
+    }
     
     if(this.segundos <= 0){  
       clearInterval(this.interval);  
