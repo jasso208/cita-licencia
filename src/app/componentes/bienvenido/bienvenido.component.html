@@ -3,6 +3,11 @@
     <div class="clr-row" >
         <div class="clr-col-md-4" style="text-align:center" id="inf-empresa" >
              <br>
+             
+                <img 
+                    src="../../../assets/img/logo-ana.png"
+                    style="width: 20%"
+                >
              <br>
              <br>   
                 <h3>
@@ -15,11 +20,6 @@
                     Automóvil Club de México, A.C.
                 </h5>
             <br>
-                <img 
-                    src="../../../assets/img/logo-ana.png"
-                    style="width: 30%"
-                >
-                <br>
                 <br>
             <div  
                 id="requisitos-cita"
@@ -71,3 +71,84 @@
     </div>
 
 </div>
+
+
+<div >
+    <div class="modal" *ngIf="muestra_valida_doc">
+        <div class="modal-dialog" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+                <div class="modal-header"  >
+                    <button aria-label="Close" class="close" type="button">
+                        <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                    </button>
+                    <h3 class="modal-title" >                            
+                        <span>
+                            <img src="../../../assets/img/checklist-icon.png">
+                        </span>
+                        Valida tu documentación                   
+                    </h3>                                
+                </div>
+                <div class="modal-body">
+                    <p>Antes de continuar, valida que ya cuentes con la siguiente documentación.</p>
+                   
+                    <form [formGroup]="form">
+                        <clr-checkbox-container>
+                            <clr-checkbox-wrapper>
+                              <input formControlName="ch1" (change)="validaForm()" type="checkbox" clrCheckbox value="option1"  />
+                              <label>Pasaporte con vigencia minima de un año.</label>
+                            </clr-checkbox-wrapper>
+                            <clr-checkbox-wrapper>
+                              <input formControlName="ch2" (change)="validaForm()" type="checkbox" clrCheckbox value="option2" />
+                              <label>Licencia Mexicana con licencia minima de un año.</label>
+                            </clr-checkbox-wrapper>
+                            <clr-checkbox-wrapper>
+                              <input formControlName="ch3" (change)="validaForm()" type="checkbox" clrCheckbox value="option2" />
+                              <label>Credencial de elector, y si fuera extrangero su FM vigente.</label>
+                            </clr-checkbox-wrapper> 
+                            <clr-checkbox-wrapper>
+                              <input formControlName="ch4" (change)="validaForm()" type="checkbox" clrCheckbox value="option2"  />
+                              <label>Una fotografia tamaño pasaporte a color.</label>
+                            </clr-checkbox-wrapper> 
+                          </clr-checkbox-container>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a 
+                    class="btn btn-primary" 
+                    type="button" 
+                    style="border-radius:20px;"  
+                    href="https://www.licenciainternacional.com.mx/#home"
+                    >
+                    <span>
+                        <img src="../../../assets/img/cancel-icon.png" style="width: 15px;">
+                    </span>  
+
+                    Cancelar
+  
+                       
+  
+                </a>
+                    
+                    <button 
+                    
+                    *ngIf="muestra_continuar"
+                    class="btn btn-primary" 
+                    type="button" 
+                    style="border-radius:20px;"  
+                    (click)="continuar()"
+                    >
+                    Siguiente
+  
+                        <span>
+                            <img src="../../../assets/img/next-icon.png" style="width: 15px;">
+                        </span>  
+  
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" aria-hidden="true" *ngIf="muestra_valida_doc"></div>
+</div>
+   
+ 

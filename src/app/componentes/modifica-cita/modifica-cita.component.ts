@@ -78,7 +78,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
       whatsapp: false,
       email: false,
       pais_viaje: false,
-      fecha_viaje: false
+      fecha_viaje: false,
+      codigo_pais:false
     }
   }
   ngOnInit(): void {
@@ -139,6 +140,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.errores.whatsapp = false;
     this.errores.hora_cita = false;
     this.errores.fecha_cita = false;
+    this.errores.codigo_pais = false;
 
     this.cita_serv.consultaCita(id_cita)
     .subscribe(
@@ -161,6 +163,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         this.form.get("hora_cita")?.setValue(this.cita.horario_cita__id);
         this.form.get("codigo_pais")?.setValue(this.cita.codigo_pais__id);
         this.form.get("whatsapp")?.disable();
+        this.form.get("codigo_pais")?.disable();
     this.form.get("email")?.disable();
       },
       error => {
@@ -218,6 +221,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.spinner = true;
 
     this.form.get("whatsapp")?.enable();
+    this.form.get("codigo_pais")?.enable();
     this.form.get("email")?.enable();
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
@@ -226,6 +230,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
     this.errores.email = !this.form.get("email")?.valid;
     this.errores.whatsapp = !this.form.get("whatsapp")?.valid;
+    this.errores.codigo_pais = !this.form.get("codigo_pais")?.valid;
     this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
     this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
 
@@ -273,6 +278,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         localStorage.setItem("apellido_m",this.form.value.apellido_m);                
         localStorage.setItem("email",this.form.value.email);
         localStorage.setItem("whatsapp",this.form.value.whatsapp);
+        localStorage.setItem("codigo_pais",this.form.value.codigo_pais);
         localStorage.setItem("pais_destino",this.form.value.pais_viaje);
         localStorage.setItem("fecha_viaje",this.form.value.fecha_viaje);
         
@@ -288,6 +294,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
 
     
     this.form.get("whatsapp")?.enable();
+    this.form.get("codigo_pais")?.enable();
     this.form.get("email")?.enable();
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
@@ -296,14 +303,17 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
     this.errores.email = !this.form.get("email")?.valid;
     this.errores.whatsapp = !this.form.get("whatsapp")?.valid;
+    this.errores.codigo_pais = !this.form.get("codigo_pais")?.valid;
     this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
     this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
 
     this.form.get("whatsapp")?.disable();
+    this.form.get("codigo_pais")?.disable();
     this.form.get("email")?.disable();
 
     if(this.form.valid){
       this.form.get("whatsapp")?.enable();
+      this.form.get("codigo_pais")?.enable();
       this.form.get("email")?.enable();
       this.muestra_form = false;
       this.show_valida_whatsapp=true;
