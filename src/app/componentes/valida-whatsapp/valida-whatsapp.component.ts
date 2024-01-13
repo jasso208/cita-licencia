@@ -1,5 +1,5 @@
 import { Component,Input,Output, EventEmitter, OnInit, AfterContentInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { EmmiterService } from 'src/app/servicios/emmiter.service';
 import { GeneralService } from 'src/app/servicios/general.service';
@@ -9,9 +9,12 @@ import { GeneralService } from 'src/app/servicios/general.service';
   templateUrl: './valida-whatsapp.component.html',
   styleUrls: ['./valida-whatsapp.component.css']
 })
-export class ValidaWhatsappComponent  {
+export class ValidaWhatsappComponent  implements OnInit{
 
   @Input() show:boolean;
+  @Input() whatsapp:string;
+  @Input() email:string;
+  @Input() codigo_pais:string;
 
   @Output() hide_emmiter = new EventEmitter<boolean>();
   @Output() cancelar = new EventEmitter<boolean>();
@@ -44,35 +47,46 @@ export class ValidaWhatsappComponent  {
     this.tipo_autenticacion_str = "";
 
     this.form = this.fb.group({
-      email:[''],
-      whatsapp:['']
+      email:new FormControl(""),
+      codigo_pais:new FormControl(""),
+      whatsapp: new FormControl("")
     });
 
     this.form_codigo = this.fb.group({
       token:['']
     });
-
-
-    this.emmiter_service.$token_whatsapp.subscribe(
-      (whatsapp:number) => {
-        this.form.get("whatsapp")?.setValue(whatsapp);
-        this.envioToken();
-      }
-    );
-
+    
+    
+    
   }
 
-  
+  ngOnInit(): void {
 
+    this.eventEmmiter(this.codigo_pais,this.whatsapp,this.email);
+   
+  }
+
+  eventEmmiter(codigo_pais:string,whatsapp:string,email:string){
+    
+    this.form.get("codigo_pais")?.setValue(codigo_pais);
+    this.form.get("whatsapp")?.setValue(whatsapp);
+    this.form.get("email")?.setValue(email);
+    
+        this.form_codigo.get("token")?.setValue("");
+        this.envioToken();
+  }
   envioToken():any{
+
     this.sppiner_div = true;
         
     let data = {
       id_cliente:localStorage.getItem("id_cliente"),
       email:this.form.get("email")?.value,
+      codigo_pais:this.form.get("codigo_pais")?.value,
       whatsapp:this.form.get("whatsapp")?.value
     }
 
+    console.log(data);
     this.gservice.post("cliente/tokenClienteWhatsapp",data)
     .subscribe(
       data=>{
@@ -80,6 +94,7 @@ export class ValidaWhatsappComponent  {
         if(data.estatus == 0){
           this.toastr.error(data.msj,"Error");
           this.sppiner_div = false;
+          this.fCancelar();
           return ;
         }
         

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { EmmiterService } from 'src/app/servicios/emmiter.service';
 import { GeneralService } from 'src/app/servicios/general.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class LoginComponent {
   constructor(
     private fb:FormBuilder,
     private gservice:GeneralService,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private evem:EmmiterService
   ){
     console.log(localStorage.getItem("id_cliente"));
     if(localStorage.getItem("id_cliente") == null  || localStorage.getItem("id_cliente")== ""){
@@ -103,11 +105,13 @@ export class LoginComponent {
     this.gservice.get(url)
     .subscribe(
       data=>{        
+        this.form_codigo.get("token")?.setValue("");
         if(data.estatus == "0"){
           this.toastr.error(data.msj,"Error");
           return;
         }
         
+        console.log(data);
         localStorage.setItem("id_cliente",this.id_cliente);
         localStorage.setItem("nombre",data.data.nombre);
         localStorage.setItem("apellido_p",data.data.apellido_p);
@@ -115,9 +119,15 @@ export class LoginComponent {
         localStorage.setItem("email",data.data.email);
         localStorage.setItem("whatsapp",data.data.whatsapp);
         localStorage.setItem("pais_destino",data.data.pais_destino);
-        localStorage.setItem("fecha_viaje",data.data.fecha_viaje);
+        localStorage.setItem("codigo_pais",data.data.codigo_pais);
+        let fecv = data.data.fecha_viaje;
+        if(fecv =='null'){
+          fecv = '';
+        }
+        localStorage.setItem("fecha_viaje",fecv);
         localStorage.setItem("forma_autenticacion",this.forma_autenticacion);
-        console.log("entro aqui");
+      
+        //this.evem.validaAdmin();
         this.login_ok.emit(true);
         //this.toastr.success("Error al validar el codigo.","Error");    
       },
@@ -138,7 +148,9 @@ export class LoginComponent {
   }
   timmer():any{
     
-    this.segundos = this.segundos - 1;
+    if(this.segundos > 0){
+      this.segundos = this.segundos - 1;
+    }
     
     if(this.segundos <= 0){  
       clearInterval(this.interval);  

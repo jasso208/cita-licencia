@@ -18,6 +18,7 @@ export class GeneralService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
 
+    
     return this.http.post(environment.url_api + url,data,{headers:headers});
   }
 

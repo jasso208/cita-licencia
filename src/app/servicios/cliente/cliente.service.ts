@@ -21,12 +21,19 @@ export class ClienteService {
       "whatsapp": form.value.whatsapp,
       "email": form.value.email,
       "pais_destino": form.value.pais_viaje,
-      "fecha_viaje": form.value.fecha_viaje
+      "fecha_viaje": form.value.fecha_viaje,
+      "codigo_pais":form.value.codigo_pais
     }
 
     let url = environment.url_api + "cliente/actualizaCliente";
 
     return this.http.put(url,data);
 
+  }
+
+  validaClienteAdmin():Observable<any>{
+    let id_cliente = localStorage.getItem("id_cliente");
+    let url = environment.url_api + "cliente/validaClienteAdmin?id_cliente=" + id_cliente;
+    return this.http.get(url);
   }
 }

@@ -1,0 +1,26 @@
+#div-principal{
+
+    height:90%;
+    position:fixed;
+    width:90%;
+    left:5%;
+    top:5%;
+
+}
+
+
+@media only screen and (max-width: 835px)  {
+    
+}
+  
+@media only screen and (max-width: 699px)  {
+    #div-principal{
+
+        height:auto;
+        position:fixed;
+        width:100%;
+        left:0%;
+        top:0%;
+    
+    }
+}

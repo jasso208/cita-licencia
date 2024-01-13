@@ -12,7 +12,7 @@
 #spinner{
     position:fixed;
     top:45%;
-    left:45%;
+    left:47%;
     z-index:2000;
 
 }
@@ -54,3 +54,5 @@
     margin-top:-3px;
     background-color:white;
 }
+
+

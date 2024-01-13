@@ -24,7 +24,7 @@ export class CalendarioComponent implements OnInit {
   private pipe = new DatePipe('en-US');
   private mes_seleccionado:number;
   private anio_seleccionado:number;
-
+  public  modifica_cita:boolean;
   public  nombre_completo:string;
   constructor(
     private cfecha:ConvierteFechaService,
@@ -40,7 +40,8 @@ export class CalendarioComponent implements OnInit {
     this.mes_seleccionado = 0;
     this.anio_seleccionado = 0;    
     this.dias_mes_actual = new Array<DiasMes>();
-
+    this.modifica_cita = false;
+    this.modifica_cita = true;   
   }
 
   ngOnInit(){
@@ -58,7 +59,10 @@ export class CalendarioComponent implements OnInit {
       this.nombre_completo = localStorage.getItem("email");
     }
     
+    //this.emitModificaCita();
+    this.modifica_cita = false;   
   }
+ 
   cargaDiasMes():void{
     
     this.spinner = true;
@@ -81,6 +85,7 @@ export class CalendarioComponent implements OnInit {
         }else{
           this.toastr.error("Error al cargar el calendario.","Error");
         }
+        this.emmiterService.validaAdmin();
         this.spinner = false;
       },
       error => {
@@ -139,6 +144,7 @@ export class CalendarioComponent implements OnInit {
     }
 
   }
+
   reload():any{
     this.cargaDiasMes();
   }

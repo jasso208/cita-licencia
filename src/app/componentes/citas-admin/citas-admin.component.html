@@ -1,0 +1,159 @@
+
+<div class="modal" *ngIf="show">
+    <div class="modal-dialog" role="dialog" aria-hidden="true" >
+        <div class="modal-content">
+          <div class="modal-header" >
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title" >
+                  <span>
+                    <img src="../../../assets/img/calendar.png">
+                  </span>
+                    Administración de citas
+                </h3>
+                
+            </div>
+            <div  class="modal-body" >  
+            <hr style="border:1px solid #eff4ff">     
+                <div class="clr-row" [formGroup]="form" >
+                    <div class="clr-col-sm-6 " style="text-align:right">
+                        <clr-date-container>
+                            <label>Fecha</label>
+                            <input formControlName="fecha" [(ngModel)]="date" (ngModelChange)="getAllCitas()" type="date" autocomplete="off" clrDate name="demo"  />
+                          </clr-date-container>
+                    </div>
+                    <div class="clr-col-sm-6 " style="text-align:right">
+                     
+                <br>
+                <br>
+                    <div  class="clr-control-container"  >
+                      <clr-checkbox-wrapper>
+                        <input type="checkbox" clrCheckbox formControlName="solo_activas" (click)="soloActivas()"/>
+                        <label>Solo citas activas.</label>
+                      </clr-checkbox-wrapper>
+                    </div>
+                </div>
+              </div>
+
+
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th id="th0">                          
+                        </th>
+                        <th id="th1">Fecha cita</th>
+                        <th id="th2">Horario</th>
+                        <th id="th3" >Fecha viaje</th>
+                        <th id="th4" class="td-destino">Lugar viaje</th>  
+                        <th id="th5" class="td-destino">Estatus</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of citas">
+                        <td>
+                          <a 
+                            *ngIf="c.estatus_cita__id == 1" 
+                            class="btn-grid" 
+                            (click)="modificaCita(c.id)"
+                            style="padding-top:5px;padding-bottom:10px;"
+                            >
+                            <span>
+                              <img   src="../../../assets/img/calendar-icon.png" style="width:20px;">
+                            </span>      
+                            Ver                      
+                          </a>
+                        </td>
+                        <td >
+                          <span 
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                          >
+                            {{c.horario_cita__fecha__fecha}}
+                            </span>
+                          </td>
+                          <td >
+                            <span 
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                              {{c.horario_cita__horario}}
+                              </span>
+                            </td>
+                        <td>
+                            <span
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                            {{c.fecha_viaje}}
+                            </span>
+                          </td>
+                        <td class="td-destino">
+                            <span
+                              [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                            {{c.pais_destino}}
+                            </span>
+                          </td>    
+                        <td class="td-destino">
+                          <span
+                          [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                          >
+                            {{c.estatus_cita__estatus}}
+                          </span>  
+                          </td>                        
+                    </tr>
+                </tbody>
+              </table>
+
+              <div *ngIf="!existen_citas">
+                  <h5 style="background-color: #f6f6f6;margin-top:0px; text-align: center;padding-top:30px;padding-bottom: 20px;">No exiten citas.</h5>
+              </div>
+               <div  *ngIf="existen_citas" class="clr-row" style="margin-top:-20px;">
+                <div class="clr-col-12" style="text-align:right" *ngIf="pagination">
+                 <span><img src="../../../assets/img/first-page-icon.png" (click)="firstPagina()" style="margin-top:-3px;cursor:pointer;margin-right:-5px"></span>
+                    &nbsp;
+                    <span><img src="../../../assets/img/back-icon.png" (click)="backPagina()" style="width:15px;margin-top:-3px;cursor:pointer;margin-right:-5px"></span>
+                    &nbsp;
+                    <div [formGroup]="form_page" class="clr-control-container"  >
+                         <input clrInput style="width:20px" formControlName="num_page" name="input" (change)="cambiaPagina()"/> 
+                    </div>
+                    /
+                    {{pagination.total_pages}}
+
+                    &nbsp;
+                    <span><img src="../../../assets/img/next2-icon.png" style="width:15px;margin-top:-3px;cursor:pointer;" (click)="nextPagina()"></span>
+&nbsp;
+                    <span><img src="../../../assets/img/last-page-icon.png" style="margin-top:-3px;cursor:pointer;" (click)="lastPagina()"></span>
+                </div>
+              </div>
+            </div>
+
+      
+            <div class="modal-footer" >                                
+                <button class="btn  btn-outline" type="button" 
+                  (click)="show = false"
+                  style="border-radius:20px"
+                >
+                    <span>
+                        <img src="../../../assets/img/cancel-icon-blue.png"  style="width:20px;margin-top:-3px;">
+                    </span>
+                    &nbsp;
+                  Cancelar
+                </button>                
+            </div>
+            
+           
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="show"></div>
+
+
+<div id="sppiner_div" *ngIf="spinner == true">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>
+

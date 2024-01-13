@@ -1,0 +1,62 @@
+
+<div class="modal " *ngIf="show">
+    <div class="modal-dialog modal-sm" role="dialog" aria-hidden="true" >
+        <div class="modal-content">
+          <div class="modal-header" >
+                <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title" >
+                  <span>
+                    <img src="../../../assets/img/tools-icon.png">
+                  </span>
+                    Administración
+                </h3>
+                
+            </div>
+            <div  class="modal-body" >  
+            <hr style="border:1px solid #eff4ff">     
+              
+            
+                <clr-vertical-nav style="width:100%;background-color:white">
+                  <a (click)="showCitasAdmin()" class="btn-nav" clrVerticalNavLink routerLink="./charmander" routerLinkActive="active">
+                    <img src="../../../assets/img/calendar-icon.png">
+                    
+                    &nbsp;
+                    
+                    Citas
+                  </a>
+               
+                    </clr-vertical-nav>
+          
+
+            </div>
+
+      
+            <div class="modal-footer" >                                
+                <button class="btn  btn-outline" type="button" 
+                  (click)="show = false"
+                  style="border-radius:20px"
+                >
+                    <span>
+                        <img src="../../../assets/img/cancel-icon-blue.png"  style="width:20px;margin-top:-3px;">
+                    </span>
+                    &nbsp;
+                  Cancelar
+                </button>                
+            </div>
+            
+           
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true" *ngIf="show"></div>
+
+
+<div id="sppiner_div" *ngIf="spinner == true">
+  <span  id="spinner" class="spinner spinner-lg">
+    Loading...
+  </span>
+</div>
+
+<app-citas-admin></app-citas-admin>

@@ -1,8 +1,8 @@
 
 <div class="modal" *ngIf="show">
-    <div class="modal-dialog" role="dialog" aria-hidden="true" style="border-radius: 20px;">
+    <div class="modal-dialog" role="dialog" aria-hidden="true" >
         <div class="modal-content">
-            <div class="modal-header"  style="border-top-right-radius: 20px;border-top-left-radius: 20px;">
+          <div class="modal-header" >
                 <button aria-label="Close" class="close" type="button">
                     <clr-icon aria-hidden="true" shape="close"></clr-icon>
                 </button>
@@ -12,8 +12,23 @@
                   </span>
                     Mis citas
                 </h3>
+                
             </div>
-            <div class="modal-body" style="padding-top:0px;padding-bottom: 0px;padding-left:10px;padding-right: 10px;">
+            <div  class="modal-body" >  
+            <hr style="border:1px solid #eff4ff">     
+                <div class="clr-row" >
+                <div class="clr-col-12" style="text-align:right">
+                <br>
+                    <div [formGroup]="form" class="clr-control-container"  >
+                      <clr-checkbox-wrapper>
+                        <input type="checkbox" clrCheckbox formControlName="solo_activas" (click)="soloActivas()"/>
+                        <label>Solo citas activas.</label>
+                      </clr-checkbox-wrapper>
+                    </div>
+                </div>
+              </div>
+
+
               <table class="table">
                 <thead>
                     <tr>
@@ -22,42 +37,102 @@
                         <th id="th1">Fecha cita</th>
                         <th id="th2">Horario</th>
                         <th id="th3" >Fecha viaje</th>
-                        <th id="th4" class="td-destino">Lugar viaje</th>                        
+                        <th id="th4" class="td-destino">Lugar viaje</th>  
+                        <th id="th5" class="td-destino">Estatus</th>                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let c of citas">
                         <td>
-                          <a class="btn-grid">
+                          <a 
+                            *ngIf="c.estatus_cita__id == 1" 
+                            class="btn-grid" 
+                            (click)="modificaCita(c.id)"
+                            style="padding-top:5px;padding-bottom:5px"
+                            >
                             <span>
                               <img src="../../../assets/img/calendar-icon.png" style="width:20px;">
                             </span>                            
                           </a>
                         </td>
                         <td >
-                          <span >2023/12/29
+                          <span 
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                          >
+                            {{c.horario_cita__fecha__fecha}}
                             </span>
                           </td>
                           <td >
-                            <span >09:00 - 09:30
+                            <span 
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                              {{c.horario_cita__horario}}
                               </span>
                             </td>
-                        <td>2024/01/25</td>
-                        <td class="td-destino">Canada</td>                        
+                        <td>
+                            <span
+                            [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                            {{c.fecha_viaje}}
+                            </span>
+                          </td>
+                        <td class="td-destino">
+                            <span
+                              [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                            >
+                            {{c.pais_destino__descripcion}}
+                            </span>
+                          </td>    
+                        <td class="td-destino">
+                          <span
+                          [ngStyle]="{'font-weight': c.estatus_cita__id == 1 ? 'bold':'none','text-decoration': c.estatus_cita__id == 1 ? 'none':'line-through' }"
+                      
+                          >
+                            {{c.estatus_cita__estatus}}
+                          </span>  
+                          </td>                        
                     </tr>
                 </tbody>
-            </table>
+              </table>
+
+              <div *ngIf="!existen_citas">
+                  <h5 style="background-color: #f6f6f6;margin-top:0px; text-align: center;padding-top:30px;padding-bottom: 20px;">No exiten citas.</h5>
+              </div>
+               <div  *ngIf="existen_citas" class="clr-row" style="margin-top:-20px;">
+                <div class="clr-col-12" style="text-align:right" *ngIf="pagination">
+                 <span><img src="../../../assets/img/first-page-icon.png" (click)="firstPagina()" style="margin-top:-3px;cursor:pointer;margin-right:-5px"></span>
+                    &nbsp;
+                    <span><img src="../../../assets/img/back-icon.png" (click)="backPagina()" style="width:15px;margin-top:-3px;cursor:pointer;margin-right:-5px"></span>
+                    &nbsp;
+                    <div [formGroup]="form_page" class="clr-control-container"  >
+                         <input clrInput style="width:20px" formControlName="num_page" name="input" (change)="cambiaPagina()"/> 
+                    </div>
+                    /
+                    {{pagination.total_pages}}
+
+                    &nbsp;
+                    <span><img src="../../../assets/img/next2-icon.png" style="width:15px;margin-top:-3px;cursor:pointer;" (click)="nextPagina()"></span>
+&nbsp;
+                    <span><img src="../../../assets/img/last-page-icon.png" style="margin-top:-3px;cursor:pointer;" (click)="lastPagina()"></span>
+                </div>
+              </div>
             </div>
+
+      
             <div class="modal-footer" >                                
-                <a class="btn btn-sm btn-primary" type="button" 
+                <button class="btn  btn-outline" type="button" 
                   (click)="show = false"
+                  style="border-radius:20px"
                 >
                     <span>
-                        <img src="../../../assets/img/cancel-icon.png"  style="width:15px;margin-top:-3px;">
+                        <img src="../../../assets/img/cancel-icon-blue.png"  style="width:20px;margin-top:-3px;">
                     </span>
                     &nbsp;
                   Cancelar
-                </a>                
+                </button>                
             </div>
             
            
@@ -72,3 +147,4 @@
     Loading...
   </span>
 </div>
+

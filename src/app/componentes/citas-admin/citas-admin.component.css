@@ -1,0 +1,72 @@
+
+/*Modal Form*/
+.modal-dialog{
+    border-radius: 20px;
+}
+.modal-content{
+    padding:0px;
+}
+
+.modal-header
+{
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+}
+.modal-header h3{
+    padding-bottom: 20px;
+}
+.modal-header, .modal-footer{
+    
+    padding:30px;
+
+}
+.modal-body{
+    padding-top:0px;
+    padding-bottom: 0px;
+    padding-left:20px;
+    padding-right: 20px;
+    margin-top:-30px;
+}
+.modal-title{
+    color: black;
+    font-weight: 500px;
+}
+
+
+.modal-title img{
+    width: 20px;
+    margin-top:-5px;
+}
+
+.table th{
+    text-align: left;
+    
+}
+.table td{
+    text-align: left;
+    font-size:11px
+}
+.btn-grid{
+    cursor: pointer;
+
+}
+.btn-grid:hover img{
+    width: 30;
+}
+.btn-nav{
+    background-color: white;
+    color:black;
+}
+.btn-nav  img {
+    width:20px;
+}
+@media only screen and (max-width: 835px)  {
+
+}
+  
+@media only screen and (max-width: 699px)  {
+    .td-destino{
+        display: none;
+    }
+}
+/*Modal Form*/

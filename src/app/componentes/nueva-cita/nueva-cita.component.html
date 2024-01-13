@@ -1,8 +1,8 @@
 
 <div class="modal" *ngIf="muestra_form"  >
-    <div class="modal-dialog" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog" role="dialog" aria-hidden="true"  >
         <div class="modal-content" >
-            <div class="modal-header" >
+            <div class="modal-header"  >
                 <button aria-label="Close" class="close" type="button">
                     <clr-icon aria-hidden="true" shape="close"></clr-icon>
                 </button>
@@ -15,8 +15,19 @@
                 </h3>                                
             </div>
             <div class="modal-body" >                
-
-                <form class="clr-form" style="margin-top:-30px;" [formGroup]="form">
+                <hr style="border:1px solid #eff4ff">   
+                <form class="clr-form" id="form" [formGroup]="form">
+                 <div class="clr-row">
+                    <div class="clr-col-12">
+                       <div *ngIf="bloqueaaltacita" style="width:100%;margin-top:10px;padding:10px;background-color:#edeeef">
+                                    <span>
+                                      <img src="../../../assets/img/error-icon.png" style="width:15px">
+                                      Ya cuenta con una cita. Para reagendar vaya al menu "Mis citas".
+                                      <br>
+                                      </span>
+                                  </div>
+                        </div>
+                        </div>
                     <div class="clr-row" >
                         <div class="clr-col-6 clr-col-md-4">
                             <div class="clr-form-control" >
@@ -28,7 +39,7 @@
                                   </label>
                                 <div class="clr-control-container" >
                                   <div class="clr-input-wrapper">
-                                    <input type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
+                                    <input (change)="cambioFechaCita()" type="date" id="basic" class="clr-input" formControlName="fecha_cita" value="{{fecha_seleccionada | date:'yyyy-MM-dd' }}"/>
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
                                   <span *ngIf="errores.fecha_cita" class="clr-subtext" style="color: red;">Seleccione la fecha de cita.</span>
@@ -47,6 +58,9 @@
                                   <div class="clr-input-wrapper">
                                     <div class="clr-select-wrapper">
                                         <select id="select-basic" class="clr-select" formControlName="hora_cita">
+                                           <option value="" >
+                                            --Seleccione--
+                                          </option>
                                           <option *ngFor="let h of horarios" value="{{h.id}}">
                                               {{h.horario}}
                                           </option>
@@ -121,14 +135,40 @@
                     </div>
                     
                     <div class="clr-row">
-                        <div class="clr-col-12">
-                            <div class="clr-form-control" >
+                    
+                        <div class="clr-col-sm-12 clr-col-md-3">
+                          <div class="clr-form-control" >
                                 <label for="basic" class="clr-control-label">
                                       <span>
+                                          <img src="../../../assets/img/world-icon.png" style="width:15px">
+                                      </span>
+                                </label>                          
+                                <div class="clr-control-container" >
+                                  <div class="clr-input-wrapper">
+                                    <div class="clr-select-wrapper">
+                                        <select formControlName="codigo_pais" id="select-basic" class="clr-select" >
+                                          <option value="" >
+                                            ----
+                                          </option>
+                                          <option *ngFor="let c of codigos" value="{{c.id}}">
+                                            {{c.nombre_corto}} ({{c.codigo}})
+                                          </option>
+                                        </select>
+                                    </div>
+                                    <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                  </div>
+                                  <span *ngIf="errores.codigo_pais" class="clr-subtext" style="color: red;">Debe seleccionar un código internacional.</span>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="clr-col-sm-12 clr-col-md-9">
+                            <div class="clr-form-control" >                          
+                                <label for="basic" class="clr-control-label">
+                                  <span>
                                           <img src="../../../assets/img/whatsapp.png" style="width:15px">
                                       </span>
                                       Whatsapp
-                                  </label>
+                                </label>
                                 <div class="clr-control-container"  >
                                   <div class="clr-input-wrapper">
                                     <input formControlName="whatsapp" type="text" class="clr-input"  />
@@ -169,13 +209,35 @@
                                       </span>-->
                                       Pais al que viaja
                                   </label>
-                                <div class="clr-control-container"  >
+                                <div class="clr-control-container" >
                                   <div class="clr-input-wrapper">
-                                    <input formControlName="pais_viaje" type="text" id="basic" class="clr-input"  />
-                                    <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                                    <div class="clr-select-wrapper">
+                                        <select id="select-basic" class="clr-select" formControlName="pais_viaje" (change)="selPais()">
+                                          <option value="" >
+                                            --Seleccione--
+                                          </option>
+                                          <option *ngFor="let p of paises" value="{{p.id}}">
+                                              {{p.descripcion}}
+                                          </option>
+                                        </select>
+                                    </div>
+                                    <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <span  *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Indique el pais al que viaja.</span>
+                                  <span *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Debe seleccionar un pais.</span>
                                 </div>
+
+                                  <div *ngIf="pais_derecho_admision" style="width:100%;margin-top:10px;padding:10px;background-color:#edeeef">
+                                    <span>
+                                      <img src="../../../assets/img/error-icon.png" style="width:15px">
+                                      Advertencia
+                                      <br>
+                                      </span>
+                                      <span style="font-size:10px">
+                                        La licencia internacional funciona en más de 180 países, excepto ASIA donde se reservan el derecho de admisión de el documento expedido en México (China, Japón, Tailandia, Corea, Filipinas, Malasia, Singapur, Laos, Vietnam, Indonesia) además IRLANDA, BOLIVIA Y PARAGU, si usted visita alguno de estos países, por favor póngase en contacto con nosotros para mayor información
+                                    
+                                      </span>
+                                  </div>
+
                               </div>                
                         </div>
                     </div>
@@ -198,18 +260,32 @@
                               </div>                
                         </div>
                     </div>
+                    
                 </form>
 
             </div>
-            <div class="modal-footer" >                
-                <button class="btn btn-sm btn-outline" type="button" (click)="muestra_form = false" >
+            <div class="modal-footer" >   
+               
+
+                <button 
+                  class="btn  btn-outline" 
+                  type="button" 
+                  (click)="muestra_form = false" 
+                  style="border-radius:20px;"  
+                >
 
                   <span>
                     <img src="../../../assets/img/cancel-icon-black.png" style="width: 15px;">
                   </span>  
                   Cancelar
                 </button>
-                <button class="btn btn-sm btn-primary" type="button" (click)="validaWhatsapp()"  >Siguiente
+                <button 
+                  class="btn btn-primary" 
+                  type="button" 
+                  (click)="validaWhatsapp()"  
+                  style="border-radius:20px;"  
+                  *ngIf="!bloqueaaltacita"
+                >Siguiente
 
                 <span>
                   <img src="../../../assets/img/next-icon.png" style="width: 15px;">
@@ -222,8 +298,11 @@
 </div>
 <div class="modal-backdrop" aria-hidden="true" *ngIf="muestra_form"></div>
 
-<app-valida-whatsapp
+<app-valida-whatsapp *ngIf="show_valida_whatsapp"
   [show]="show_valida_whatsapp"
+  [whatsapp]="whatsapp"  
+  [codigo_pais]="codigo_pais"
+  [email]="email"
   (hide_emmiter)="hideValidaWhatsapp()"
   (cancelar)="cancelar()"
 ></app-valida-whatsapp>
