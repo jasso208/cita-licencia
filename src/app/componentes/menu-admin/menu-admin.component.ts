@@ -28,7 +28,9 @@ export class MenuAdminComponent implements OnInit{
     this.ms.$menu_admin.subscribe(
       () =>{
         
-        this.show = true;
+        //this.show = true;
+        //Para el perfil asociado, mandamos directo al grid de citas.
+        this.ms.showCitasAdmin();
       }
     );
   }

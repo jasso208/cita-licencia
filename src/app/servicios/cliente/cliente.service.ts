@@ -12,8 +12,9 @@ export class ClienteService {
     private http:HttpClient
   ) { }
 
-  actualizaCliente(form:any):Observable<any>{
+  actualizaCliente(form:any,id_cita:number = 0):Observable<any>{
     let data = {
+      "id_cita":id_cita,
       "id_cliente":localStorage.getItem("id_cliente"),      
       "nombre": form.value.nombre,
       "apellido_p": form.value.apellido_p,
@@ -25,6 +26,7 @@ export class ClienteService {
       "codigo_pais":form.value.codigo_pais
     }
 
+    console.log(data);
     let url = environment.url_api + "cliente/actualizaCliente";
 
     return this.http.put(url,data);
@@ -35,5 +37,14 @@ export class ClienteService {
     let id_cliente = localStorage.getItem("id_cliente");
     let url = environment.url_api + "cliente/validaClienteAdmin?id_cliente=" + id_cliente;
     return this.http.get(url);
+  }
+
+  validaPerfilSession():Observable<any>{
+    let id_cliente = localStorage.getItem("id_cliente");
+    let session = localStorage.getItem("session");
+    
+    let url = environment.url_api + "cliente/validaPerfilSession?id_cliente=" + id_cliente + "&session=" + session;
+    return this.http.get(url);
+
   }
 }

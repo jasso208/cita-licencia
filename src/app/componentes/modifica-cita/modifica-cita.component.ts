@@ -35,6 +35,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
   public codigo_pais:string;
   public codigos:Array<any>;
   public pais_derecho_admision:boolean;
+  public administrador:number;
+
   constructor(
     private emmiterService: EmmiterService,
     private fb: FormBuilder,
@@ -59,7 +61,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         hora_cita: new FormControl('',[Validators.required]),
         nombre: new FormControl('',[Validators.required]),
         apellido_p: new FormControl('',[Validators.required]),
-        apellido_m: new FormControl(''),
+        apellido_m: new FormControl('',[Validators.required]),
         whatsapp: new FormControl('',[Validators.required]),
         email: new FormControl('',[Validators.required]),
         pais_viaje: new FormControl('',[Validators.required]),
@@ -88,7 +90,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         this.muestra_form = true;    
         this.id_cita = id_cita;
         this.carga_inicial = true;
-        this.consultaCita(id_cita);    
+        this.consultaCita(id_cita);   
+         
        
       }
     );
@@ -134,6 +137,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     
     this.errores.nombre = false;
     this.errores.apellido_p = false;
+    this.errores.apellido_m = false;
     this.errores.pais_viaje = false;
     this.errores.fecha_viaje = false;
     this.errores.email = false;
@@ -164,6 +168,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
         this.form.get("codigo_pais")?.setValue(this.cita.codigo_pais__id);
         this.form.get("whatsapp")?.disable();
         this.form.get("codigo_pais")?.disable();
+        this.selPais();
     this.form.get("email")?.disable();
       },
       error => {
@@ -226,6 +231,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
     this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
+    this.errores.apellido_m = !this.form.get("apellido_p")?.valid;
     this.errores.pais_viaje = !this.form.get("pais_viaje")?.valid;
     this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
     this.errores.email = !this.form.get("email")?.valid;
@@ -263,8 +269,10 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
   //Esta peticion correo de fondo. 
   //No bloquea al usuario
   actualizaCliente():any{
+   
+
     //this.spinner = true;
-    this.clis.actualizaCliente(this.form)
+    this.clis.actualizaCliente(this.form,this.id_cita)
     .subscribe(
       data => {
 
@@ -273,24 +281,52 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
           return ;
         }
         
-        localStorage.setItem("nombre",this.form.value.nombre);
-        localStorage.setItem("apellido_p",this.form.value.apellido_p);
-        localStorage.setItem("apellido_m",this.form.value.apellido_m);                
-        localStorage.setItem("email",this.form.value.email);
-        localStorage.setItem("whatsapp",this.form.value.whatsapp);
-        localStorage.setItem("codigo_pais",this.form.value.codigo_pais);
-        localStorage.setItem("pais_destino",this.form.value.pais_viaje);
-        localStorage.setItem("fecha_viaje",this.form.value.fecha_viaje);
+        if(data.administrador != "1"){
+          localStorage.setItem("nombre",this.form.value.nombre);
+          localStorage.setItem("apellido_p",this.form.value.apellido_p);
+          localStorage.setItem("apellido_m",this.form.value.apellido_m);                
+          localStorage.setItem("email",this.form.value.email);
+          localStorage.setItem("whatsapp",this.form.value.whatsapp);
+          localStorage.setItem("codigo_pais",this.form.value.codigo_pais);
+          localStorage.setItem("pais_destino",this.form.value.pais_viaje);
+          localStorage.setItem("fecha_viaje",this.form.value.fecha_viaje);
+        }
         
       },
       error => {
-        this.toastr.error("La cita se genero con exito. Error al actualizar la información del cliente.");
+        this.toastr.error("La cita se actualizo con exito. Error al actualizar la información del cliente.");
       }
     );
 
   }
 
+  validaPerfilSession():void{
+
+    this.clis.validaPerfilSession()
+    .subscribe(
+      data => {
+        this.administrador = data.administrador;
+
+        if(data.estatus == "0") {
+          this.toastr.error(data.msj);
+        }else{
+          //Si es administrador, no solicita confirmación por whatsapp
+          if(data.administrador == "1"){
+            this.actualizaCita();
+          }else{
+            this.validaWhatsapp();
+          }
+        }
+
+      },
+      error => {
+        this.toastr.error("Error al validar la session.");
+      }
+    );
+  }
+
   validaWhatsapp():any{
+
 
     
     this.form.get("whatsapp")?.enable();
@@ -299,6 +335,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
     this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
+    this.errores.apellido_m = !this.form.get("apellido_m")?.valid;
     this.errores.pais_viaje = !this.form.get("pais_viaje")?.valid;
     this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
     this.errores.email = !this.form.get("email")?.valid;

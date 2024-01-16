@@ -17,7 +17,7 @@
                 </h3>
                 <hr style="border:1px solid #eff4ff">   
             </div>
-            <div class="modal-body" *ngIf="show_form_envio_token">
+            <div class="modal-body" *ngIf="show_form_envio_token" style="margin-top:-30px">
               
                 Para continuar, es necesario que ingreses su correo electrónico.
 
@@ -63,7 +63,7 @@
             </div>
 
             <div class="modal-body" *ngIf="!show_form_envio_token" style="margin-top:-30px">
-                <p>Ingresa el codigo que se te envio al 
+                <p>Ingresa el código que se te envio al correo:  
                   <strong>
                   {{tipo_autenticacion_str}}
                   </strong>
@@ -81,7 +81,7 @@
                           </label>
                           <div class="clr-control-container" style="width:100%;text-align:center;" >
                             <div class="clr-input-wrapper">
-                              <input formControlName="token" type="text" id="basic" class="clr-input" />
+                              <input formControlName="token" type="text" id="basic" class="clr-input" style="width:60px"/>
                               <clr-icon class="clr-validate-icon" shape="exclamation-circle" ></clr-icon>
                             </div>
                             <!--<span class="clr-subtext">Helper Text</span>-->
@@ -151,7 +151,7 @@
                   style="border-radius:20px"
                 >
                   <span>
-                    <img src="../../../assets/img/logo-ana.jpg"  style="width:15px;margin-top:-3px;">
+                    <img src="../../../assets/img/back-icon.png"  style="width:15px;margin-top:-3px;">
                   </span>
                   Volver
                 </a>

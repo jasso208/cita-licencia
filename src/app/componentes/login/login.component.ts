@@ -111,7 +111,6 @@ export class LoginComponent {
           return;
         }
         
-        console.log(data);
         localStorage.setItem("id_cliente",this.id_cliente);
         localStorage.setItem("nombre",data.data.nombre);
         localStorage.setItem("apellido_p",data.data.apellido_p);
@@ -120,6 +119,7 @@ export class LoginComponent {
         localStorage.setItem("whatsapp",data.data.whatsapp);
         localStorage.setItem("pais_destino",data.data.pais_destino);
         localStorage.setItem("codigo_pais",data.data.codigo_pais);
+        localStorage.setItem("session",data.data.session);
         let fecv = data.data.fecha_viaje;
         if(fecv =='null'){
           fecv = '';

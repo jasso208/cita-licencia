@@ -71,8 +71,14 @@
     overflow-x:hidden;
 }
 
+@media only screen and (max-height:900px){
+    #form{
+        height: 500px;
+    }
+}
+
 @media only screen and (max-height:800px){
     #form{
-        height: 300px;
+        height: 500px;
     }
 }

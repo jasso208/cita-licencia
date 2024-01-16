@@ -49,14 +49,14 @@
                 <button *ngIf="admin == '0'" type="button" (click)="showMisCitas()" class="btn btn-icon" aria-label="home" 
                 style="margin-top:0px;border:0px;cursor:pointer">
                     <img  src="../../../assets/img/calendar-icon.png" style="width:17px;cursor:pointer">
-                    <label style="padding-left:5px;padding-top:10px;cursor:pointer">Mis citas</label>
+                    <label style="padding-left:5px;padding-top:10px;cursor:pointer">Actualizar cita</label>
                 </button>
                 
                
                 <button *ngIf="admin == '1'" (click)="showMenuAdmin()" type="button" class="btn btn-icon" aria-label="home" 
                     style="margin-top:0px;border:0px;cursor:pointer">
                     <img  src="../../../assets/img/tools-icon.png" style="width:17px;cursor:pointer">
-                    <label style="padding-left:5px;padding-top:10px;cursor:pointer">Admin</label>
+                    <label style="padding-left:5px;padding-top:10px;cursor:pointer">Citas</label>
                 </button>
                 
                  <button type="button" (click)="cerrarSesion()" class="btn btn-icon" aria-label="home" 
@@ -91,6 +91,7 @@
                 <div class="modal-body">
                     <p>Antes de continuar, valida que ya cuentes con la siguiente documentación.</p>
                    
+                   <!--
                     <form [formGroup]="form">
                         <clr-checkbox-container>
                             <clr-checkbox-wrapper>
@@ -111,16 +112,38 @@
                             </clr-checkbox-wrapper> 
                           </clr-checkbox-container>
                     </form>
+                    -->
+                    <br>
+                    <ul>
+                        <li>
+                            Pasaporte con vigencia minima de un año.
+                        </li>
+                        
+                        <li>
+                            Licencia Mexicana con vigencia minima de un año (no licencia digital).
+                        </li>
+                        <li>
+                            Credencial de elector, y si fuera extrangero su FM vigente.
+                        </li>
+                        
+                        <li>
+                            Comprobante de domicilio con antigüedad no mayor a 3 meses (no cuentas bancarias ni tarjetas departamentales).
+                        </li>
+                        
+                        <li>
+                            Una fotografia tamaño pasaporte a color.
+                        </li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <a 
-                    class="btn btn-primary" 
+                    class="btn btn-default" 
                     type="button" 
                     style="border-radius:20px;"  
                     (click)="cerrarSesion()"
                     >
                     <span>
-                        <img src="../../../assets/img/cancel-icon.png" style="width: 15px;">
+                        <img src="../../../assets/img/cancel-icon-black.png" style="width: 15px;">
                     </span>  
 
                     Cancelar
@@ -131,7 +154,6 @@
                     
                     <button 
                     
-                    *ngIf="muestra_continuar"
                     class="btn btn-primary" 
                     type="button" 
                     style="border-radius:20px;"  

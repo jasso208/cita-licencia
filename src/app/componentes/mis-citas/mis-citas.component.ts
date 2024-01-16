@@ -140,6 +140,7 @@ export class MisCitasComponent {
           return ;
         }
 
+
         this.citas= data.data;
         this.pagination = data.pagination
         
@@ -147,6 +148,15 @@ export class MisCitasComponent {
           
           this.existen_citas = true;
         }
+
+        this.show=false;
+        try{
+          this.modificaCita(data.data[0].id);
+        }
+        catch(e){
+          this.toas.error("No cuenta con cita activa.");
+        }
+        
 
         this.spinner = false;
       },

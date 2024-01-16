@@ -48,10 +48,10 @@
                                     <div class="clr-select-wrapper">
                                         <select id="select-basic" class="clr-select" formControlName="hora_cita">
                                           <option *ngIf="carga_inicial" value="{{cita?.horario_cita__id}}">
-                                              {{cita?.horario_cita__horario}}
+                                              {{cita?.horario_cita__consecutivo}}
                                           </option>
                                           <option *ngFor="let h of horarios" value="{{h.id}}">
-                                              {{h.horario}}
+                                              {{h.consecutivo}}
                                           </option>
                                         </select>
                                     </div>
@@ -117,6 +117,7 @@
                                 <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                               </div>
                               
+                            <span  *ngIf="errores.apellido_m" class="clr-subtext" style="color: red;">Indique el apellido materno.</span>
                             </div>
                           </div>                
                     </div>
@@ -170,7 +171,7 @@
                                     </div>
                                     <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <span *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Debe seleccionar un código internacional.</span>
+                                  <span *ngIf="errores.codigo_pais" class="clr-subtext" style="color: red;">Debe seleccionar un código internacional.</span>
                                 </div>
                           </div>
                         </div>
@@ -187,7 +188,7 @@
                                     <input formControlName="whatsapp" type="text" class="clr-input"  />
                                     <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <span   class="clr-subtext">Incluir formato internacional ej: +528130993586.</span>
+                                  
                                   <span  *ngIf="errores.whatsapp" style="color:red" class="clr-subtext">Indique el numero de whatsapp.</span>
                                 </div>
                               </div>                
@@ -237,16 +238,16 @@
                                     </div>
                                     <clr-icon   class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                                   </div>
-                                  <span *ngIf="errores.hora_cita" class="clr-subtext" style="color: red;">Debe seleccionar un horario disponible.</span>
+                                  <span *ngIf="errores.pais_viaje" class="clr-subtext" style="color: red;">Seleccione el pais destino.</span>
                                 </div>
-                              <div *ngIf="pais_derecho_admision" style="width:100%;margin-top:10px;padding:10px;background-color:#edeeef">
+                              <div  style="width:100%;margin-top:10px;padding:10px;background-color:#edeeef">
                                     <span>
                                       <img src="../../../assets/img/error-icon.png" style="width:15px">
                                       Advertencia
                                       <br>
                                       </span>
-                                      <span style="font-size:10px">
-                                        La licencia internacional funciona en más de 180 países, excepto ASIA donde se reservan el derecho de admisión de el documento expedido en México (China, Japón, Tailandia, Corea, Filipinas, Malasia, Singapur, Laos, Vietnam, Indonesia) además IRLANDA, BOLIVIA Y PARAGU, si usted visita alguno de estos países, por favor póngase en contacto con nosotros para mayor información
+                                  <span style="font-size:10px">
+                                        La licencia internacional funciona en más de 180 países, ASIA se reservan el derecho de admisión del documento expedido en México (China, Japón, Tailandia, Corea, Filipinas, Malasia, Singapur, Laos, Vietnam, Indonesia) además de IRLANDA, BOLIVIA Y PARAGU, si usted visita alguno de estos países, por favor póngase en contacto con nosotros para mayor información al teléfono 5555337176 o al correo electrónico info@licenciainternacional.com.mx o al whatsapp 5512288260.
                                     
                                       </span>
                                   </div>
@@ -330,7 +331,7 @@
                 <button 
                   class="btn btn-primary" 
                   type="button" 
-                  (click)="validaWhatsapp()"                  
+                  (click)="validaPerfilSession()"                  
                   style="border-radius:20px"  
                 >Siguiente
 

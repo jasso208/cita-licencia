@@ -34,6 +34,7 @@ export class NuevaCitaComponent implements OnInit {
   public pais_derecho_admision:boolean;
   public codigos:Array<any>;
   public bloqueaaltacita:boolean;
+  public administrador:number;
 
   constructor(
     private emmiterService: EmmiterService,
@@ -59,7 +60,7 @@ export class NuevaCitaComponent implements OnInit {
         hora_cita: new FormControl('',[Validators.required]),
         nombre: new FormControl('',[Validators.required]),
         apellido_p: new FormControl('',[Validators.required]),
-        apellido_m: new FormControl(''),
+        apellido_m: new FormControl('',[Validators.required]),
         whatsapp: new FormControl('',[Validators.required]),
         email: new FormControl('',[Validators.required]),
         pais_viaje: new FormControl('',[Validators.required]),
@@ -96,10 +97,33 @@ export class NuevaCitaComponent implements OnInit {
         this.getAllPaises();
         this.setForm();
         this.validaClienteConCita();
+        this.validaPerfilSession();
       }
     );
+
     
     this.getAllCodigoTelPais();
+
+  }
+
+  //al ser administrador. se cargara siempre el formulario en blanco.
+  isAdministrador():void{
+
+    //this.form.get("fecha_cita")?.setValue("");
+    this.form.get("hora_cita")?.setValue("");
+    this.form.get("nombre")?.setValue("");
+    this.form.get("apellido_p")?.setValue("");
+    this.form.get("apellido_m")?.setValue("");
+    this.form.get("whatsapp")?.setValue("");
+    this.form.get("email")?.setValue("");
+    this.form.get("pais_viaje")?.setValue("");
+    this.form.get("fecha_viaje")?.setValue("");
+    this.form.get("codigo_pais")?.setValue("");
+
+    this.form.get("codigo_pais")?.enable();   
+    this.form.get("whatsapp")?.enable();
+    this.form.get("email")?.enable();
+
   }
 
   getAllPaises():void{
@@ -192,6 +216,107 @@ export class NuevaCitaComponent implements OnInit {
       this.form.get("codigo_pais")?.enable();   
     }
   }
+
+  
+  validaPerfilSession():void{
+
+    this.clis.validaPerfilSession()
+    .subscribe(
+      data => {
+        this.administrador = data.administrador;
+
+        if(data.estatus == "0") {
+          this.toastr.error(data.msj);
+        }else{
+          //Si es administrador, no solicita confirmación por whatsapp
+          if(data.administrador == "1"){
+            this.isAdministrador();
+          }
+          //else{
+          //  this.validaWhatsapp();
+          //}
+        }
+
+      },
+      error => {
+        this.toastr.error("Error al validar la session.");
+      }
+    );
+  }
+
+  altaCita():void{
+    if(this.administrador == 1){
+      this.generaCitaAdministrador();
+    }else{
+      this.validaWhatsapp();
+    }
+  }
+
+  
+  generaCitaAdministrador():any{
+    this.spinner = true;
+
+    this.errores.nombre = !this.form.get("nombre")?.valid;
+    this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
+    this.errores.apellido_m = !this.form.get("apellido_m")?.valid;
+    this.errores.pais_viaje = !this.form.get("pais_viaje")?.valid;
+    this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
+    this.errores.email = !this.form.get("email")?.valid;
+    this.errores.whatsapp = !this.form.get("whatsapp")?.valid;
+    this.errores.hora_cita = !this.form.get("hora_cita")?.valid;
+    this.errores.fecha_cita = !this.form.get("fecha_cita")?.valid;
+    this.errores.codigo_pais = !this.form.get("codigo_pais")?.valid;
+
+    if(this.form.valid){
+      this.cita.generaCitaAdministrador(this.form)
+      .subscribe(
+        data=>{
+            this.spinner = false;
+            if(data.estatus == "0"){
+              this.toastr.error(data.msj);
+              return;
+            }
+            //this.toastr.success("Cita generada con exito.","Notificación");
+            this.muestra_form = false;
+            
+            console.log("generaCitaAdministrador");
+            console.log(data.data);
+            console.log(data.data[0].id);
+            this.actualizaClienteAdministrador(data.data[0].id);
+            this.reload.emit(true);
+            this.emmiterService.confirmacionCita();
+        },
+        error => {
+          this.toastr.error("Error al generar la cita.","Error");
+          this.spinner = false;
+        }
+      );
+    }
+    else{
+      this.spinner = false;
+    }
+  }
+/*
+  validaClienteConCita():void{
+    this.spinner = true;
+    this.cita.validaClienteConCita()
+    .subscribe(
+      data => {
+        if(data.estatus == "1"){
+          this.bloqueaaltacita=false;
+        }
+        else{
+          this.bloqueaaltacita=true;
+        }
+        this.spinner=false;
+      },
+      error => {
+        this.bloqueaaltacita=false;
+        this.spinner=false;
+      }
+    );
+  }
+*/
   generaCita():any{
     this.spinner = true;
 
@@ -201,6 +326,7 @@ export class NuevaCitaComponent implements OnInit {
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
     this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
+    this.errores.apellido_m = !this.form.get("apellido_m")?.valid;
     this.errores.pais_viaje = !this.form.get("pais_viaje")?.valid;
     this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
     this.errores.email = !this.form.get("email")?.valid;
@@ -254,6 +380,39 @@ export class NuevaCitaComponent implements OnInit {
       }
     );
   }
+
+    //Esta peticion correo de fondo. 
+  //No bloquea al usuario
+  actualizaClienteAdministrador(id_cita:number):any{
+    //this.spinner = true;
+    console.log("actualizaClienteAdministrador");
+    console.log(id_cita);
+    this.clis.actualizaCliente(this.form,id_cita)
+    .subscribe(
+      data => {
+
+        if(data.estatus == "0"){
+          this.toastr.error(data.msj,"Error");
+          return ;
+        }
+        
+        localStorage.setItem("nombre",this.form.value.nombre);
+        localStorage.setItem("apellido_p",this.form.value.apellido_p);
+        localStorage.setItem("apellido_m",this.form.value.apellido_m);                
+        localStorage.setItem("email",this.form.value.email);
+        localStorage.setItem("whatsapp",this.form.value.whatsapp);
+        localStorage.setItem("pais_destino",this.form.value.pais_viaje);
+        localStorage.setItem("fecha_viaje",this.form.value.fecha_viaje);
+        localStorage.setItem("codigo_pais",this.form.value.codigo_pais);
+        
+      },
+      error => {
+        this.toastr.error("La cita se genero con exito. Error al actualizar la información del cliente.");
+      }
+    );
+
+  }
+
   //Esta peticion correo de fondo. 
   //No bloquea al usuario
   actualizaCliente():any{
@@ -292,6 +451,7 @@ export class NuevaCitaComponent implements OnInit {
 
     this.errores.nombre = !this.form.get("nombre")?.valid;
     this.errores.apellido_p = !this.form.get("apellido_p")?.valid;
+    this.errores.apellido_m = !this.form.get("apellido_m")?.valid;
     this.errores.pais_viaje = !this.form.get("pais_viaje")?.valid;
     this.errores.fecha_viaje = !this.form.get("fecha_viaje")?.valid;
     this.errores.email = !this.form.get("email")?.valid;
