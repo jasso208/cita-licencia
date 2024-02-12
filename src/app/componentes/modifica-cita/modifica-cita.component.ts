@@ -146,6 +146,8 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.errores.fecha_cita = false;
     this.errores.codigo_pais = false;
 
+    this.form.get("cancelar_cita")?.setValue(false);
+
     this.cita_serv.consultaCita(id_cita)
     .subscribe(
       data => {
@@ -181,15 +183,21 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
   cambioFechaCita():void{
     this.carga_inicial = false;
     let fecha1 = this.form.get("fecha_cita")?.value;
-
-
+    this.fecha_seleccionada = this.form.get("fecha_cita")?.value;
+    let num_dia = new Date(this.fecha_seleccionada).getDay(); 
+    if(num_dia == 5 || num_dia == 6){
+      this.horarios = [];
+      //this.toastr.error("Fecha sin citas disponibles.","Error");
+      let today = new Date();
+      return ;
+    }
     
     let fecha = new Date(fecha1 + "T00:00:00");
     let today = new Date()
     let td =  new Date(today.getFullYear(),today.getMonth(),today.getDate(),0,0,0);
     if(fecha <= td){
       this.horarios = [];
-      this.toastr.error("Fecha sin citas disponibles.","Error");
+      //this.toastr.error("Fecha sin citas disponibles.","Error");
       let today = new Date();
       this.form.get("hora_cita")?.setValue('');
       return ;
@@ -207,6 +215,7 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
       .subscribe(
         data => {
           this.setForm(data);
+          
           this.spinner = false;
         },
         error => {
@@ -221,7 +230,11 @@ export class ModificaCitaComponent implements OnInit,OnDestroy,AfterContentInit{
     this.horarios = data.data;
 
   }
+  cancelarCita():any{
 
+    this.form.get("cancelar_cita")?.setValue(true);
+    this.validaPerfilSession();
+  }
   actualizaCita():any{
     this.spinner = true;
 

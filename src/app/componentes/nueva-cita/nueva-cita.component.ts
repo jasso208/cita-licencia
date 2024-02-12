@@ -197,8 +197,10 @@ export class NuevaCitaComponent implements OnInit {
     this.form.get("nombre")?.setValue(localStorage.getItem("nombre"));
     this.form.get("apellido_p")?.setValue(localStorage.getItem("apellido_p"));
     this.form.get("apellido_m")?.setValue(localStorage.getItem("apellido_m"));
-    this.form.get("pais_viaje")?.setValue(localStorage.getItem("pais_destino"));
-    this.form.get("fecha_viaje")?.setValue(localStorage.getItem("fecha_viaje"));
+    //this.form.get("pais_viaje")?.setValue(localStorage.getItem("pais_destino"));
+    //this.form.get("fecha_viaje")?.setValue(localStorage.getItem("fecha_viaje"));
+    this.form.get("pais_viaje")?.setValue("");
+    this.form.get("fecha_viaje")?.setValue("");
 
     
     this.form.get("email")?.setValue(localStorage.getItem("email"));

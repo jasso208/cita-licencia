@@ -47,6 +47,9 @@
                                   <div class="clr-input-wrapper">
                                     <div class="clr-select-wrapper">
                                         <select id="select-basic" class="clr-select" formControlName="hora_cita">
+                                          <option value="" >
+                                            --Seleccione--
+                                          </option>
                                           <option *ngIf="carga_inicial" value="{{cita?.horario_cita__id}}">
                                               {{cita?.horario_cita__consecutivo}}
                                           </option>
@@ -298,7 +301,7 @@
                                     </span>-->
                                     &nbsp;
                                 </label>
-                              <div class="clr-control-container"  >
+                              <div class="clr-control-container"   *ngIf="false">
                                 <clr-checkbox-wrapper>
                                   <input type="checkbox" clrCheckbox formControlName="cancelar_cita" />
                                   <label style="color:red">Cancelar cita.</label>
@@ -328,6 +331,18 @@
                   </span>  
                   Volver
                 </button>
+                <button 
+                class="btn btn-danger" 
+                type="button" 
+                (click)="cancelarCita()"                  
+                style="border-radius:20px"
+                >
+
+                <span>
+                  <img src="../../../assets/img/cancel-icon.png"  style="width: 15px;">
+                </span>  
+                Cancelar cita
+              </button>
                 <button 
                   class="btn btn-primary" 
                   type="button" 
